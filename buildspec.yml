@@ -1,0 +1,22 @@
+version: 0.2 
+ 
+phases: 
+  install: 
+    runtime-versions: 
+      nodejs: 10
+  build: 
+    commands: 
+      - echo Build started on `date` 
+      - echo Installing dependencies from package-lock.json
+      - npm ci
+      - echo Compiling the Node.js code with package-lock.json dependencies
+      - npm run build
+      - echo Cleaning node_modules directory
+      - rm -r node_modules
+      - echo Installing latest supported dependencies from package.json
+      - npm install
+      - echo Compiling the Node.js code with package.json dependencies
+      - npm run build
+  post_build: 
+    commands: 
+      - echo Build completed on `date` 
