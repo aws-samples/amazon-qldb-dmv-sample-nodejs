@@ -59,7 +59,11 @@ npm run doc
 
 ## Release Notes
 
-### Release 0.1.0-preview.1
+### Release 1.0.0-rc.1
+
+* Modify the sample app to use Qldb Node.js Driver v1.0.0-rc.1
+
+### Release 0.1.0-preview
 
 * Initial preview release of the QLDB Node.js Sample Application.
 

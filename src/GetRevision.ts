@@ -16,10 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { createQldbWriter, QldbSession, QldbWriter, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QldbSession, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { QLDB } from "aws-sdk";
 import { Digest, GetDigestResponse, GetRevisionRequest, GetRevisionResponse, ValueHolder } from "aws-sdk/clients/qldb";
-import { makeReader, Reader, toBase64 } from "ion-js";
+import { dom, toBase64 } from "ion-js";
 
 import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
 import { getDigestResult } from './GetDigest';
@@ -27,7 +27,7 @@ import { VEHICLE_REGISTRATION } from "./model/SampleData"
 import { blockAddressToValueHolder, getMetadataId } from './qldb/BlockAddress';
 import { LEDGER_NAME } from './qldb/Constants';
 import { error, log } from "./qldb/LogUtil";
-import { getFieldValue, valueHolderToString, writeValueAsIon } from "./qldb/Util";
+import { getBlobValue, valueHolderToString } from "./qldb/Util";
 import { flipRandomBit, verifyDocument } from "./qldb/Verifier";
 
 /**
@@ -61,17 +61,14 @@ async function getRevision(
  * Query the table metadata for a particular vehicle for verification.
  * @param txn The {@linkcode TransactionExecutor} for lambda execute.
  * @param vin VIN to query the table metadata of a specific registration with.
- * @returns Promise which fulfills with a list of Readers that contains the results of the query.
+ * @returns Promise which fulfills with a list of Ion values that contains the results of the query.
  */
-export async function lookupRegistrationForVin(txn: TransactionExecutor, vin: string): Promise<Reader[]> {
+export async function lookupRegistrationForVin(txn: TransactionExecutor, vin: string): Promise<dom.Value[]> {
     log(`Querying the 'VehicleRegistration' table for VIN: ${vin}...`);
-    let resultList: Reader[];
+    let resultList: dom.Value[];
     const query: string = "SELECT blockAddress, metadata.id FROM _ql_committed_VehicleRegistration WHERE data.VIN = ?";
 
-    const qldbWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(vin, qldbWriter);
-
-    await txn.executeInline(query, [qldbWriter]).then(function(result) {
+    await txn.execute(query, vin).then(function(result) {
       resultList = result.getResultList();
     });
     return resultList;
@@ -102,7 +99,7 @@ export async function verifyRegistration(
         digest = \n${toBase64(<Uint8Array> digestBytes)}.`
     );
     log(`Querying the registration with VIN = ${vin} to verify each version of the registration...`);
-    const resultList: Reader[] = await lookupRegistrationForVin(txn, vin);
+    const resultList: dom.Value[] = await lookupRegistrationForVin(txn, vin);
     log("Getting a proof for the document.");
 
     for (const result of resultList) {
@@ -117,10 +114,8 @@ export async function verifyRegistration(
             qldbClient
         );
 
-        const revision: string = revisionResponse.Revision.IonText;
-        const revisionReader: Reader = makeReader(revision);
-
-        const documentHash: Uint8Array = getFieldValue(revisionReader, ["hash"]);
+        const revision: dom.Value = dom.load(revisionResponse.Revision.IonText);
+        const documentHash: Uint8Array = getBlobValue(revision, "hash");
         const proof: ValueHolder = revisionResponse.Proof;
         log(`Got back a proof: ${valueHolderToString(proof)}.`);
 

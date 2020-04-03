@@ -17,21 +17,17 @@
  */
 
 import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
-import { decodeUtf8, makePrettyWriter, Reader, Writer } from "ion-js";
+import { dom } from "ion-js";
 
 import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
 import { log } from "./qldb/LogUtil";
 
 /**
- * Pretty print the Readers in the provided result list.
- * @param resultList The result list containing the Readers to pretty print.
+ * Pretty print Ion values in the provided result list.
+ * @param resultList The result list containing Ion values to pretty print.
  */
-export function prettyPrintResultList(resultList: Reader[]): void {
-    const writer: Writer = makePrettyWriter();
-    resultList.forEach((reader: Reader) => {
-        writer.writeValues(reader);
-    });
-    log(decodeUtf8(writer.getBytes()));
+export function prettyPrintResultList(resultList: dom.Value[]): void {
+    log(JSON.stringify(resultList, null, 2));
 }
 
 /**
@@ -43,7 +39,7 @@ export function prettyPrintResultList(resultList: Reader[]): void {
 export async function scanTableForDocuments(txn: TransactionExecutor, tableName: string): Promise<Result> {
     log(`Scanning ${tableName}...`);
     const query: string = `SELECT * FROM ${tableName}`;
-    return await txn.executeInline(query).then((result: Result) => {
+    return await txn.execute(query).then((result: Result) => {
         return result;
     });
 }

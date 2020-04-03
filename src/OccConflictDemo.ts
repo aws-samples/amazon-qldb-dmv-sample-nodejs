@@ -16,13 +16,12 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { createQldbWriter, isOccConflictException, QldbSession, QldbWriter, Transaction } from "amazon-qldb-driver-nodejs";
+import { isOccConflictException, QldbSession, Transaction } from "amazon-qldb-driver-nodejs";
 
 import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
 import { VEHICLE_REGISTRATION } from "./model/SampleData";
 import { RETRY_LIMIT } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
-import { writeValueAsIon } from "./qldb/Util";
 
 /**
  * Commit the transaction and retry up to a constant number of times.
@@ -70,10 +69,7 @@ async function executeTransaction(
 ): Promise<void> {
     for (let i = 0; i < RETRY_LIMIT; i++) {
         try {
-            const qldbWriter: QldbWriter = createQldbWriter();
-            writeValueAsIon(parameter, qldbWriter);
-
-            await transaction.executeInline(statement, [qldbWriter]);
+            await transaction.execute(statement, parameter);
             log(`Execute successful after ${i} retries.`);
             break;
         }

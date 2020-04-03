@@ -16,13 +16,12 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { createQldbWriter, QldbSession, QldbWriter, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
-import { Reader } from "ion-js";
+import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { dom } from "ion-js";
 
 import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
 import { DRIVERS_LICENSE } from "./model/SampleData";
 import { error, log } from "./qldb/LogUtil";
-import { getFieldValue, writeValueAsIon } from "./qldb/Util";
 import { prettyPrintResultList } from "./ScanTable";
 
 /**
@@ -35,15 +34,17 @@ async function getPersonIdFromLicenseNumber(txn: TransactionExecutor, licenseNum
     const query: string = "SELECT PersonId FROM DriversLicense WHERE LicenseNumber = ?";
     let personId: string;
 
-    const qldbWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(licenseNumber, qldbWriter);
-
-    await txn.executeInline(query, [qldbWriter]).then((result: Result) => {
-        const resultList: Reader[] = result.getResultList();
+    await txn.execute(query, licenseNumber).then((result: Result) => {
+        const resultList: dom.Value[] = result.getResultList();
         if (resultList.length === 0) {
             throw new Error(`Unable to find person with ID: ${licenseNumber}.`);
         }
-        personId = getFieldValue(resultList[0], ["PersonId"]);
+
+        const PersonIdValue: dom.Value = resultList[0].get("PersonId");
+        if (PersonIdValue === null) {
+            throw new Error(`Expected field name PersonId not found.`);
+        }
+        personId = PersonIdValue.stringValue();
     });
     return personId;
 }
@@ -65,16 +66,7 @@ export async function renewDriversLicense(
     const statement: string =
         "UPDATE DriversLicense AS d SET d.ValidFromDate = ?, d.ValidToDate = ? WHERE d.LicenseNumber = ?";
 
-    const fromDateWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(validFromDate, fromDateWriter);
-
-    const toDateWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(validToDate, toDateWriter);
-
-    const licenseNumberWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(licenseNumber, licenseNumberWriter);
-
-    return await txn.executeInline(statement, [fromDateWriter, toDateWriter, licenseNumberWriter]).then((result: Result) => {
+    return await txn.execute(statement, validFromDate, validToDate, licenseNumber).then((result: Result) => {
         log("DriversLicense Document IDs which had licenses renewed: ");
         prettyPrintResultList(result.getResultList());
         return result;
@@ -91,11 +83,8 @@ async function verifyDriverFromLicenseNumber(txn: TransactionExecutor, personId:
     log(`Finding person with person ID: ${personId}`);
     const query: string = "SELECT p.* FROM Person AS p BY pid WHERE pid = ?";
 
-    const qldbWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(personId, qldbWriter);
-
-    return await txn.executeInline(query, [qldbWriter]).then((result: Result) => {
-        const resultList: Reader[] = result.getResultList();
+    return await txn.execute(query, personId).then((result: Result) => {
+        const resultList: dom.Value[] = result.getResultList();
         if (resultList.length === 0) {
             log(`Unable to find person with ID: ${personId}`);
             return false;

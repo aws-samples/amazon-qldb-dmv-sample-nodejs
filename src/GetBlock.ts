@@ -19,7 +19,7 @@
 import { QldbSession } from "amazon-qldb-driver-nodejs";
 import { QLDB } from "aws-sdk";
 import { Digest, GetBlockRequest, GetBlockResponse, GetDigestResponse, ValueHolder } from "aws-sdk/clients/qldb";
-import { Reader, toBase64 } from "ion-js";
+import { dom, toBase64 } from "ion-js";
 
 import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
 import { getDigestResult } from './GetDigest';
@@ -160,9 +160,9 @@ var main = async function(): Promise<void> {
         const vin: string = registration.VIN;
 
         await session.executeLambda(async (txn) => {
-            const result: Reader[] = await lookupRegistrationForVin(txn, vin);
-            for (const reader of result) {
-                const blockAddress: ValueHolder = blockAddressToValueHolder(reader);
+            const registrations : dom.Value[] = await lookupRegistrationForVin(txn, vin);
+            for (const registration of registrations) {
+                const blockAddress: ValueHolder = blockAddressToValueHolder(registration);
                 await verifyBlock(LEDGER_NAME, blockAddress, qldbClient);
             }
         }, () => log("Retrying due to OCC conflict..."));

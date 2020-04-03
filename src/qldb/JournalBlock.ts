@@ -16,9 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { Reader } from "ion-js";
+import { dom } from "ion-js";
 
-import { BlockAddress, getSequenceNo, getStrandId } from "./BlockAddress";
+import { BlockAddress, getBlockAddressValue, getSequenceNo, getStrandId } from "./BlockAddress";
+import { getBlobValue } from "./Util";
 
 /**
  * Represents a JournalBlock that was recorded after executing a transaction in the ledger.
@@ -31,8 +32,8 @@ export class JournalBlock {
 
     constructor(
         blockAddress: BlockAddress,
-        blockHash: Uint8Array, entriesHash:
-        Uint8Array,
+        blockHash: Uint8Array,
+        entriesHash: Uint8Array,
         previousBlockHash: Uint8Array)
     {
         this._blockAddress = blockAddress;
@@ -44,8 +45,8 @@ export class JournalBlock {
 
 /**
  * Construct a new JournalBlock object from an IonStruct.
- * @param reader The Reader that contains the journal block attributes.
- *               For this to work, the reader is expected to have the structure
+ * @param value The Ion value that contains the journal block attributes.
+ *               For this to work, the value is expected to have the structure
  *               {
  *                  blockAddress:{
  *                      strandId:"string",
@@ -72,36 +73,19 @@ export class JournalBlock {
  *               }
  * @returns The constructed JournalBlock object.
  */
-export function fromIon(reader: Reader): JournalBlock {
-    let blockHash: Uint8Array = null;
-    let entriesHash: Uint8Array = null;
-    let previousBlockHash: Uint8Array = null;
-
-    const strandId: string = getStrandId(reader);
-    const sequenceNo: number = getSequenceNo(reader);
+export function fromIon(journalValue: dom.Value): JournalBlock {
+    const blockAddressValue = getBlockAddressValue(journalValue);
+    const strandId: string = getStrandId(blockAddressValue);
+    const sequenceNo: number = getSequenceNo(blockAddressValue);
     const blockAddress: BlockAddress = new BlockAddress(strandId, sequenceNo);
-    reader.stepOut();
 
-    reader.next();
-    reader.next();
-    reader.next();
-    if (reader.fieldName() === "blockHash") {
-        blockHash = reader.byteValue();
-    }
+    const blockHash: Uint8Array = getBlobValue(journalValue, "blockHash");
+    const entriesHash: Uint8Array = getBlobValue(journalValue, "entriesHash");
+    const previousBlockHash: Uint8Array = getBlobValue(journalValue, "previousBlockHash");
 
-    reader.next();
-    if (reader.fieldName() === "entriesHash") {
-        entriesHash = reader.byteValue();
-    }
-
-    reader.next();
-    if (reader.fieldName() === "previousBlockHash") {
-        previousBlockHash = reader.byteValue();
-    }
-
-    if (!blockAddress || !entriesHash || !previousBlockHash) {
+    if (!blockAddress || !blockHash || !entriesHash || !previousBlockHash) {
         throw new Error(
-            "BlockHash, entriesHash, or previousHash field(s) not found. Please check the data in the reader."
+            "BlockAddress, blockHash, entriesHash, or previousHash field(s) not found. Please check the data in the journal value."
         );
     }
     const journalBlock: JournalBlock = new JournalBlock(blockAddress, blockHash, entriesHash, previousBlockHash);

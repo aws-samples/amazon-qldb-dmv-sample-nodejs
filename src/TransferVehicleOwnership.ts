@@ -16,30 +16,27 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { createQldbWriter, QldbSession, QldbWriter, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
-import { Reader } from "ion-js";
+import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { dom } from "ion-js";
 
 import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
 import { PERSON, VEHICLE } from "./model/SampleData";
 import { PERSON_TABLE_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
-import { getDocumentId, getFieldValue, writeValueAsIon } from "./qldb/Util";
+import { getDocumentId } from "./qldb/Util";
 
 /**
  * Query a driver's information using the given ID.
  * @param txn The {@linkcode TransactionExecutor} for lambda execute.
  * @param documentId The unique ID of a document in the Person table.
- * @returns Promise which fulfills with a Reader containing the person.
+ * @returns Promise which fulfills with an Ion value containing the person.
  */
-export async function findPersonFromDocumentId(txn: TransactionExecutor, documentId: string): Promise<Reader> {
+export async function findPersonFromDocumentId(txn: TransactionExecutor, documentId: string): Promise<dom.Value> {
     const query: string = "SELECT p.* FROM Person AS p BY pid WHERE pid = ?";
 
-    const qldbWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(documentId, qldbWriter);
-
-    let personId: Reader;
-    await txn.executeInline(query, [qldbWriter]).then((result: Result) => {
-        const resultList: Reader[] = result.getResultList();
+    let personId: dom.Value;
+    await txn.execute(query, documentId).then((result: Result) => {
+        const resultList: dom.Value[] = result.getResultList();
         if (resultList.length === 0) {
             throw new Error(`Unable to find person with ID: ${documentId}.`);
         }
@@ -52,21 +49,23 @@ export async function findPersonFromDocumentId(txn: TransactionExecutor, documen
  * Find the primary owner for the given VIN.
  * @param txn The {@linkcode TransactionExecutor} for lambda execute.
  * @param vin The VIN to find primary owner for.
- * @returns Promise which fulfills with a Reader containing the primary owner.
+ * @returns Promise which fulfills with an Ion value containing the primary owner.
  */
-export async function findPrimaryOwnerForVehicle(txn: TransactionExecutor, vin: string): Promise<Reader> {
+export async function findPrimaryOwnerForVehicle(txn: TransactionExecutor, vin: string): Promise<dom.Value> {
     log(`Finding primary owner for vehicle with VIN: ${vin}`);
     const query: string = "SELECT Owners.PrimaryOwner.PersonId FROM VehicleRegistration AS v WHERE v.VIN = ?";
-    const vinWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(vin, vinWriter);
 
-    let documentId: string;
-    await txn.executeInline(query, [vinWriter]).then((result: Result) => {
-        const resultList: Reader[] = result.getResultList();
+    let documentId: string = undefined;
+    await txn.execute(query, vin).then((result: Result) => {
+        const resultList: dom.Value[] = result.getResultList();
         if (resultList.length === 0) {
             throw new Error(`Unable to retrieve document ID using ${vin}.`);
         }
-        documentId = getFieldValue(resultList[0], ["PersonId"]);
+        const PersonIdValue: dom.Value = resultList[0].get("PersonId");
+        if (PersonIdValue === null) {
+            throw new Error(`Expected field name PersonId not found.`);
+        }
+        documentId = PersonIdValue.stringValue();
     });
     return findPersonFromDocumentId(txn, documentId);
 }
@@ -81,15 +80,9 @@ export async function findPrimaryOwnerForVehicle(txn: TransactionExecutor, vin: 
 async function updateVehicleRegistration(txn: TransactionExecutor, vin: string, documentId: string): Promise<void> {
     const statement: string = "UPDATE VehicleRegistration AS r SET r.Owners.PrimaryOwner.PersonId = ? WHERE r.VIN = ?";
 
-    const personIdWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(documentId, personIdWriter);
-
-    const vinWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(vin, vinWriter);
-
     log(`Updating the primary owner for vehicle with VIN: ${vin}...`);
-    await txn.executeInline(statement, [personIdWriter, vinWriter]).then((result: Result) => {
-        const resultList: Reader[] = result.getResultList();
+    await txn.execute(statement, documentId, vin).then((result: Result) => {
+        const resultList: dom.Value[] = result.getResultList();
         if (resultList.length === 0) {
             throw new Error("Unable to transfer vehicle, could not find registration.");
         }
@@ -110,8 +103,9 @@ export async function validateAndUpdateRegistration(
     currentOwner: string,
     newOwner: string
 ): Promise<void> {
-    const primaryOwner: Reader = await findPrimaryOwnerForVehicle(txn, vin);
-    if (getFieldValue(primaryOwner, ["GovId"]) !== currentOwner) {
+    const primaryOwner: dom.Value = await findPrimaryOwnerForVehicle(txn, vin);
+    const govIdValue: dom.Value = primaryOwner.get("GovId");
+    if (govIdValue !== null && govIdValue.stringValue() !== currentOwner) {
         log("Incorrect primary owner identified for vehicle, unable to transfer.");
     }
     else {

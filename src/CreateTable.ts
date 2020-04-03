@@ -35,7 +35,7 @@ import { error, log } from "./qldb/LogUtil";
  */
 export async function createTable(txn: TransactionExecutor, tableName: string): Promise<number> {
     const statement: string = `CREATE TABLE ${tableName}`;
-    return await txn.executeInline(statement).then((result: Result) => {
+    return await txn.execute(statement).then((result: Result) => {
         log(`Successfully created table ${tableName}.`);
         return result.getResultList().length;
     });

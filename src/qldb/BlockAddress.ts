@@ -17,7 +17,7 @@
  */
 
 import { ValueHolder } from "aws-sdk/clients/qldb";
-import { Reader } from "ion-js";
+import { dom, IonTypes } from "ion-js";
 
 export class BlockAddress {
     _strandId: string;
@@ -30,61 +30,67 @@ export class BlockAddress {
 }
 
 /**
- * Convert a block address from Reader into a ValueHolder.
+ * Convert a block address from an Ion value into a ValueHolder.
  * Shape of the ValueHolder must be: {'IonText': "{strandId: <"strandId">, sequenceNo: <sequenceNo>}"}
- * @param reader The Reader that contains the block address values to convert.
+ * @param value The Ion value that contains the block address values to convert.
  * @returns The ValueHolder that contains the strandId and sequenceNo.
  */
-export function blockAddressToValueHolder(reader: Reader): ValueHolder {
-    const strandId: string = getStrandId(reader);
-    const sequenceNo: number = getSequenceNo(reader);
+export function blockAddressToValueHolder(value: dom.Value): ValueHolder {
+    let blockAddressValue : dom.Value = getBlockAddressValue(value);
+    const strandId: string = getStrandId(blockAddressValue);
+    const sequenceNo: number = getSequenceNo(blockAddressValue);
     const valueHolder: string = `{strandId: "${strandId}", sequenceNo: ${sequenceNo}}`;
     const blockAddress: ValueHolder = {IonText: valueHolder};
     return blockAddress;
 }
 
 /**
- * Helper method that steps into the provided Reader to get the Metadata ID.
- * @param reader The Reader to step into.
+ * Helper method that to get the Metadata ID.
+ * @param value The Ion value.
  * @returns The Metadata ID.
  */
-export function getMetadataId(reader: Reader): string {
-    reader.stepOut();
-    reader.next();
-    return reader.stringValue();
+export function getMetadataId(value: dom.Value): string {
+    const metaDataId: dom.Value = value.get("id");
+    if (metaDataId === null) {
+        throw new Error(`Expected field name id, but not found.`);
+    }
+    return metaDataId.stringValue();
 }
 
 /**
- * Helper method that steps into the provided Reader to get the Sequence No.
- * @param reader The Reader to step into.
+ * Helper method to get the Sequence No.
+ * @param value The Ion value.
  * @returns The Sequence No.
  */
-export function getSequenceNo(reader: Reader): number {
-    reader.next();
-    const fieldName: string = reader.fieldName();
-    if (fieldName !== "sequenceNo") {
-        throw new Error(`Expected field name sequenceNo, found ${fieldName}.`);
+export function getSequenceNo(value : dom.Value): number {
+    const sequenceNo: dom.Value = value.get("sequenceNo");
+    if (sequenceNo === null) {
+        throw new Error(`Expected field name sequenceNo, but not found.`);
     }
-    return reader.numberValue();
+    return sequenceNo.numberValue();
 }
 
 /**
- * Helper method that steps into the provided Reader to get the Strand ID.
- * @param reader The Reader to step into.
+ * Helper method to get the Strand ID.
+ * @param value The Ion value.
  * @returns The Strand ID.
  */
-export function getStrandId(reader: Reader): string {
-    reader.next();
-    reader.stepIn();
-    const type = reader.next();
-    if (type.name !== "struct") {
+export function getStrandId(value: dom.Value): string {
+    const strandId: dom.Value = value.get("strandId");
+    if (strandId === null) {
+        throw new Error(`Expected field name strandId, but not found.`);
+    }
+    return strandId.stringValue();
+}
+
+export function getBlockAddressValue(value: dom.Value) : dom.Value {
+    const type = value.getType();
+    if (type !== IonTypes.STRUCT) {
         throw new Error(`Unexpected format: expected struct, but got IonType: ${type.name}`);
     }
-    reader.stepIn();
-    reader.next();
-    const fieldName: string = reader.fieldName();
-    if (fieldName !== "strandId") {
-        throw new Error(`Expected field name strandId, found ${fieldName}.`);
+    const blockAddress: dom.Value = value.get("blockAddress");
+    if (blockAddress == null) {
+        throw new Error(`Expected field name blockAddress, but not found.`);
     }
-    return reader.stringValue();
+    return blockAddress;
 }

@@ -25,7 +25,7 @@ import {
     Object,
     ObjectList
 } from "aws-sdk/clients/s3";
-import { makeReader, Reader } from "ion-js";
+import { dom } from "ion-js";
 
 import { fromIon, JournalBlock } from "./JournalBlock";
 import { log } from "./LogUtil";
@@ -84,22 +84,24 @@ function filterForInitialManifest(objects: ObjectList, manifest: string): string
 /**
  * Retrieve the ordered list of data object keys within the given final manifest.
  * @param manifestObject The content of the final manifest.
+ *               For this to work, the value is expected to have the structure:
+ *               {
+ *                  keys:[
+ *                     "2019/04/15/22/JdxjkR9bSYB5jMHWcI464T.1-4.ion",
+ *                     "2019/04/15/22/JdxjkR9bSYB5jMHWcI464T.5-10.ion",
+ *                     "2019/04/15/22/JdxjkR9bSYB5jMHWcI464T.11-12.ion"
+ *                  ]
+ *               }
+ *
  * @returns List of data object keys.
  */
 function getDataFileKeysFromManifest(manifestObject: string): string[] {
     const listOfKeys: string[] = [];
-    const ionReader: Reader = makeReader(manifestObject);
-    ionReader.next();
-    ionReader.stepIn();
-    ionReader.next();
-    ionReader.stepIn();
-    try {
-        while (ionReader.next()) {
-            listOfKeys.push(ionReader.stringValue());
-        }
-    } catch (e) {
-        // When we reach end of ionReader.next(), exception is thrown. Catch here and do nothing.
-    }
+    const manifestValue: dom.Value = dom.load(manifestObject);
+    const keys: dom.Value[] = manifestValue.get("keys").elements();
+    keys.forEach((key: dom.Value) => {
+        listOfKeys.push(key.stringValue());
+    });
     return listOfKeys;
 }
 
@@ -110,27 +112,8 @@ function getDataFileKeysFromManifest(manifestObject: string): string[] {
  * @throws Error: If there is an error loading the journal.
  */
 function getJournalBlocks(s3Object: string): JournalBlock[] {
-    const journals: string[] = s3Object.split("} {");
-    const journalBlocks: JournalBlock[] = [];
-
-    journals.forEach((journal: string, i: number): void => {
-        if (i === 0) {
-            journal = journal + "}";
-        } else if (i === journals.length - 1) {
-            journal = "{" + journal;
-        } else {
-            journal = "{" + journal + "}";
-        }
-        try {
-            const journalReader: Reader = makeReader(journal);
-            const parsedJournal: JournalBlock = fromIon(journalReader);
-            journalBlocks.push(parsedJournal);
-        } catch (e) {
-            throw new Error(`Failed to load journal: ${e}`);
-        }
-    });
-
-    log(`Found ${journalBlocks.length} block(s).`);
+    const journals: dom.Value[] = dom.loadAll(s3Object);
+    const journalBlocks: JournalBlock[] = journals.map(journal => fromIon(journal));
     return journalBlocks;
 }
 

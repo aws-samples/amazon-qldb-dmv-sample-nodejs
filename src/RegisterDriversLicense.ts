@@ -16,14 +16,14 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { createQldbWriter, QldbSession, QldbWriter, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
-import { Reader } from "ion-js";
+import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { dom } from "ion-js";
 
 import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
 import { insertDocument } from "./InsertDocument";
 import { PERSON_TABLE_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
-import { getDocumentId, getFieldValue, writeValueAsIon } from "./qldb/Util";
+import { getDocumentId } from "./qldb/Util";
 
 /**
  * Verify whether a driver already exists in the database.
@@ -34,12 +34,9 @@ import { getDocumentId, getFieldValue, writeValueAsIon } from "./qldb/Util";
 async function personAlreadyExists(txn: TransactionExecutor, govId: string): Promise<boolean> {
     const query: string = "SELECT * FROM Person AS p WHERE p.GovId = ?";
 
-    const qldbWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(govId, qldbWriter);
-
     let personAlreadyExists: boolean = true;
-    await txn.executeInline(query, [qldbWriter]).then((result: Result) => {
-        const resultList: Reader[] = result.getResultList();
+    await txn.execute(query, govId).then((result: Result) => {
+        const resultList: dom.Value[] = result.getResultList();
         if (resultList.length === 0) {
             personAlreadyExists = false;
         }
@@ -55,9 +52,7 @@ async function personAlreadyExists(txn: TransactionExecutor, govId: string): Pro
  */
 export async function lookUpDriversLicenseForPerson(txn: TransactionExecutor, personId: string): Promise<Result> {
     const query: string = "SELECT * FROM DriversLicense AS d WHERE d.PersonId = ?";
-    const qldbWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(personId, qldbWriter);
-    const result: Result = await txn.executeInline(query, [qldbWriter]);
+    const result: Result = await txn.execute(query, personId);
     return result;
 }
 
@@ -96,9 +91,7 @@ async function registerNewDriversLicense(txn: TransactionExecutor, license: any,
         return;
     }
     const statement: string = "INSERT INTO DriversLicense ?";
-    const qldbWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(license, qldbWriter);
-    await txn.executeInline(statement, [qldbWriter]).then((result: Result) => {
+    await txn.execute(statement, license).then((result: Result) => {
         log("Successfully registered new license.");
     });
 }
@@ -134,7 +127,7 @@ var main = async function(): Promise<void> {
                 documentId = await getDocumentId(txn, PERSON_TABLE_NAME, "GovId", newPerson.GovId);
             } else {
                 const documentIdResult: Result = await registerNewDriver(txn, newPerson);
-                documentId = getFieldValue(documentIdResult.getResultList()[0], ["documentId"]);
+                documentId = documentIdResult.getResultList()[0].get("documentId").stringValue();
             }
             newLicense.PersonId = documentId;
             await registerNewDriversLicense(txn, newLicense, documentId);

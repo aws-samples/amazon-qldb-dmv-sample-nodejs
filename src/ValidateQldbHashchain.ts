@@ -116,6 +116,7 @@ var main = async function(): Promise<void> {
             (await describeJournalExport(LEDGER_NAME, exportId, qldbClient)).ExportDescription;
         const journalBlocks: JournalBlock[] = await readExport(journalExport, s3Client);
         verify(journalBlocks);
+        log(`QLDB hash chain validation for ExportId: ${exportId} is successful`);
     } catch (e) {
         error(`Unable to perform hash chain verification: ${e}`);
     }

@@ -16,15 +16,15 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { createQldbWriter, QldbSession, QldbWriter, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
-import { Reader } from "ion-js";
+import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { dom } from "ion-js";
 
 import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
 import { VEHICLE_REGISTRATION } from "./model/SampleData";
 import { VEHICLE_REGISTRATION_TABLE_NAME } from "./qldb/Constants";
 import { prettyPrintResultList } from "./ScanTable";
 import { error, log } from "./qldb/LogUtil";
-import { getDocumentId, writeValueAsIon } from "./qldb/Util";
+import { getDocumentId } from "./qldb/Util";
 
 /**
  * Find previous primary owners for the given VIN in a single transaction.
@@ -43,12 +43,9 @@ async function previousPrimaryOwners(txn: TransactionExecutor, vin: string): Pro
         `(${VEHICLE_REGISTRATION_TABLE_NAME}, \`${threeMonthsAgo.toISOString()}\`, \`${todaysDate.toISOString()}\`) ` +
         `AS h WHERE h.metadata.id = ?`;
 
-    const qldbWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(documentId, qldbWriter);
-
-    await txn.executeInline(query, [qldbWriter]).then((result: Result) => {
+    await txn.execute(query, documentId).then((result: Result) => {
         log(`Querying the 'VehicleRegistration' table's history using VIN: ${vin}.`);
-        const resultList: Reader[] = result.getResultList();
+        const resultList: dom.Value[] = result.getResultList();
         prettyPrintResultList(resultList);
     });
 }
