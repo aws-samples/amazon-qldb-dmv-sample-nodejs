@@ -18,9 +18,9 @@
 
 import { Digest, ValueHolder } from "aws-sdk/clients/qldb";
 import { createHash } from "crypto";
-import { makeReader, Reader, toBase64 } from "ion-js";
+import { dom, toBase64 } from "ion-js";
 
-import { getFieldValue } from "./Util";
+import { getBlobValue } from "./Util";
 
 const HASH_LENGTH: number = 32;
 const UPPER_BOUND: number = 8;
@@ -136,9 +136,8 @@ export function joinHashesPairwise(h1: Uint8Array, h2: Uint8Array): Uint8Array {
  * @returns The block hash.
  */
 export function parseBlock(valueHolder: ValueHolder): Uint8Array {
-    const blockText: string = valueHolder.IonText;
-    const r: Reader = makeReader(blockText);
-    const blockHash: Uint8Array = getFieldValue(r, ["blockHash"]);
+    const block: dom.Value = dom.load(valueHolder.IonText);
+    const blockHash: Uint8Array = getBlobValue(block, "blockHash");
     return blockHash;
 }
 
@@ -150,21 +149,8 @@ export function parseBlock(valueHolder: ValueHolder): Uint8Array {
  * @returns A list of hash values.
  */
 function parseProof(valueHolder: ValueHolder): Uint8Array[] {
-    let proofList: string = valueHolder.IonText;
-    const r: Reader = makeReader(proofList);
-    r.next();
-    r.stepIn();
-
-    proofList = proofList.replace("]", "");
-    proofList = proofList.replace("[", "");
-    const array: string[] = proofList.split(",");
-
-    const byteArray: Uint8Array[] = [];
-    for (let i = 0; i < array.length; i++) {
-        r.next();
-        byteArray.push(r.byteValue());
-    }
-    return byteArray;
+    let proofs : dom.Value = dom.load(valueHolder.IonText);
+    return proofs.elements().map(proof => proof.uInt8ArrayValue());
 }
 
 /**

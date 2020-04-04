@@ -16,14 +16,14 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { createQldbWriter, QldbSession, QldbWriter, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
-import { makeReader, Reader } from "ion-js";
+import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { dom } from "ion-js";
 
 import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
 import { PERSON, VEHICLE_REGISTRATION } from "./model/SampleData";
 import { PERSON_TABLE_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
-import { getDocumentId, getFieldValue, writeValueAsIon } from "./qldb/Util";
+import { getDocumentId } from "./qldb/Util";
 import { prettyPrintResultList } from "./ScanTable";
 
 /**
@@ -42,12 +42,9 @@ export async function addSecondaryOwner(
     const query: string =
         `FROM VehicleRegistration AS v WHERE v.VIN = '${vin}' INSERT INTO v.Owners.SecondaryOwners VALUE ?`;
 
-    const qldbWriter: QldbWriter = createQldbWriter();
-    const personToInsert = { PersonId: secondaryOwnerId };
-    writeValueAsIon(personToInsert, qldbWriter);
-
-    await txn.executeInline(query, [qldbWriter]).then(async (result: Result) => {
-        const resultList: Reader[] = result.getResultList();
+    let personToInsert = {PersonId: secondaryOwnerId};
+    await txn.execute(query, personToInsert).then(async (result: Result) => {
+        const resultList: dom.Value[] = result.getResultList();
         log("VehicleRegistration Document IDs which had secondary owners added: ");
         prettyPrintResultList(resultList);
     });
@@ -79,19 +76,17 @@ export async function isSecondaryOwnerForVehicle(
     log(`Finding secondary owners for vehicle with VIN: ${vin}`);
     const query: string = "SELECT Owners.SecondaryOwners FROM VehicleRegistration AS v WHERE v.VIN = ?";
 
-    const qldbWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(vin, qldbWriter);
     let doesExist: boolean = false;
 
-    await txn.executeInline(query, [qldbWriter]).then((result: Result) => {
-        const resultList: Reader[] = result.getResultList();
+    await txn.execute(query, vin).then((result: Result) => {
+        const resultList: dom.Value[] = result.getResultList();
 
-        resultList.forEach((reader: Reader) => {
-            const secondaryOwnersList: any[] = getFieldValue(reader, ["SecondaryOwners"]);
+        resultList.forEach((value: dom.Value) => {
+            const secondaryOwnersList: dom.Value[] = value.get("SecondaryOwners").elements();
 
             secondaryOwnersList.forEach((secondaryOwner) => {
-                const secondaryOwnerReader: Reader = makeReader(JSON.stringify(secondaryOwner));
-                if (getFieldValue(secondaryOwnerReader, ["PersonId"]) === secondaryOwnerId) {
+                const personId: dom.Value = secondaryOwner.get("PersonId");
+                if (personId !== null &&  personId.stringValue() === secondaryOwnerId) {
                     doesExist = true;
                 }
             });

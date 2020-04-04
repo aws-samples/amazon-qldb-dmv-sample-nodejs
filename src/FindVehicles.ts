@@ -16,14 +16,14 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { createQldbWriter, QldbSession, QldbWriter, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
-import { Reader } from "ion-js";
+import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { dom } from "ion-js";
 
 import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
 import { PERSON } from "./model/SampleData";
 import { PERSON_TABLE_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
-import { getDocumentId, writeValueAsIon } from "./qldb/Util";
+import { getDocumentId } from "./qldb/Util";
 import { prettyPrintResultList } from "./ScanTable";
 
 /**
@@ -36,11 +36,9 @@ async function findVehiclesForOwner(txn: TransactionExecutor, govId: string): Pr
     const documentId: string = await getDocumentId(txn, PERSON_TABLE_NAME, "GovId", govId);
     const query: string = "SELECT Vehicle FROM Vehicle INNER JOIN VehicleRegistration AS r " +
                         "ON Vehicle.VIN = r.VIN WHERE r.Owners.PrimaryOwner.PersonId = ?";
-    const qldbWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(documentId, qldbWriter);
 
-    await txn.executeInline(query, [qldbWriter]).then((result: Result) => {
-        const resultList: Reader[] = result.getResultList();
+    await txn.execute(query, documentId).then((result: Result) => {
+        const resultList: dom.Value[] = result.getResultList();
         log(`List of vehicles for owner with GovId: ${govId}`);
         prettyPrintResultList(resultList);
     });

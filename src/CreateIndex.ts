@@ -45,7 +45,7 @@ export async function createIndex(
     indexAttribute: string
 ): Promise<number> {
     const statement: string = `CREATE INDEX on ${tableName} (${indexAttribute})`;
-    return await txn.executeInline(statement).then((result) => {
+    return await txn.execute(statement).then((result) => {
         log(`Successfully created index ${indexAttribute} on table ${tableName}.`);
         return result.getResultList().length;
     });

@@ -16,21 +16,21 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { createQldbWriter, QldbWriter, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { GetBlockResponse, GetDigestResponse, ValueHolder } from "aws-sdk/clients/qldb";
 import { 
-    Decimal, 
-    decodeUtf8, 
+    decodeUtf8,
+    dom,
     IonTypes, 
     makePrettyWriter, 
     makeReader, 
     Reader, 
-    Timestamp, 
     toBase64, 
-    Writer 
+    Writer
 } from "ion-js";
 
 import { error } from "./LogUtil";
+
 
 
 /**
@@ -88,93 +88,18 @@ export async function getDocumentId(
     value: string
 ): Promise<string> {
     const query: string = `SELECT id FROM ${tableName} AS t BY id WHERE t.${field} = ?`;
-    const parameter: QldbWriter = createQldbWriter();
-    parameter.writeString(value);
-    let documentId: string;
-    await txn.executeInline(query, [parameter]).then((result: Result) => {
-        const resultList: Reader[] = result.getResultList();
+    let documentId: string = undefined;
+    await txn.execute(query, value).then((result: Result) => {
+        const resultList: dom.Value[] = result.getResultList();
         if (resultList.length === 0) {
             throw new Error(`Unable to retrieve document ID using ${value}.`);
         }
-        documentId = getFieldValue(resultList[0], ["id"]);
-    }).catch((err) => {
+        documentId = resultList[0].get("id").stringValue();
+
+    }).catch((err: any) => {
         error(`Error getting documentId: ${err}`);
     });
     return documentId;
-}
-
-/**
- * Function which, given a reader and a path, traverses through the reader using the path to find the value.
- * @param ionReader The reader to operate on.
- * @param path The path to find the value.
- * @returns The value obtained after traversing the path.
- */
-export function getFieldValue(ionReader: any, path: string[]): any {
-    ionReader.next();
-    ionReader.stepIn();
-    return recursivePathLookup(ionReader, path);
-}
-
-/**
- * Helper method that traverses through the reader using the path to find the value.
- * @param ionReader The reader to operate on.
- * @param path The path to find the value.
- * @returns The value, or undefined if the provided path does not exist.
- */
-export function recursivePathLookup(ionReader: Reader, path: string[]): any | undefined {
-    if (path.length === 0) {
-        // If the path's length is 0, the current ionReader node is the value which should be returned.
-        if (ionReader.type() === IonTypes.LIST) {
-            const list: any[] = [];
-            ionReader.stepIn(); // Step into the list.
-            while (ionReader.next() != null) {
-                const itemInList: any = recursivePathLookup(ionReader, []);
-                list.push(itemInList);
-            }
-
-            return list;
-        } else if (ionReader.type() === IonTypes.STRUCT) {
-            const structToReturn: any = {};
-
-            let type: any;
-            const currentDepth: any = ionReader.depth();
-            ionReader.stepIn();
-            while (ionReader.depth() > currentDepth) {
-                // In order to get all values within the struct, we need to visit every node.
-                type = ionReader.next();
-                if (type === null) {
-                    // End of the container indicates that we need to step out.
-                    ionReader.stepOut();
-                } else {
-                    structToReturn[ionReader.fieldName()] = recursivePathLookup(ionReader, []);
-                }
-            }
-            return structToReturn;
-        }
-        return ionReader.value();
-    } else if (path.length === 1) {
-        // If the path's length is 1, the single value in the path list is the field should to be returned.
-
-        while (ionReader.next() != null) {
-            if (ionReader.fieldName() === path[0]) {
-                path.shift(); // Remove the path node which we just entered.
-                return recursivePathLookup(ionReader, path);
-            }
-        }
-    } else {
-        // If the path's length >= 2, the Ion tree needs to be traversed more to find the value we're looking for.
-
-        while (ionReader.next() != null) {
-
-            if (ionReader.fieldName() === path[0]) {
-                ionReader.stepIn(); // Step into the IonStruct.
-                path.shift(); // Remove the path node which we just entered.
-                return recursivePathLookup(ionReader, path);
-            }
-        }
-    }
-    // If the path doesn't exist, return undefined.
-    return undefined;
 }
 
 /**
@@ -184,6 +109,21 @@ export function recursivePathLookup(ionReader: Reader, path: string[]): any | un
  */
 export function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Find the value of a given path in an Ion value. The path should contain a blob value.
+ * @param value The Ion value that contains the journal block attributes.
+ * @param path The path to a certain attribute.
+ * @returns Uint8Array value of the blob, or null if the attribute cannot be found in the Ion value
+ *                  or is not of type Blob
+ */
+export function getBlobValue(value: dom.Value, path: string): Uint8Array | null {
+    const attribute: dom.Value = value.get(path);
+    if (attribute !== null && attribute.getType() === IonTypes.BLOB) {
+        return attribute.uInt8ArrayValue();
+    }
+    return null;
 }
 
 /**
@@ -197,55 +137,4 @@ export function valueHolderToString(valueHolder: ValueHolder): string {
     const reader: Reader = makeReader(stringBuilder);
     writer.writeValues(reader);
     return decodeUtf8(writer.getBytes());
-}
-
-/**
- * Converts a given value to Ion using the provided writer.
- * @param value The value to covert to Ion.
- * @param ionWriter The Writer to pass the value into.
- * @throws Error: If the given value cannot be converted to Ion.
- */
-export function writeValueAsIon(value: any, ionWriter: Writer): void {
-    switch (typeof value) {
-        case "string":
-            ionWriter.writeString(value);
-            break;
-        case "boolean":
-            ionWriter.writeBoolean(value);
-            break;
-        case "number":
-                ionWriter.writeInt(value);
-                break;
-        case "object":
-            if (Array.isArray(value)) {
-                // Object is an array.
-                ionWriter.stepIn(IonTypes.LIST);
-
-                for (const element of value) {
-                    writeValueAsIon(element, ionWriter);
-                }
-
-                ionWriter.stepOut();
-            } else if (value instanceof Date) {
-                // Object is a Date.
-                ionWriter.writeTimestamp(Timestamp.parse(value.toISOString()));
-            } else if (value instanceof Decimal) {
-                // Object is a Decimal.
-                ionWriter.writeDecimal(value);
-            } else if (value === null) {
-                ionWriter.writeNull(IonTypes.NULL);
-            } else {
-                // Object is a struct.
-                ionWriter.stepIn(IonTypes.STRUCT);
-
-                for (const key of Object.keys(value)) {
-                    ionWriter.writeFieldName(key);
-                    writeValueAsIon(value[key], ionWriter);
-                }
-                ionWriter.stepOut();
-            }
-            break;
-        default:
-            throw new Error(`Cannot convert to Ion for type: ${(typeof value)}.`);
-    }
 }

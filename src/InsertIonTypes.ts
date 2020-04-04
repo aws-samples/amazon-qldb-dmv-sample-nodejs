@@ -16,9 +16,9 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { createQldbWriter, QldbSession, QldbWriter, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { AssertionError } from "assert";
-import { Decimal, IonType, IonTypes, Reader, Timestamp } from "ion-js";
+import { dom, IonType, IonTypes } from "ion-js";
 
 import { insertDocument } from "./InsertDocument";
 import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
@@ -36,7 +36,7 @@ const TABLE_NAME: string = "IonTypes";
 export async function deleteTable(txn: TransactionExecutor, tableName: string): Promise<void> {
     log(`Deleting ${tableName} table...`);
     const statement: string = `DROP TABLE ${tableName}`;
-    await txn.executeInline(statement);
+    await txn.execute(statement);
     log(`${tableName} table successfully deleted.`);
 }
 
@@ -44,34 +44,34 @@ export async function deleteTable(txn: TransactionExecutor, tableName: string): 
  * Update a document's Name value in QLDB. Then, query the value of the Name key and verify the expected Ion type was
  * saved.
  * @param txn The {@linkcode TransactionExecutor} for lambda execute.
- * @param parameters The IonValue to set the document's Name value to.
+ * @param parameter The IonValue to set the document's Name value to.
  * @param ionType The Ion type that the Name value should be.
  * @returns Promise which fulfills with void.
  */
 async function updateRecordAndVerifyType(
     txn: TransactionExecutor,
-    parameters: QldbWriter[],
+    parameter: any,
     ionType: IonType
 ): Promise<void> {
     const updateStatement: string = `UPDATE ${TABLE_NAME} SET Name = ?`;
-    await txn.executeInline(updateStatement, parameters);
+    await txn.execute(updateStatement, parameter);
     log("Updated record.");
 
     const searchStatement: string = `SELECT VALUE Name FROM ${TABLE_NAME}`;
-    const result: Result = await txn.executeInline(searchStatement);
+    const result: Result = await txn.execute(searchStatement);
 
-    const resultReaders: Reader[] = result.getResultList();
+    const results: dom.Value[] = result.getResultList();
 
-    if (0 === resultReaders.length) {
+    if (0 === results.length) {
         throw new AssertionError({
             message: "Did not find any values for the Name key."
         });
     }
 
-    resultReaders.forEach((reader: Reader) => {
-        if (reader.next().binaryTypeId !== ionType.binaryTypeId) {
+    results.forEach((value: dom.Value) => {
+        if (value.getType().binaryTypeId !== ionType.binaryTypeId) {
             throw new AssertionError({
-                message: `The queried value type, ${reader.type().name}, does not match expected type, ${ionType.name}.`
+                message: `The queried value type, ${value.getType().name}, does not match expected type, ${ionType.name}.`
             });
         }
     });
@@ -85,75 +85,25 @@ async function updateRecordAndVerifyType(
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    const ionNull: QldbWriter = createQldbWriter();
-    ionNull.writeNull(IonTypes.NULL);
-
-    const ionBool: QldbWriter = createQldbWriter();
-    ionBool.writeBoolean(true);
-
-    const ionInt: QldbWriter = createQldbWriter();
-    ionInt.writeInt(1);
-
-    const ionFloat32: QldbWriter = createQldbWriter();
-    ionFloat32.writeFloat32(3.2);
-    
-    const ionFloat64: QldbWriter = createQldbWriter();
-    ionFloat64.writeFloat32(6.4);
-
-    const ionDecimal: QldbWriter = createQldbWriter();
-    ionDecimal.writeDecimal(new Decimal(1, -1));
-
-    const ionTimestamp: QldbWriter = createQldbWriter();
-    ionTimestamp.writeTimestamp(new Timestamp(0, 2000));
-
-    const ionSymbol: QldbWriter = createQldbWriter();
-    ionSymbol.writeSymbol("abc123");
-
-    const ionString: QldbWriter = createQldbWriter();
-    ionString.writeString("string");
-
-    const ionClob: QldbWriter = createQldbWriter();
-    ionClob.writeClob(new Uint8Array());
-
-    const ionBlob: QldbWriter = createQldbWriter();
-    ionBlob.writeBlob(new Uint8Array());
-
-    const ionList: QldbWriter = createQldbWriter();
-    ionList.stepIn(IonTypes.LIST);
-    ionList.writeInt(1);
-    ionList.stepOut();
-
-    const ionSexp: QldbWriter = createQldbWriter();
-    ionSexp.stepIn(IonTypes.SEXP);
-    ionSexp.writeInt(1);
-    ionSexp.stepOut();
-    
-    const ionStruct: QldbWriter = createQldbWriter();
-    ionStruct.stepIn(IonTypes.STRUCT);
-    ionStruct.writeFieldName("brand");
-    ionStruct.writeString("Ford");
-    ionStruct.stepOut();
-
     let session: QldbSession;
     try {
         session = await createQldbSession();
         session.executeLambda(async (txn: TransactionExecutor) => {
             await createTable(txn, TABLE_NAME);
             await insertDocument(txn, TABLE_NAME, [{ "Name": "val" }]);
-            await updateRecordAndVerifyType(txn, [ionNull], IonTypes.NULL);
-            await updateRecordAndVerifyType(txn, [ionBool], IonTypes.BOOL);
-            await updateRecordAndVerifyType(txn, [ionInt], IonTypes.INT);
-            await updateRecordAndVerifyType(txn, [ionFloat32], IonTypes.FLOAT);
-            await updateRecordAndVerifyType(txn, [ionFloat64], IonTypes.FLOAT);
-            await updateRecordAndVerifyType(txn, [ionDecimal], IonTypes.DECIMAL);
-            await updateRecordAndVerifyType(txn, [ionTimestamp], IonTypes.TIMESTAMP);
-            await updateRecordAndVerifyType(txn, [ionSymbol], IonTypes.SYMBOL);
-            await updateRecordAndVerifyType(txn, [ionString], IonTypes.STRING);
-            await updateRecordAndVerifyType(txn, [ionClob], IonTypes.CLOB);
-            await updateRecordAndVerifyType(txn, [ionBlob], IonTypes.BLOB);
-            await updateRecordAndVerifyType(txn, [ionList], IonTypes.LIST);
-            await updateRecordAndVerifyType(txn, [ionSexp], IonTypes.SEXP);
-            await updateRecordAndVerifyType(txn, [ionStruct], IonTypes.STRUCT);
+            await updateRecordAndVerifyType(txn, dom.load("null"), IonTypes.NULL);
+            await updateRecordAndVerifyType(txn, true, IonTypes.BOOL);
+            await updateRecordAndVerifyType(txn, 1, IonTypes.INT);
+            await updateRecordAndVerifyType(txn, 3.2, IonTypes.FLOAT);
+            await updateRecordAndVerifyType(txn, dom.load("5.5"), IonTypes.DECIMAL);
+            await updateRecordAndVerifyType(txn, dom.load("2020-02-02"), IonTypes.TIMESTAMP);
+            await updateRecordAndVerifyType(txn, dom.load("abc123"), IonTypes.STRING);
+            await updateRecordAndVerifyType(txn, dom.load("\"string\""), IonTypes.STRING);
+            await updateRecordAndVerifyType(txn, dom.load("{{ \"clob\" }}"), IonTypes.CLOB);
+            await updateRecordAndVerifyType(txn, dom.load("{{ blob }}"), IonTypes.BLOB);
+            await updateRecordAndVerifyType(txn, dom.load("(1 2 3)"), IonTypes.SEXP);
+            await updateRecordAndVerifyType(txn, dom.load("[1, 2, 3]"), IonTypes.LIST);
+            await updateRecordAndVerifyType(txn, dom.load("{brand: ford}"), IonTypes.STRUCT);
             await deleteTable(txn, TABLE_NAME);
         });
     } catch (e) {

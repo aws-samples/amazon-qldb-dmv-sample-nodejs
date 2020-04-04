@@ -16,13 +16,12 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { createQldbWriter, QldbSession, QldbWriter, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
-import { Reader } from "ion-js";
+import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { dom } from "ion-js";
 
 import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
 import { DRIVERS_LICENSE } from "./model/SampleData";
 import { error, log } from "./qldb/LogUtil";
-import { writeValueAsIon } from "./qldb/Util";
 
 /**
  * Delete a driver's license given a license number.
@@ -33,11 +32,8 @@ import { writeValueAsIon } from "./qldb/Util";
 export async function deregisterDriversLicense(txn: TransactionExecutor, licenseNumber: string): Promise<void> {
     const statement: string = "DELETE FROM DriversLicense AS d WHERE d.LicenseNumber = ?";
 
-    const qldbWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(licenseNumber, qldbWriter);
-
-    await txn.executeInline(statement, [qldbWriter]).then((result: Result) => {
-        const resultList: Reader[] = result.getResultList();
+    await txn.execute(statement, licenseNumber).then((result: Result) => {
+        const resultList: dom.Value[] = result.getResultList();
         if (resultList.length !== 0) {
             log(`Successfully de-registered license: ${licenseNumber}.`);
         } else {

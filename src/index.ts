@@ -35,7 +35,7 @@ export { lookupRegistrationForVin, verifyRegistration } from "./GetRevision";
 export { insertDocument, updatePersonId } from "./InsertDocument";
 export { listLedgers } from "./ListLedgers";
 export { readExport } from "./qldb/JournalS3ExportReader";
-export { getDocumentId, getFieldValue, recursivePathLookup, sleep, writeValueAsIon } from "./qldb/Util";
+export { getBlobValue, getDocumentId, sleep } from "./qldb/Util";
 export { flipRandomBit, joinHashesPairwise, parseBlock, verifyDocument } from "./qldb/Verifier";
 export { lookUpDriversLicenseForPerson } from "./RegisterDriversLicense";
 export { renewDriversLicense } from "./RenewDriversLicense";

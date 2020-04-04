@@ -16,8 +16,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { createQldbWriter, QldbSession, QldbWriter, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
-import { Reader } from "ion-js";
+import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { dom } from "ion-js";
 
 import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
 import { DRIVERS_LICENSE, PERSON, VEHICLE, VEHICLE_REGISTRATION } from "./model/SampleData";
@@ -28,7 +28,6 @@ import {
     VEHICLE_TABLE_NAME
 } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
-import { getFieldValue, writeValueAsIon } from "./qldb/Util";
 
 /**
  * Insert the given list of documents into a table in a single transaction.
@@ -43,9 +42,7 @@ export async function insertDocument(
     documents: object[]
 ): Promise<Result> {
     const statement: string = `INSERT INTO ${tableName} ?`;
-    const documentsWriter: QldbWriter = createQldbWriter();
-    writeValueAsIon(documents, documentsWriter);
-    let result: Result = await txn.executeInline(statement, [documentsWriter]);
+    let result: Result = await txn.execute(statement, documents);
     return result;
 }
 
@@ -58,7 +55,7 @@ async function updateAndInsertDocuments(txn: TransactionExecutor): Promise<void>
     log("Inserting multiple documents into the 'Person' table...");
     const documentIds: Result = await insertDocument(txn, PERSON_TABLE_NAME, PERSON);
 
-    const listOfDocumentIds: Reader[] = documentIds.getResultList();
+    const listOfDocumentIds: dom.Value[] = documentIds.getResultList();
     log("Updating PersonIds for 'DriversLicense' and PrimaryOwner for 'VehicleRegistration'...");
     updatePersonId(listOfDocumentIds);
 
@@ -74,9 +71,9 @@ async function updateAndInsertDocuments(txn: TransactionExecutor): Promise<void>
  * Update the PersonId value for DriversLicense records and the PrimaryOwner value for VehicleRegistration records.
  * @param documentIds List of document IDs.
  */
-export function updatePersonId(documentIds: Reader[]): void {
-    documentIds.forEach((reader: Reader, i: number) => {
-        const documentId: string = getFieldValue(reader, ["documentId"]);
+export function updatePersonId(documentIds: dom.Value[]): void {
+    documentIds.forEach((value: dom.Value, i: number) => {
+        const documentId: string = value.get("documentId").stringValue();
         DRIVERS_LICENSE[i].PersonId = documentId;
         VEHICLE_REGISTRATION[i].Owners.PrimaryOwner.PersonId = documentId;
     });
