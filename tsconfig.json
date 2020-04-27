@@ -6,7 +6,8 @@
         "strict": true,
         "strictNullChecks": false,
         "declaration": true,
-        "outDir": "dist"
+        "outDir": "dist",
+        "types": ["node"]
     },
     "include": [
         "src/**/*.ts",
