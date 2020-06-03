@@ -16,10 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QldbDriver, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { dom } from "ion-js";
 
-import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
+import { getQldbDriver } from "./ConnectToLedger";
 import { log } from "./qldb/LogUtil";
 
 /**
@@ -45,25 +45,15 @@ export async function scanTableForDocuments(txn: TransactionExecutor, tableName:
 }
 
 /**
- * Retrieve the list of table names.
- * @param session The session to retrieve table names from.
- * @returns Promise which fulfills with a list of table names.
- */
-export async function scanTables(session: QldbSession): Promise<string[]> {
-    return await session.getTableNames();
-}
-
-/**
  * Scan for all the documents in a table.
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    let session: QldbSession;
     try {
-        session = await createQldbSession();
-        await scanTables(session).then(async (listofTables: string[]) => {
-            for (const tableName of listofTables) {
-                await session.executeLambda(async (txn) => {
+        const qldbDriver: QldbDriver = getQldbDriver();
+        await qldbDriver.getTableNames().then(async (listOfTables: string[]) => {
+            for (const tableName of listOfTables) {
+                await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
                     const result: Result = await scanTableForDocuments(txn, tableName);
                     prettyPrintResultList(result.getResultList());
                 });
@@ -71,8 +61,6 @@ var main = async function(): Promise<void> {
         }, () => log("Retrying due to OCC conflict..."));
     } catch (e) {
         log(`Error displaying documents: ${e}`);
-    } finally {
-        closeQldbSession(session);
     }
 }
 

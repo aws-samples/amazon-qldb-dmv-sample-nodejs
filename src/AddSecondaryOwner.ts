@@ -16,10 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QldbDriver, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { dom } from "ion-js";
 
-import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
+import { getQldbDriver } from "./ConnectToLedger";
 import { PERSON, VEHICLE_REGISTRATION } from "./model/SampleData";
 import { PERSON_TABLE_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
@@ -34,8 +34,8 @@ import { prettyPrintResultList } from "./ScanTable";
  * @returns Promise which fulfills with void.
  */
 export async function addSecondaryOwner(
-    txn: TransactionExecutor, 
-    vin: string, 
+    txn: TransactionExecutor,
+    vin: string,
     secondaryOwnerId: string
 ): Promise<void> {
     log(`Inserting secondary owner for vehicle with VIN: ${vin}`);
@@ -100,13 +100,12 @@ export async function isSecondaryOwnerForVehicle(
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    let session: QldbSession;
     try {
-        session = await createQldbSession();
+        const qldbDriver: QldbDriver = getQldbDriver();
         const vin: string = VEHICLE_REGISTRATION[1].VIN;
         const govId: string = PERSON[0].GovId;
 
-        await session.executeLambda(async (txn) => {
+        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             const documentId: string = await getDocumentIdByGovId(txn, govId);
 
             if (await isSecondaryOwnerForVehicle(txn, vin, documentId)) {
@@ -119,8 +118,6 @@ var main = async function(): Promise<void> {
         log("Secondary owners successfully updated.");
     } catch (e) {
         error(`Unable to add secondary owner: ${e}`);
-    } finally {
-        closeQldbSession(session);
     }
 }
 

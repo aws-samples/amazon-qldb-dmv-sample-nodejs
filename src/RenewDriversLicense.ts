@@ -16,10 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QldbDriver, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { dom } from "ion-js";
 
-import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
+import { getQldbDriver } from "./ConnectToLedger";
 import { DRIVERS_LICENSE } from "./model/SampleData";
 import { error, log } from "./qldb/LogUtil";
 import { prettyPrintResultList } from "./ScanTable";
@@ -99,14 +99,13 @@ async function verifyDriverFromLicenseNumber(txn: TransactionExecutor, personId:
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    let session: QldbSession;
     try {
-        session = await createQldbSession();
+        const qldbDriver: QldbDriver = getQldbDriver();
         const fromDate: Date = new Date("2019-04-19");
         const toDate: Date = new Date("2023-04-19");
         const licenseNumber: string = DRIVERS_LICENSE[0].LicenseNumber;
 
-        await session.executeLambda(async (txn) => {
+        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             const personId: string = await getPersonIdFromLicenseNumber(txn, licenseNumber);
             if (await verifyDriverFromLicenseNumber(txn, personId)) {
                 await renewDriversLicense(txn, fromDate, toDate, licenseNumber);
@@ -114,8 +113,6 @@ var main = async function(): Promise<void> {
         }, () => log("Retrying due to OCC conflict..."));
     } catch (e) {
         error(`Unable to renew drivers license: ${e}`);
-    } finally {
-        closeQldbSession(session);
     }
 }
 

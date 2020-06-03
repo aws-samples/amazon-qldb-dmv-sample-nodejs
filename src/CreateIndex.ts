@@ -16,9 +16,9 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QldbSession, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QldbDriver, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 
-import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
+import { getQldbDriver } from "./ConnectToLedger";
 import {
     DRIVERS_LICENSE_TABLE_NAME,
     GOV_ID_INDEX_NAME,
@@ -56,10 +56,9 @@ export async function createIndex(
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    let session: QldbSession;
     try {
-        session = await createQldbSession();
-        await session.executeLambda(async (txn) => {
+        const qldbDriver: QldbDriver = getQldbDriver();
+        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             Promise.all([
                 createIndex(txn, PERSON_TABLE_NAME, GOV_ID_INDEX_NAME),
                 createIndex(txn, VEHICLE_TABLE_NAME, VIN_INDEX_NAME),
@@ -71,8 +70,6 @@ var main = async function(): Promise<void> {
         }, () => log("Retrying due to OCC conflict..."));
     } catch (e) {
         error(`Unable to create indexes: ${e}`);
-    } finally {
-        closeQldbSession(session);
     }
 }
 
