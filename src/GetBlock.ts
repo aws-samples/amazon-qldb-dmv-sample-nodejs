@@ -16,12 +16,12 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QldbSession } from "amazon-qldb-driver-nodejs";
+import { QldbDriver, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { QLDB } from "aws-sdk";
 import { Digest, GetBlockRequest, GetBlockResponse, GetDigestResponse, ValueHolder } from "aws-sdk/clients/qldb";
 import { dom, toBase64 } from "ion-js";
 
-import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
+import { getQldbDriver } from "./ConnectToLedger";
 import { getDigestResult } from './GetDigest';
 import { lookupRegistrationForVin } from "./GetRevision";
 import { VEHICLE_REGISTRATION } from "./model/SampleData";
@@ -151,15 +151,14 @@ export async function verifyBlock(ledgerName: string, blockAddress: ValueHolder,
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    let session: QldbSession;
     try {
         const qldbClient: QLDB = new QLDB();
-        session = await createQldbSession();
+        const qldbDriver: QldbDriver = getQldbDriver();
 
         const registration = VEHICLE_REGISTRATION[1];
         const vin: string = registration.VIN;
 
-        await session.executeLambda(async (txn) => {
+        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             const registrations : dom.Value[] = await lookupRegistrationForVin(txn, vin);
             for (const registration of registrations) {
                 const blockAddress: ValueHolder = blockAddressToValueHolder(registration);
@@ -168,8 +167,6 @@ var main = async function(): Promise<void> {
         }, () => log("Retrying due to OCC conflict..."));
     } catch (e) {
         error(`Unable to query vehicle registration by Vin: ${e}`);
-    } finally {
-        closeQldbSession(session);
     }
 }
 

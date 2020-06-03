@@ -16,12 +16,12 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QldbSession, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QldbDriver, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { QLDB } from "aws-sdk";
 import { Digest, GetDigestResponse, GetRevisionRequest, GetRevisionResponse, ValueHolder } from "aws-sdk/clients/qldb";
 import { dom, toBase64 } from "ion-js";
 
-import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
+import { getQldbDriver } from "./ConnectToLedger";
 import { getDigestResult } from './GetDigest';
 import { VEHICLE_REGISTRATION } from "./model/SampleData"
 import { blockAddressToValueHolder, getMetadataId } from './qldb/BlockAddress';
@@ -147,21 +147,18 @@ export async function verifyRegistration(
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    let session: QldbSession;
     try {
         const qldbClient: QLDB = new QLDB();
-        session = await createQldbSession();
+        const qldbDriver: QldbDriver = getQldbDriver();
 
         const registration = VEHICLE_REGISTRATION[0];
         const vin: string = registration.VIN;
 
-        await session.executeLambda(async (txn) => {
+        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             await verifyRegistration(txn, LEDGER_NAME, vin, qldbClient);
         });
     } catch (e) {
         error(`Unable to verify revision: ${e}`);
-    } finally {
-        closeQldbSession(session);
     }
 }
 

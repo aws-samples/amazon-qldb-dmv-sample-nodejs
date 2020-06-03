@@ -1,5 +1,5 @@
 export { addSecondaryOwner, getDocumentIdByGovId, isSecondaryOwnerForVehicle } from "./AddSecondaryOwner";
-export { closeQldbSession, createQldbDriver, createQldbSession } from "./ConnectToLedger";
+export { createQldbDriver, getQldbDriver } from "./ConnectToLedger";
 export {
     DRIVERS_LICENSE_TABLE_NAME,
     GOV_ID_INDEX_NAME,
@@ -40,7 +40,7 @@ export { flipRandomBit, joinHashesPairwise, parseBlock, verifyDocument } from ".
 export { lookUpDriversLicenseForPerson } from "./RegisterDriversLicense";
 export { renewDriversLicense } from "./RenewDriversLicense";
 export { DRIVERS_LICENSE, PERSON, VEHICLE, VEHICLE_REGISTRATION } from "./model/SampleData";
-export { prettyPrintResultList, scanTableForDocuments, scanTables } from "./ScanTable";
+export { prettyPrintResultList, scanTableForDocuments } from "./ScanTable";
 export { listTags, tagResource, untagResource } from "./TagResources";
 export {
     findPersonFromDocumentId,

@@ -16,10 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QldbDriver, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { dom } from "ion-js";
 
-import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
+import { getQldbDriver } from "./ConnectToLedger";
 import { insertDocument } from "./InsertDocument";
 import { PERSON_TABLE_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
@@ -101,9 +101,8 @@ async function registerNewDriversLicense(txn: TransactionExecutor, license: any,
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    let session: QldbSession;
     try {
-        session = await createQldbSession();
+        const qldbDriver: QldbDriver = getQldbDriver();
         let documentId: string;
 
         const newPerson = {
@@ -121,7 +120,7 @@ var main = async function(): Promise<void> {
             ValidFromDate: new Date("2018-06-30"),
             ValidToDate: new Date("2022-10-30")
         };
-        await session.executeLambda(async (txn) => {
+        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             if (await personAlreadyExists(txn, newPerson.GovId)) {
                 log("Person with this GovId already exists.");
                 documentId = await getDocumentId(txn, PERSON_TABLE_NAME, "GovId", newPerson.GovId);
@@ -134,8 +133,6 @@ var main = async function(): Promise<void> {
         }, () => log("Retrying due to OCC conflict..."));
     } catch (e) {
         error(`Unable to register drivers license: ${e}`);
-    } finally {
-        closeQldbSession(session);
     }
 }
 

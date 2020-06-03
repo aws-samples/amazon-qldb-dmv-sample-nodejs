@@ -16,10 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QldbDriver, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { dom } from "ion-js";
 
-import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
+import { getQldbDriver } from "./ConnectToLedger";
 import { DRIVERS_LICENSE } from "./model/SampleData";
 import { error, log } from "./qldb/LogUtil";
 
@@ -47,16 +47,13 @@ export async function deregisterDriversLicense(txn: TransactionExecutor, license
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    let session: QldbSession;
     try {
-        session = await createQldbSession();
-        await session.executeLambda(async (txn) => {
+        const qldbDriver: QldbDriver = getQldbDriver();
+        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             await deregisterDriversLicense(txn, DRIVERS_LICENSE[1].LicenseNumber);
         }, () => log("Retrying due to OCC conflict..."));
     } catch (e) {
         error(`Error de-registering driver's license: ${e}`);
-    } finally {
-        closeQldbSession(session);
     }
 }
 

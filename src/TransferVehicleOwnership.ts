@@ -16,10 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QldbDriver, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { dom } from "ion-js";
 
-import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
+import { getQldbDriver } from "./ConnectToLedger";
 import { PERSON, VEHICLE } from "./model/SampleData";
 import { PERSON_TABLE_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
@@ -121,21 +121,18 @@ export async function validateAndUpdateRegistration(
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    let session: QldbSession;
     try {
-        session = await createQldbSession();
+        const qldbDriver: QldbDriver = getQldbDriver();
 
         const vin: string = VEHICLE[0].VIN;
         const previousOwnerGovId: string = PERSON[0].GovId;
         const newPrimaryOwnerGovId: string = PERSON[1].GovId;
 
-        await session.executeLambda(async (txn) => {
+        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             await validateAndUpdateRegistration(txn, vin, previousOwnerGovId,  newPrimaryOwnerGovId);
         }, () => log("Retrying due to OCC conflict..."));
     } catch (e) {
         error(`Unable to connect and run queries: ${e}`);
-    } finally {
-        closeQldbSession(session);
     }
 }
 

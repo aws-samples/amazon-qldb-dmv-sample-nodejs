@@ -16,12 +16,12 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QldbDriver, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { AssertionError } from "assert";
 import { dom, IonType, IonTypes } from "ion-js";
 
 import { insertDocument } from "./InsertDocument";
-import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
+import { getQldbDriver } from "./ConnectToLedger";
 import { createTable } from "./CreateTable";
 import { error, log } from "./qldb/LogUtil";
 
@@ -85,10 +85,9 @@ async function updateRecordAndVerifyType(
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    let session: QldbSession;
     try {
-        session = await createQldbSession();
-        session.executeLambda(async (txn: TransactionExecutor) => {
+        const qldbDriver: QldbDriver = getQldbDriver();
+        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             await createTable(txn, TABLE_NAME);
             await insertDocument(txn, TABLE_NAME, [{ "Name": "val" }]);
             await updateRecordAndVerifyType(txn, dom.load("null"), IonTypes.NULL);
@@ -108,8 +107,6 @@ var main = async function(): Promise<void> {
         });
     } catch (e) {
         error(`Error updating and validating Ion types: ${e}`);
-    } finally {
-        closeQldbSession(session);
     }
 }
 

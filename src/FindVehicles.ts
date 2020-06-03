@@ -16,10 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QldbDriver, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { dom } from "ion-js";
 
-import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
+import { getQldbDriver } from "./ConnectToLedger";
 import { PERSON } from "./model/SampleData";
 import { PERSON_TABLE_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
@@ -49,16 +49,13 @@ async function findVehiclesForOwner(txn: TransactionExecutor, govId: string): Pr
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    let session: QldbSession;
     try {
-        session = await createQldbSession();
-        await session.executeLambda(async (txn) => {
+        const qldbDriver: QldbDriver = getQldbDriver();
+        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             await findVehiclesForOwner(txn, PERSON[0].GovId);
         }, () => log("Retrying due to OCC conflict..."));
     } catch (e) {
         error(`Error getting vehicles for owner: ${e}`);
-    } finally {
-        closeQldbSession(session);
     }
 }
 

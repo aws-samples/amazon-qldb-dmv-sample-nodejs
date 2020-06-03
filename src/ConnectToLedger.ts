@@ -16,46 +16,30 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { PooledQldbDriver, QldbDriver, QldbSession } from "amazon-qldb-driver-nodejs";
+import { QldbDriver  } from "amazon-qldb-driver-nodejs";
 import { ClientConfiguration } from "aws-sdk/clients/qldbsession";
 
 import { LEDGER_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
 
-const pooledQldbDriver: QldbDriver = createQldbDriver();
+const qldbDriver: QldbDriver = createQldbDriver();
 
 /**
- * Close a QLDB session object.
- * @param session The session to close.
- */
-export function closeQldbSession(session: QldbSession): void {
-    if (null != session) {
-        session.close();
-    }
-}
-
-/**
- * Create a pooled driver for creating sessions.
+ * Create a driver for creating sessions.
  * @param ledgerName The name of the ledger to create the driver on.
  * @param serviceConfigurationOptions The configurations for the AWS SDK client that the driver uses.
- * @returns The pooled driver for creating sessions.
+ * @returns The driver for creating sessions.
  */
 export function createQldbDriver(
-    ledgerName: string = LEDGER_NAME, 
+    ledgerName: string = LEDGER_NAME,
     serviceConfigurationOptions: ClientConfiguration = {}
 ): QldbDriver {
-    const qldbDriver: QldbDriver = new PooledQldbDriver(ledgerName, serviceConfigurationOptions);
+    const qldbDriver: QldbDriver = new QldbDriver(ledgerName, serviceConfigurationOptions);
     return qldbDriver;
 }
 
-
-/**
- * Retrieve a QLDB session object.
- * @returns Promise which fufills with a {@linkcode QldbSession} object.
- */
-export async function createQldbSession(): Promise<QldbSession> {
-    const qldbSession: QldbSession = await pooledQldbDriver.getSession();
-    return qldbSession;
+export function getQldbDriver(): QldbDriver {
+    return qldbDriver;
 }
 
 /**
@@ -63,18 +47,14 @@ export async function createQldbSession(): Promise<QldbSession> {
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    let session: QldbSession = null;
     try {
-        session = await createQldbSession();
         log("Listing table names...");
-        const tableNames: string[] = await session.getTableNames();
+        const tableNames: string[] = await qldbDriver.getTableNames();
         tableNames.forEach((tableName: string): void => {
             log(tableName);
         });
     } catch (e) {
         error(`Unable to create session: ${e}`);
-    } finally {
-        closeQldbSession(session);
     }
 }
 

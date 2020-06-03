@@ -16,10 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QldbDriver, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { dom } from "ion-js";
 
-import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
+import { getQldbDriver } from "./ConnectToLedger";
 import { VEHICLE_REGISTRATION } from "./model/SampleData";
 import { VEHICLE_REGISTRATION_TABLE_NAME } from "./qldb/Constants";
 import { prettyPrintResultList } from "./ScanTable";
@@ -55,17 +55,14 @@ async function previousPrimaryOwners(txn: TransactionExecutor, vin: string): Pro
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    let session: QldbSession;
     try {
-        session = await createQldbSession();
+        const qldbDriver: QldbDriver = getQldbDriver();
         const vin: string = VEHICLE_REGISTRATION[0].VIN;
-        await session.executeLambda(async (txn) => {
+        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             await previousPrimaryOwners(txn, vin);
         }, () => log("Retrying due to OCC conflict..."));
     } catch (e) {
         error(`Unable to query history to find previous owners: ${e}`);
-    } finally {
-        closeQldbSession(session);
     }
 }
 

@@ -16,10 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QldbSession, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QldbDriver, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
 import { dom } from "ion-js";
 
-import { closeQldbSession, createQldbSession } from "./ConnectToLedger";
+import { getQldbDriver } from "./ConnectToLedger";
 import { DRIVERS_LICENSE, PERSON, VEHICLE, VEHICLE_REGISTRATION } from "./model/SampleData";
 import {
     DRIVERS_LICENSE_TABLE_NAME,
@@ -84,16 +84,13 @@ export function updatePersonId(documentIds: dom.Value[]): void {
  * @returns Promise which fulfills with void.
  */
 var main = async function(): Promise<void> {
-    let session: QldbSession;
     try {
-        session = await createQldbSession();
-        await session.executeLambda(async (txn) => {
+        const qldbDriver: QldbDriver = getQldbDriver();
+        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             await updateAndInsertDocuments(txn);
         }, () => log("Retrying due to OCC conflict..."));
     } catch (e) {
         error(`Unable to insert documents: ${e}`);
-    } finally {
-        closeQldbSession(session);
     }
 }
 
