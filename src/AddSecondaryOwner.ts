@@ -113,7 +113,7 @@ var main = async function(): Promise<void> {
             } else {
                 await addSecondaryOwner(txn, vin, documentId);
             }
-        }, () => log("Retrying due to OCC conflict..."));
+        });
 
         log("Secondary owners successfully updated.");
     } catch (e) {

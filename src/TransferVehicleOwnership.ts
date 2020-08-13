@@ -130,7 +130,7 @@ var main = async function(): Promise<void> {
 
         await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             await validateAndUpdateRegistration(txn, vin, previousOwnerGovId,  newPrimaryOwnerGovId);
-        }, () => log("Retrying due to OCC conflict..."));
+        });
     } catch (e) {
         error(`Unable to connect and run queries: ${e}`);
     }

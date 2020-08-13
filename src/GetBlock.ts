@@ -164,7 +164,7 @@ var main = async function(): Promise<void> {
                 const blockAddress: ValueHolder = blockAddressToValueHolder(registration);
                 await verifyBlock(LEDGER_NAME, blockAddress, qldbClient);
             }
-        }, () => log("Retrying due to OCC conflict..."));
+        });
     } catch (e) {
         error(`Unable to query vehicle registration by Vin: ${e}`);
     }

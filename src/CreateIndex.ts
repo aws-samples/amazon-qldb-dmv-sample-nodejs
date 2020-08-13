@@ -67,7 +67,7 @@ var main = async function(): Promise<void> {
                 createIndex(txn, DRIVERS_LICENSE_TABLE_NAME, PERSON_ID_INDEX_NAME),
                 createIndex(txn, DRIVERS_LICENSE_TABLE_NAME, LICENSE_NUMBER_INDEX_NAME)
             ]);
-        }, () => log("Retrying due to OCC conflict..."));
+        });
     } catch (e) {
         error(`Unable to create indexes: ${e}`);
     }

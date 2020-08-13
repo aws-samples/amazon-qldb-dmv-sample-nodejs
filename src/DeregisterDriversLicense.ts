@@ -51,7 +51,7 @@ var main = async function(): Promise<void> {
         const qldbDriver: QldbDriver = getQldbDriver();
         await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             await deregisterDriversLicense(txn, DRIVERS_LICENSE[1].LicenseNumber);
-        }, () => log("Retrying due to OCC conflict..."));
+        });
     } catch (e) {
         error(`Error de-registering driver's license: ${e}`);
     }

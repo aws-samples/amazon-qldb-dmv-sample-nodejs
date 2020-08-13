@@ -88,7 +88,7 @@ var main = async function(): Promise<void> {
         const qldbDriver: QldbDriver = getQldbDriver();
         await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             await updateAndInsertDocuments(txn);
-        }, () => log("Retrying due to OCC conflict..."));
+        });
     } catch (e) {
         error(`Unable to insert documents: ${e}`);
     }

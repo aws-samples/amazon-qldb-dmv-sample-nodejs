@@ -55,7 +55,7 @@ var main = async function(): Promise<void> {
                 createTable(txn, PERSON_TABLE_NAME),
                 createTable(txn, DRIVERS_LICENSE_TABLE_NAME)
             ]);
-        }, () => log("Retrying due to OCC conflict..."));
+        });
     } catch (e) {
         error(`Unable to create tables: ${e}`);
     }

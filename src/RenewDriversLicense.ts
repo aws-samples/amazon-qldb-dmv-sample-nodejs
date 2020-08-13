@@ -110,7 +110,7 @@ var main = async function(): Promise<void> {
             if (await verifyDriverFromLicenseNumber(txn, personId)) {
                 await renewDriversLicense(txn, fromDate, toDate, licenseNumber);
             }
-        }, () => log("Retrying due to OCC conflict..."));
+        });
     } catch (e) {
         error(`Unable to renew drivers license: ${e}`);
     }
