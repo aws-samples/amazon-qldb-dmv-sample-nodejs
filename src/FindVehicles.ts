@@ -53,7 +53,7 @@ var main = async function(): Promise<void> {
         const qldbDriver: QldbDriver = getQldbDriver();
         await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             await findVehiclesForOwner(txn, PERSON[0].GovId);
-        }, () => log("Retrying due to OCC conflict..."));
+        });
     } catch (e) {
         error(`Error getting vehicles for owner: ${e}`);
     }

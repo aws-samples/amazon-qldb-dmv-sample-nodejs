@@ -130,7 +130,7 @@ var main = async function(): Promise<void> {
             }
             newLicense.PersonId = documentId;
             await registerNewDriversLicense(txn, newLicense, documentId);
-        }, () => log("Retrying due to OCC conflict..."));
+        });
     } catch (e) {
         error(`Unable to register drivers license: ${e}`);
     }

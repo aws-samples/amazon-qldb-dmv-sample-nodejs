@@ -60,7 +60,7 @@ var main = async function(): Promise<void> {
         const vin: string = VEHICLE_REGISTRATION[0].VIN;
         await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             await previousPrimaryOwners(txn, vin);
-        }, () => log("Retrying due to OCC conflict..."));
+        });
     } catch (e) {
         error(`Unable to query history to find previous owners: ${e}`);
     }

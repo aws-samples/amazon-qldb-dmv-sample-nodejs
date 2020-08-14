@@ -58,7 +58,7 @@ var main = async function(): Promise<void> {
                     prettyPrintResultList(result.getResultList());
                 });
             }
-        }, () => log("Retrying due to OCC conflict..."));
+        });
     } catch (e) {
         log(`Error displaying documents: ${e}`);
     }
