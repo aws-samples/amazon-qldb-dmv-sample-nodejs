@@ -2,7 +2,7 @@
   "dependencies": {
     "@types/node": "^12.0.2",
     "amazon-qldb-driver-nodejs": "^2.1.1",
-    "aws-sdk": "^2.564.0",
+    "aws-sdk": "^2.888.0",
     "ion-js": "~4.0.0",
     "jsbi": "^3.1.1"
   },
