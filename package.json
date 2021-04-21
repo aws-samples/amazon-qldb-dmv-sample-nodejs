@@ -4,7 +4,7 @@
     "amazon-qldb-driver-nodejs": "^2.1.1",
     "aws-sdk": "^2.564.0",
     "ion-js": "~4.0.0",
-    "jsbi": "^3.1.1"
+    "jsbi": "^3.1.4"
   },
   "name": "amazon-qldb-dmv-sample-nodejs",
   "description": "Amazon Quantum Ledger Database Node.js sample application",
