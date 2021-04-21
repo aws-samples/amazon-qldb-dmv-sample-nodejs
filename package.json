@@ -3,7 +3,7 @@
     "@types/node": "^14.14.41",
     "amazon-qldb-driver-nodejs": "^2.1.1",
     "aws-sdk": "^2.890.0",
-    "ion-js": "~4.0.0",
+    "ion-js": "~4.1.0",
     "jsbi": "^3.1.4"
   },
   "name": "amazon-qldb-dmv-sample-nodejs",
