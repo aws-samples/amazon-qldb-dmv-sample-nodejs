@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@types/node": "^16.10.3",
+    "@types/node": "^16.11.6",
     "amazon-qldb-driver-nodejs": "^2.2.0",
     "aws-sdk": "^2.1020.0",
     "ion-js": "~4.2.1",
@@ -16,7 +16,7 @@
     "@typescript-eslint/parser": "^2.6.0",
     "eslint": "^6.6.0",
     "ts-node": "^10.4.0",
-    "typedoc": "^0.22.4",
+    "typedoc": "^0.22.7",
     "typescript": "^4.3.5"
   },
   "scripts": {
