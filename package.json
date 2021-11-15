@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@types/node": "^16.11.6",
+    "@types/node": "^16.11.7",
     "amazon-qldb-driver-nodejs": "^2.2.0",
     "aws-sdk": "^2.1028.0",
     "ion-js": "~4.2.1",
