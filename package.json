@@ -22,7 +22,7 @@
   "scripts": {
     "build": "npm run lint && tsc",
     "doc": "typedoc --out docs ./src",
-    "lint": "eslint src/*.ts src/**/*.ts"
+    "lint": "eslint src"
   },
   "author": {
     "name": "Amazon Web Services",
