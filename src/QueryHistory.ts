@@ -54,7 +54,7 @@ async function previousPrimaryOwners(txn: TransactionExecutor, vin: string): Pro
  * Query a table's history for a particular set of documents.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
         const vin: string = VEHICLE_REGISTRATION[0].VIN;

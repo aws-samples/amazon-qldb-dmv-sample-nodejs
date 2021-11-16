@@ -100,7 +100,7 @@ async function registerNewDriversLicense(txn: TransactionExecutor, license: any,
  * Register a new driver's license.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
         let documentId: string;

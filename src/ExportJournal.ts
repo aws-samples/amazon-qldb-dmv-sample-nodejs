@@ -17,7 +17,7 @@
  */
 
 import { isInvalidParameterException } from "amazon-qldb-driver-nodejs";
-import { IAM, QLDB, S3, STS } from "aws-sdk";
+import { AWSError, IAM, QLDB, S3, STS } from "aws-sdk";
 import {
     AttachRolePolicyRequest,
     CreatePolicyRequest,
@@ -93,30 +93,28 @@ async function createExport(
     qldbClient: QLDB
 ): Promise<ExportJournalToS3Response> {
     log(`Let's create a journal export for ledger with name: ${ledgerName}`);
-    try {
-        const request: ExportJournalToS3Request = {
-            Name: ledgerName,
-            InclusiveStartTime: startTime,
-            ExclusiveEndTime: endTime,
-            S3ExportConfiguration: {
-                Bucket: s3BucketName,
-                Prefix: s3Prefix,
-                EncryptionConfiguration: encryptionConfig
-            },
-            RoleArn: roleArn
-        };
-        const result: ExportJournalToS3Response = await qldbClient.exportJournalToS3(request).promise();
-        log("Requested QLDB to export contents of the journal.");
-        return result;
-    } catch (e) {
-        if (isInvalidParameterException(e)) {
+    const request: ExportJournalToS3Request = {
+        Name: ledgerName,
+        InclusiveStartTime: startTime,
+        ExclusiveEndTime: endTime,
+        S3ExportConfiguration: {
+            Bucket: s3BucketName,
+            Prefix: s3Prefix,
+            EncryptionConfiguration: encryptionConfig
+        },
+        RoleArn: roleArn
+    };
+    const result: ExportJournalToS3Response = await qldbClient.exportJournalToS3(request).promise().catch((err: AWSError ) => {
+        if (isInvalidParameterException(err)) {
             error(
                 "The eventually consistent behavior of the IAM service may cause this export to fail its first " +
                 "attempts, please retry."
             );
         }
-        throw e;
-    }
+        throw err;
+    });
+    log("Requested QLDB to export contents of the journal.");
+    return result;
 }
 
 /**
@@ -250,17 +248,16 @@ export async function createS3BucketIfNotExists(bucketName: string, s3Client: S3
  * @returns Promise which fulfills with whether the bucket exists or not.
  */
 async function doesBucketExist(bucketName: string, s3Client: S3): Promise<boolean> {
-    try {
-        const request: HeadBucketRequest = {
-            Bucket: bucketName
-        };
-        await s3Client.headBucket(request).promise();
-    } catch (e) {
-        if (e.code === 'NotFound') {
-            return false;
+    const request: HeadBucketRequest = {
+        Bucket: bucketName
+    };
+    let doesBucketExist: boolean = true;
+    await s3Client.headBucket(request).promise().catch((err: AWSError) => {
+        if (err.code === 'NotFound') {
+            doesBucketExist = false;
         }
-    }
-    return true;
+    });
+    return doesBucketExist;
 }
 
 /**
@@ -351,7 +348,7 @@ async function waitForExportToComplete(
  * https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const s3Client: S3 = new S3();
         const sts: STS = new STS();

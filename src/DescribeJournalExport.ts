@@ -51,7 +51,7 @@ export async function describeJournalExport(
  * Describe a specific journal export with the given ExportId.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     const qldbClient: QLDB = new QLDB();
     try {
         if (process.argv.length !== 3) {

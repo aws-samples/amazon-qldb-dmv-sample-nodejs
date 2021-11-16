@@ -55,7 +55,7 @@ export async function createIndex(
  * Create indexes on tables in a particular ledger.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
         await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {

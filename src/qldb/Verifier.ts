@@ -149,7 +149,7 @@ export function parseBlock(valueHolder: ValueHolder): Uint8Array {
  * @returns A list of hash values.
  */
 function parseProof(valueHolder: ValueHolder): Uint8Array[] {
-    let proofs : dom.Value = dom.load(valueHolder.IonText);
+    const proofs : dom.Value = dom.load(valueHolder.IonText);
     return proofs.elements().map(proof => proof.uInt8ArrayValue());
 }
 

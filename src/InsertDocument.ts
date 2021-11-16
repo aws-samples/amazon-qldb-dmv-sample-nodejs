@@ -42,7 +42,7 @@ export async function insertDocument(
     documents: object[]
 ): Promise<Result> {
     const statement: string = `INSERT INTO ${tableName} ?`;
-    let result: Result = await txn.execute(statement, documents);
+    const result: Result = await txn.execute(statement, documents);
     return result;
 }
 
@@ -83,7 +83,7 @@ export function updatePersonId(documentIds: dom.Value[]): void {
  * Insert documents into a table in a QLDB ledger.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
         await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {

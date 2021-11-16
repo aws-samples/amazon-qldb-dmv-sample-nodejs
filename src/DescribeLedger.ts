@@ -41,7 +41,7 @@ export async function describeLedger(ledgerName: string, qldbClient: QLDB): Prom
  * Describe a QLDB ledger.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbClient: QLDB = new QLDB();
         await describeLedger(LEDGER_NAME, qldbClient);

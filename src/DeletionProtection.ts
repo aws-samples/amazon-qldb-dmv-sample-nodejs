@@ -17,7 +17,7 @@
  */
 
 import { isResourcePreconditionNotMetException } from "amazon-qldb-driver-nodejs";
-import { QLDB } from "aws-sdk";
+import { AWSError, QLDB } from "aws-sdk";
 import {
     CreateLedgerRequest,
     CreateLedgerResponse,
@@ -73,20 +73,16 @@ export async function setDeletionProtection(
  * Demonstrate the protection of QLDB ledgers against deletion.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbClient: QLDB = new QLDB();
         await createWithDeletionProtection(LEDGER_NAME, qldbClient);
         await waitForActive(LEDGER_NAME, qldbClient);
-        try {
-            await deleteLedger(LEDGER_NAME, qldbClient);
-        } catch (e) {
-            if (isResourcePreconditionNotMetException(e)) {
+        await deleteLedger(LEDGER_NAME, qldbClient).catch((error: AWSError) => {
+            if (isResourcePreconditionNotMetException(error)) {
                 log("Ledger protected against deletions!");
-            } else {
-                throw e;
             }
-        }
+        });
         await setDeletionProtection(LEDGER_NAME, qldbClient, false);
         await deleteLedger(LEDGER_NAME, qldbClient);
     } catch (e) {
