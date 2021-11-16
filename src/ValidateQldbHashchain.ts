@@ -101,7 +101,7 @@ function verify(journalBlocks: JournalBlock[]): void {
  * chain validation.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbClient = new QLDB();
         let exportId: string;

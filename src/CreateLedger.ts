@@ -74,7 +74,7 @@ export async function waitForActive(ledgerName: string, qldbClient: QLDB): Promi
  * Create a ledger and wait for it to be active.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbClient: QLDB = new QLDB();
         await createLedger(LEDGER_NAME, qldbClient);

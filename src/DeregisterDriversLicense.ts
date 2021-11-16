@@ -46,7 +46,7 @@ export async function deregisterDriversLicense(txn: TransactionExecutor, license
  * De-register a driver's license.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
         await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {

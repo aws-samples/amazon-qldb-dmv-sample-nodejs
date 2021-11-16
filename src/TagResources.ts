@@ -112,7 +112,7 @@ export async function untagResource(resourceArn: string, tagsKeys: string[], qld
  * Tagging and un-tagging resources, including tag on create.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbClient: QLDB = new QLDB();
         const result: CreateLedgerResponse = await createWithTags(LEDGER_NAME_WITH_TAGS, CREATE_TAGS, qldbClient);

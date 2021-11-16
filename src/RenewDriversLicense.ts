@@ -98,7 +98,7 @@ async function verifyDriverFromLicenseNumber(txn: TransactionExecutor, personId:
  * Renew a driver's license.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
         const fromDate: Date = new Date("2019-04-19");

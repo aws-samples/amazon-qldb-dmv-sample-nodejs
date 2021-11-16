@@ -43,7 +43,7 @@ async function listAllJournalExports(qldbClient: QLDB): Promise<void> {
             NextToken: nextToken
         };
         const result: ListJournalS3ExportsResponse = await qldbClient.listJournalS3Exports(request).promise();
-        exportList.push.apply(exportList, result.JournalS3Exports);
+        exportList.push(...result.JournalS3Exports);
         nextToken = result.NextToken;
     } while (nextToken != null);
     log(`Success. List of journal exports: ${JSON.stringify(exportList)}`);
@@ -67,7 +67,7 @@ async function listJournalExports(ledgerName: string): Promise<void> {
         };
         const result: ListJournalS3ExportsForLedgerResponse =
             await qldbClient.listJournalS3ExportsForLedger(request).promise();
-        exportDescriptions.push.apply(exportDescriptions, result.JournalS3Exports);
+        exportDescriptions.push(...result.JournalS3Exports);
         nextToken = result.NextToken;
     } while (nextToken != null);
 
@@ -78,7 +78,7 @@ async function listJournalExports(ledgerName: string): Promise<void> {
  * List the journal exports of a given QLDB ledger.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         await listJournalExports(LEDGER_NAME);
     } catch (e) {

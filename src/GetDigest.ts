@@ -41,7 +41,7 @@ export async function getDigestResult(ledgerName: string, qldbClient: QLDB): Pro
  * This is an example for retrieving the digest of a particular ledger.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbClient: QLDB = new QLDB();
         log(`Retrieving the current digest for ledger: ${LEDGER_NAME}.`);

@@ -36,7 +36,7 @@ export class BlockAddress {
  * @returns The ValueHolder that contains the strandId and sequenceNo.
  */
 export function blockAddressToValueHolder(value: dom.Value): ValueHolder {
-    let blockAddressValue : dom.Value = getBlockAddressValue(value);
+    const blockAddressValue : dom.Value = getBlockAddressValue(value);
     const strandId: string = getStrandId(blockAddressValue);
     const sequenceNo: number = getSequenceNo(blockAddressValue);
     const valueHolder: string = `{strandId: "${strandId}", sequenceNo: ${sequenceNo}}`;

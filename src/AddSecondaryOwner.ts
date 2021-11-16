@@ -42,7 +42,7 @@ export async function addSecondaryOwner(
     const query: string =
         `FROM VehicleRegistration AS v WHERE v.VIN = '${vin}' INSERT INTO v.Owners.SecondaryOwners VALUE ?`;
 
-    let personToInsert = {PersonId: secondaryOwnerId};
+    const personToInsert = {PersonId: secondaryOwnerId};
     await txn.execute(query, personToInsert).then(async (result: Result) => {
         const resultList: dom.Value[] = result.getResultList();
         log("VehicleRegistration Document IDs which had secondary owners added: ");
@@ -99,7 +99,7 @@ export async function isSecondaryOwnerForVehicle(
  * Finds and adds secondary owners for a vehicle.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
         const vin: string = VEHICLE_REGISTRATION[1].VIN;

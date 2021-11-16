@@ -48,7 +48,7 @@ async function findVehiclesForOwner(txn: TransactionExecutor, govId: string): Pr
  * Find all vehicles registered under a person.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
         await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {

@@ -34,7 +34,7 @@ export async function listLedgers(qldbClient: QLDB): Promise<LedgerSummary[]> {
             NextToken: nextToken
         };
         const result: ListLedgersResponse = await qldbClient.listLedgers(request).promise();
-        ledgerSummaries.push.apply(ledgerSummaries, result.Ledgers);
+        ledgerSummaries.push(...result.Ledgers);
         nextToken = result.NextToken;
     } while (nextToken != null);
     return ledgerSummaries;
@@ -44,7 +44,7 @@ export async function listLedgers(qldbClient: QLDB): Promise<LedgerSummary[]> {
  * List all QLDB ledgers in a given account.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbClient: QLDB = new QLDB();
         log("Retrieving all the ledgers...");

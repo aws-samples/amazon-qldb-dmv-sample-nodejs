@@ -17,7 +17,7 @@
  */
 
 import { isResourceNotFoundException } from "amazon-qldb-driver-nodejs";
-import { QLDB } from "aws-sdk";
+import { AWSError, QLDB } from "aws-sdk";
 import { DeleteLedgerRequest, DescribeLedgerRequest } from "aws-sdk/clients/qldb";
 
 import { setDeletionProtection } from "./DeletionProtection";
@@ -53,19 +53,19 @@ export async function waitForDeleted(ledgerName: string, qldbClient: QLDB): Prom
     const request: DescribeLedgerRequest = {
         Name: ledgerName
     };
+    let isDeleted: boolean = false;
     while (true) {
-        try {
-            await qldbClient.describeLedger(request).promise();
-            log("The ledger is still being deleted. Please wait...");
-            await sleep(LEDGER_DELETION_POLL_PERIOD_MS);
-        } catch (e) {
-            if (isResourceNotFoundException(e)) {
+        await qldbClient.describeLedger(request).promise().catch((error: AWSError) => {
+            if (isResourceNotFoundException(error)) {
+                isDeleted = true;
                 log("Success. Ledger is deleted.");
-                break;
-            } else {
-                throw e;
             }
+        });
+        if (isDeleted) {
+            break;
         }
+        log("The ledger is still being deleted. Please wait...");
+        await sleep(LEDGER_DELETION_POLL_PERIOD_MS);
     }
 }
 
@@ -73,7 +73,7 @@ export async function waitForDeleted(ledgerName: string, qldbClient: QLDB): Prom
  * Delete a ledger.
  * @returns Promise which fulfills with void.
  */
-var main = async function(): Promise<void> {
+const main = async function(): Promise<void> {
     try {
         const qldbClient: QLDB = new QLDB();
         await setDeletionProtection(LEDGER_NAME, qldbClient, false);
