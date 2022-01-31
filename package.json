@@ -2,7 +2,7 @@
   "dependencies": {
     "@types/node": "^17.0.7",
     "amazon-qldb-driver-nodejs": "^2.2.0",
-    "aws-sdk": "^2.1048.0",
+    "aws-sdk": "^2.1066.0",
     "ion-js": "~4.2.1",
     "jsbi": "^3.2.5"
   },
@@ -13,7 +13,7 @@
   "types": "dist/index.d.ts",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.8.0",
-    "@typescript-eslint/parser": "^5.9.0",
+    "@typescript-eslint/parser": "^5.10.2",
     "eslint": "^8.6.0",
     "ts-node": "^10.4.0",
     "typedoc": "^0.22.10",
