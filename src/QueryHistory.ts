@@ -35,6 +35,9 @@ import { getDocumentId } from "./qldb/Util";
 async function previousPrimaryOwners(txn: TransactionExecutor, vin: string): Promise<void> {
     const documentId: string = await getDocumentId(txn, VEHICLE_REGISTRATION_TABLE_NAME, "VIN", vin);
     const todaysDate: Date = new Date();
+    // set todaysDate back one minute to ensure end time is in the past 
+    // by the time the request reaches our backend
+    todaysDate.setMinutes(todaysDate.getMinutes() - 1);
     const threeMonthsAgo: Date = new Date(todaysDate);
     threeMonthsAgo.setMonth(todaysDate.getMonth() - 3);
 
