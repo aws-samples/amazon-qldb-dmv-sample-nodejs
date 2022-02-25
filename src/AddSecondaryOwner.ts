@@ -40,10 +40,10 @@ export async function addSecondaryOwner(
 ): Promise<void> {
     log(`Inserting secondary owner for vehicle with VIN: ${vin}`);
     const query: string =
-        `FROM VehicleRegistration AS v WHERE v.VIN = '${vin}' INSERT INTO v.Owners.SecondaryOwners VALUE ?`;
+        `FROM VehicleRegistration AS v WHERE v.VIN = ? INSERT INTO v.Owners.SecondaryOwners VALUE ?`;
 
     const personToInsert = {PersonId: secondaryOwnerId};
-    await txn.execute(query, personToInsert).then(async (result: Result) => {
+    await txn.execute(query, vin, personToInsert).then(async (result: Result) => {
         const resultList: dom.Value[] = result.getResultList();
         log("VehicleRegistration Document IDs which had secondary owners added: ");
         prettyPrintResultList(resultList);
