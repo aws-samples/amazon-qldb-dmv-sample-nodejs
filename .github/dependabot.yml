@@ -5,3 +5,4 @@ updates:
     target-branch: "master"
     schedule:
       interval: "weekly"
+      day: "tuesday"
