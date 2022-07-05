@@ -3,7 +3,7 @@
     "@types/node": "^18.0.0",
     "amazon-qldb-driver-nodejs": "^2.2.0",
     "aws-sdk": "^2.1162.0",
-    "ion-js": "~4.2.3",
+    "ion-js": "~4.3.0",
     "jsbi": "^3.2.5"
   },
   "name": "amazon-qldb-dmv-sample-nodejs",
@@ -12,9 +12,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.22.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.29.0",
-    "eslint": "^8.18.0",
+    "eslint": "^8.19.0",
     "ts-node": "^10.8.1",
     "typedoc": "^0.23.1",
     "typescript": "^4.7.4"
