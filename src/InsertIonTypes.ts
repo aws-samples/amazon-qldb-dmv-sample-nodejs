@@ -96,7 +96,7 @@ const main = async function(): Promise<void> {
             await updateRecordAndVerifyType(txn, 3.2, IonTypes.FLOAT);
             await updateRecordAndVerifyType(txn, dom.load("5.5"), IonTypes.DECIMAL);
             await updateRecordAndVerifyType(txn, dom.load("2020-02-02"), IonTypes.TIMESTAMP);
-            await updateRecordAndVerifyType(txn, dom.load("abc123"), IonTypes.STRING);
+            await updateRecordAndVerifyType(txn, dom.load("abc123"), IonTypes.SYMBOL);
             await updateRecordAndVerifyType(txn, dom.load("\"string\""), IonTypes.STRING);
             await updateRecordAndVerifyType(txn, dom.load("{{ \"clob\" }}"), IonTypes.CLOB);
             await updateRecordAndVerifyType(txn, dom.load("{{ blob }}"), IonTypes.BLOB);
