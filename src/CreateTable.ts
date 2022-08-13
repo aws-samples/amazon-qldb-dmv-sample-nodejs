@@ -45,7 +45,7 @@ export async function createTable(txn: TransactionExecutor, tableName: string): 
  * Create tables in a QLDB ledger.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<void> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
         await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
