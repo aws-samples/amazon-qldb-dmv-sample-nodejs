@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "@types/node": "^18.6.1",
+    "@types/node": "^18.7.5",
     "amazon-qldb-driver-nodejs": "^2.2.0",
-    "aws-sdk": "^2.1183.0",
+    "aws-sdk": "^2.1195.0",
     "ion-js": "~4.3.0",
     "jsbi": "^3.2.5"
   },
@@ -14,14 +14,14 @@
   "devDependencies": {
     "@types/chai": "^4.3.3",
     "@types/mocha": "^9.1.1",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
-    "@typescript-eslint/parser": "^5.31.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
     "chai": "^4.3.6",
     "cross-env": "^7.0.3",
     "eslint": "^8.20.0",
     "mocha": "^10.0.0",
     "ts-node": "^10.9.1",
-    "typedoc": "^0.23.9",
+    "typedoc": "^0.23.10",
     "typescript": "^4.7.4"
   },
   "scripts": {
