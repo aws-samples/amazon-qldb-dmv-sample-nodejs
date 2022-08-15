@@ -21,6 +21,7 @@
  */
 export const LEDGER_NAME = "vehicle-registration";
 export const LEDGER_NAME_WITH_TAGS = "tags";
+export const LEDGER_NAME_FOR_DELETIONS = "deletions";
 
 export const DRIVERS_LICENSE_TABLE_NAME = "DriversLicense";
 export const PERSON_TABLE_NAME = "Person";

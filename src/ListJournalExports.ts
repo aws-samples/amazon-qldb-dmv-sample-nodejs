@@ -53,7 +53,7 @@ async function listAllJournalExports(qldbClient: QLDB): Promise<void> {
  * List all journal exports for the given ledger.
  * @param ledgerName List all journal exports for the given ledger.
  */
-async function listJournalExports(ledgerName: string): Promise<void> {
+async function listJournalExports(ledgerName: string): Promise<JournalS3ExportDescription[]> {
     log(`Listing journal exports for ledger: ${ledgerName}.`);
 
     const qldbClient: QLDB = new QLDB();
@@ -72,15 +72,16 @@ async function listJournalExports(ledgerName: string): Promise<void> {
     } while (nextToken != null);
 
     log(`Success. List of journal exports: ${JSON.stringify(exportDescriptions)}`);
+    return exportDescriptions;
 }
 
 /**
  * List the journal exports of a given QLDB ledger.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<JournalS3ExportDescription[]> {
     try {
-        await listJournalExports(LEDGER_NAME);
+        return await listJournalExports(LEDGER_NAME);
     } catch (e) {
         error(`Unable to list exports: ${e}`);
     }

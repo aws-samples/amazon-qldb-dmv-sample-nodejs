@@ -26,6 +26,9 @@ import {
     Tags,
     UntagResourceRequest
 } from "aws-sdk/clients/qldb";
+import { waitForActive } from "./CreateLedger";
+import { deleteLedger, waitForDeleted } from "./DeleteLedger";
+import { setDeletionProtection } from "./DeletionProtection";
 
 import { LEDGER_NAME_WITH_TAGS } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
@@ -112,18 +115,29 @@ export async function untagResource(resourceArn: string, tagsKeys: string[], qld
  * Tagging and un-tagging resources, including tag on create.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<Tags[]> {
+    const qldbClient: QLDB = new QLDB();
     try {
-        const qldbClient: QLDB = new QLDB();
+        const tags: Tags[] = [];
         const result: CreateLedgerResponse = await createWithTags(LEDGER_NAME_WITH_TAGS, CREATE_TAGS, qldbClient);
         const arn: string = result.Arn;
-        await listTags(arn, qldbClient);
+
+        tags.push((await listTags(arn, qldbClient)).Tags);
+
         await tagResource(arn, ADD_TAGS, qldbClient);
-        await listTags(arn, qldbClient);
+        tags.push((await listTags(arn, qldbClient)).Tags);
+        
         await untagResource(arn, REMOVE_TAGS, qldbClient);
-        await listTags(arn, qldbClient);
+        tags.push((await listTags(arn, qldbClient)).Tags);
+
+        return tags;
     } catch (e) {
         error(`Unable to tag resources: ${e}`);
+    } finally {
+        await waitForActive(LEDGER_NAME_WITH_TAGS, qldbClient);
+        await setDeletionProtection(LEDGER_NAME_WITH_TAGS, qldbClient, false);
+        await deleteLedger(LEDGER_NAME_WITH_TAGS, qldbClient);
+        await waitForDeleted(LEDGER_NAME_WITH_TAGS, qldbClient);
     }
 }
 

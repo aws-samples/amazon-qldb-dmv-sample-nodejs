@@ -51,7 +51,7 @@ export function getQldbDriver(): QldbDriver {
  * Connect to a session for a given ledger using default settings.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<void> {
     try {
         log("Listing table names...");
         const tableNames: string[] = await qldbDriver.getTableNames();

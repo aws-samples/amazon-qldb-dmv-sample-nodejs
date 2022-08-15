@@ -73,7 +73,7 @@ export async function waitForDeleted(ledgerName: string, qldbClient: QLDB): Prom
  * Delete a ledger.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<void> {
     try {
         const qldbClient: QLDB = new QLDB();
         await setDeletionProtection(LEDGER_NAME, qldbClient, false);

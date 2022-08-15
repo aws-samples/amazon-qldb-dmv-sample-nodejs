@@ -150,7 +150,7 @@ export async function verifyBlock(ledgerName: string, blockAddress: ValueHolder,
  * After getting the block, we get the digest of the ledger and validate the proof returned in the getBlock response.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<void> {
     try {
         const qldbClient: QLDB = new QLDB();
         const qldbDriver: QldbDriver = getQldbDriver();

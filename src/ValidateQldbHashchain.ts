@@ -101,16 +101,17 @@ function verify(journalBlocks: JournalBlock[]): void {
  * chain validation.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(exportId: string = undefined): Promise<void> {
     try {
         const qldbClient = new QLDB();
-        let exportId: string;
-        if (process.argv.length === 3) {
-            exportId = process.argv[2].toString();
-            log(`Validating QLDB hash chain for ExportId: ${exportId}.`);
-        } else {
-            log("Requesting QLDB to create an export.");
-            exportId = await createJournalExport(qldbClient);
+        if (exportId === undefined) {
+            if (process.argv.length === 3) {
+                exportId = process.argv[2].toString();
+                log(`Validating QLDB hash chain for ExportId: ${exportId}.`);
+            } else {
+                log("Requesting QLDB to create an export.");
+                exportId = await createJournalExport(qldbClient);
+            }
         }
         const journalExport: JournalS3ExportDescription =
             (await describeJournalExport(LEDGER_NAME, exportId, qldbClient)).ExportDescription;

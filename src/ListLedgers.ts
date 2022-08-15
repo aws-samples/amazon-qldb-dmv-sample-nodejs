@@ -44,7 +44,7 @@ export async function listLedgers(qldbClient: QLDB): Promise<LedgerSummary[]> {
  * List all QLDB ledgers in a given account.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<void> {
     try {
         const qldbClient: QLDB = new QLDB();
         log("Retrieving all the ledgers...");

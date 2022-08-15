@@ -98,17 +98,18 @@ async function verifyDriverFromLicenseNumber(txn: TransactionExecutor, personId:
  * Renew a driver's license.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<dom.Value[]> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
         const fromDate: Date = new Date("2019-04-19");
         const toDate: Date = new Date("2023-04-19");
         const licenseNumber: string = DRIVERS_LICENSE[0].LicenseNumber;
 
-        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
+        return await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             const personId: string = await getPersonIdFromLicenseNumber(txn, licenseNumber);
             if (await verifyDriverFromLicenseNumber(txn, personId)) {
-                await renewDriversLicense(txn, fromDate, toDate, licenseNumber);
+                const license = await renewDriversLicense(txn, fromDate, toDate, licenseNumber);
+                return license.getResultList();
             }
         });
     } catch (e) {

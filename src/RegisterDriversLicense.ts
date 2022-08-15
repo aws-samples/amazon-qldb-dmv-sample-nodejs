@@ -85,14 +85,15 @@ async function registerNewDriver(txn: TransactionExecutor, driver: any): Promise
  * @param personId The unique personId of the new owner.
  * @returns Promise which fulfills with void.
  */
-async function registerNewDriversLicense(txn: TransactionExecutor, license: any, personId: string): Promise<void> {
+async function registerNewDriversLicense(txn: TransactionExecutor, license: any, personId: string): Promise<dom.Value[]> {
     if (await personHasDriversLicense(txn, personId)) {
         log("Person already has a license! No new license added.");
         return;
     }
     const statement: string = "INSERT INTO DriversLicense ?";
-    await txn.execute(statement, license).then((result: Result) => {
+    return await txn.execute(statement, license).then((result: Result) => {
         log("Successfully registered new license.");
+        return result.getResultList();
     });
 }
 
@@ -100,7 +101,7 @@ async function registerNewDriversLicense(txn: TransactionExecutor, license: any,
  * Register a new driver's license.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<dom.Value[]> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
         let documentId: string;
@@ -120,7 +121,7 @@ const main = async function(): Promise<void> {
             ValidFromDate: new Date("2018-06-30"),
             ValidToDate: new Date("2022-10-30")
         };
-        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
+        return await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             if (await personAlreadyExists(txn, newPerson.GovId)) {
                 log("Person with this GovId already exists.");
                 documentId = await getDocumentId(txn, PERSON_TABLE_NAME, "GovId", newPerson.GovId);
@@ -129,7 +130,7 @@ const main = async function(): Promise<void> {
                 documentId = documentIdResult.getResultList()[0].get("documentId").stringValue();
             }
             newLicense.PersonId = documentId;
-            await registerNewDriversLicense(txn, newLicense, documentId);
+            return await registerNewDriversLicense(txn, newLicense, documentId);
         });
     } catch (e) {
         error(`Unable to register drivers license: ${e}`);
