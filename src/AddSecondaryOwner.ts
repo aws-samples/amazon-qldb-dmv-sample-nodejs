@@ -37,16 +37,17 @@ export async function addSecondaryOwner(
     txn: TransactionExecutor,
     vin: string,
     secondaryOwnerId: string
-): Promise<void> {
+): Promise<dom.Value[]> {
     log(`Inserting secondary owner for vehicle with VIN: ${vin}`);
     const query: string =
         `FROM VehicleRegistration AS v WHERE v.VIN = ? INSERT INTO v.Owners.SecondaryOwners VALUE ?`;
 
     const personToInsert = {PersonId: secondaryOwnerId};
-    await txn.execute(query, vin, personToInsert).then(async (result: Result) => {
+    return await txn.execute(query, vin, personToInsert).then(async (result: Result) => {
         const resultList: dom.Value[] = result.getResultList();
         log("VehicleRegistration Document IDs which had secondary owners added: ");
         prettyPrintResultList(resultList);
+        return resultList;
     });
 }
 
@@ -99,23 +100,25 @@ export async function isSecondaryOwnerForVehicle(
  * Finds and adds secondary owners for a vehicle.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<dom.Value[]> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
         const vin: string = VEHICLE_REGISTRATION[1].VIN;
         const govId: string = PERSON[0].GovId;
 
-        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
+        let registration = await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             const documentId: string = await getDocumentIdByGovId(txn, govId);
 
             if (await isSecondaryOwnerForVehicle(txn, vin, documentId)) {
                 log(`Person with ID ${documentId} has already been added as a secondary owner of this vehicle.`);
             } else {
-                await addSecondaryOwner(txn, vin, documentId);
+                return await addSecondaryOwner(txn, vin, documentId);
             }
         });
 
         log("Secondary owners successfully updated.");
+
+        return registration;
     } catch (e) {
         error(`Unable to add secondary owner: ${e}`);
     }

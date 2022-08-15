@@ -32,15 +32,16 @@ import { prettyPrintResultList } from "./ScanTable";
  * @param govId The owner's government ID.
  * @returns Promise which fulfills with void.
  */
-async function findVehiclesForOwner(txn: TransactionExecutor, govId: string): Promise<void> {
+async function findVehiclesForOwner(txn: TransactionExecutor, govId: string): Promise<dom.Value[]> {
     const documentId: string = await getDocumentId(txn, PERSON_TABLE_NAME, "GovId", govId);
     const query: string = "SELECT Vehicle FROM Vehicle INNER JOIN VehicleRegistration AS r " +
                         "ON Vehicle.VIN = r.VIN WHERE r.Owners.PrimaryOwner.PersonId = ?";
 
-    await txn.execute(query, documentId).then((result: Result) => {
+    return await txn.execute(query, documentId).then((result: Result) => {
         const resultList: dom.Value[] = result.getResultList();
         log(`List of vehicles for owner with GovId: ${govId}`);
         prettyPrintResultList(resultList);
+        return resultList;
     });
 }
 
@@ -48,11 +49,11 @@ async function findVehiclesForOwner(txn: TransactionExecutor, govId: string): Pr
  * Find all vehicles registered under a person.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<dom.Value[]> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
-        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
-            await findVehiclesForOwner(txn, PERSON[0].GovId);
+        return await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
+            return await findVehiclesForOwner(txn, PERSON[0].GovId);
         });
     } catch (e) {
         error(`Error getting vehicles for owner: ${e}`);

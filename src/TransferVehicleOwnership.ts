@@ -77,16 +77,17 @@ export async function findPrimaryOwnerForVehicle(txn: TransactionExecutor, vin: 
  * @param documentId New PersonId for the primary owner.
  * @returns Promise which fulfills with void.
  */
-async function updateVehicleRegistration(txn: TransactionExecutor, vin: string, documentId: string): Promise<void> {
+async function updateVehicleRegistration(txn: TransactionExecutor, vin: string, documentId: string): Promise<dom.Value[]> {
     const statement: string = "UPDATE VehicleRegistration AS r SET r.Owners.PrimaryOwner.PersonId = ? WHERE r.VIN = ?";
 
     log(`Updating the primary owner for vehicle with VIN: ${vin}...`);
-    await txn.execute(statement, documentId, vin).then((result: Result) => {
+    return await txn.execute(statement, documentId, vin).then((result: Result) => {
         const resultList: dom.Value[] = result.getResultList();
         if (resultList.length === 0) {
             throw new Error("Unable to transfer vehicle, could not find registration.");
         }
         log(`Successfully transferred vehicle with VIN ${vin} to new owner.`);
+        return resultList;
     });
 }
 
@@ -102,7 +103,7 @@ export async function validateAndUpdateRegistration(
     vin: string,
     currentOwner: string,
     newOwner: string
-): Promise<void> {
+): Promise<dom.Value[]> {
     const primaryOwner: dom.Value = await findPrimaryOwnerForVehicle(txn, vin);
     const govIdValue: dom.Value = primaryOwner.get("GovId");
     if (govIdValue !== null && govIdValue.stringValue() !== currentOwner) {
@@ -110,8 +111,9 @@ export async function validateAndUpdateRegistration(
     }
     else {
         const documentId: string = await getDocumentId(txn, PERSON_TABLE_NAME, "GovId", newOwner);
-        await updateVehicleRegistration(txn, vin, documentId);
+        const registration = await updateVehicleRegistration(txn, vin, documentId);
         log("Successfully transferred vehicle ownership!");
+        return registration;
     }
 }
 
@@ -120,7 +122,7 @@ export async function validateAndUpdateRegistration(
  * Transfer to another primary owner for a particular vehicle's VIN.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<dom.Value[]> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
 
@@ -128,8 +130,8 @@ const main = async function(): Promise<void> {
         const previousOwnerGovId: string = PERSON[0].GovId;
         const newPrimaryOwnerGovId: string = PERSON[1].GovId;
 
-        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
-            await validateAndUpdateRegistration(txn, vin, previousOwnerGovId,  newPrimaryOwnerGovId);
+        return await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
+            return await validateAndUpdateRegistration(txn, vin, previousOwnerGovId,  newPrimaryOwnerGovId);
         });
     } catch (e) {
         error(`Unable to connect and run queries: ${e}`);

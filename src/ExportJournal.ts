@@ -348,7 +348,7 @@ async function waitForExportToComplete(
  * https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(bypassArgv: boolean = false): Promise<ExportJournalToS3Response> {
     try {
         const s3Client: S3 = new S3();
         const sts: STS = new STS();
@@ -358,7 +358,7 @@ const main = async function(): Promise<void> {
         let kmsArn: string = null;
         let roleArn: string = null;
 
-        if (process.argv.length >= 3) {
+        if (!bypassArgv && process.argv.length >= 3) {
             s3BucketName = process.argv[2].toString();
             if (process.argv.length >= 4) {
                 roleArn = process.argv[3].toString();
@@ -381,6 +381,7 @@ const main = async function(): Promise<void> {
             roleArn,
             qldbClient
         );
+        return exportResult;
     } catch (e) {
         error(`Unable to create an export: ${e}`);
     }

@@ -51,15 +51,17 @@ export async function describeJournalExport(
  * Describe a specific journal export with the given ExportId.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(exportId: string = undefined): Promise<DescribeJournalS3ExportResponse> {
     const qldbClient: QLDB = new QLDB();
     try {
-        if (process.argv.length !== 3) {
-            throw new ReferenceError("Missing ExportId argument in DescribeJournalExport.");
+        if (exportId == undefined) {
+            if (process.argv.length !== 3) {
+                throw new ReferenceError("Missing ExportId argument in DescribeJournalExport.");
+            }
+            exportId = process.argv[2].toString();
         }
-        const exportId: string = process.argv[2].toString();
         log(`Running describe export journal tutorial with ExportId: ${exportId}.`);
-        await describeJournalExport(LEDGER_NAME, exportId, qldbClient);
+        return await describeJournalExport(LEDGER_NAME, exportId, qldbClient);
     } catch (e) {
         error(`Unable to describe an export: ${e}`);
     }

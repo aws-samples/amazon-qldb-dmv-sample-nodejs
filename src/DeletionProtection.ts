@@ -59,7 +59,7 @@ export async function setDeletionProtection(
     ledgerName: string, 
     qldbClient: QLDB, 
     deletionProtection: boolean
-): Promise<void> {
+): Promise<UpdateLedgerResponse> {
     log(`Let's set deletion protection to ${deletionProtection} for the ledger with name ${ledgerName}.`);
     const request: UpdateLedgerRequest = {
         Name: ledgerName,
@@ -67,24 +67,26 @@ export async function setDeletionProtection(
     };
     const result: UpdateLedgerResponse = await qldbClient.updateLedger(request).promise();
     log(`Success. Ledger updated: ${JSON.stringify(result)}."`);
+    return result;
 }
 
 /**
  * Demonstrate the protection of QLDB ledgers against deletion.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(ledgerName: string = LEDGER_NAME): Promise<UpdateLedgerResponse> {
     try {
         const qldbClient: QLDB = new QLDB();
-        await createWithDeletionProtection(LEDGER_NAME, qldbClient);
-        await waitForActive(LEDGER_NAME, qldbClient);
-        await deleteLedger(LEDGER_NAME, qldbClient).catch((error: AWSError) => {
+        await createWithDeletionProtection(ledgerName, qldbClient);
+        await waitForActive(ledgerName, qldbClient);
+        await deleteLedger(ledgerName, qldbClient).catch((error: AWSError) => {
             if (isResourcePreconditionNotMetException(error)) {
                 log("Ledger protected against deletions!");
             }
         });
-        await setDeletionProtection(LEDGER_NAME, qldbClient, false);
-        await deleteLedger(LEDGER_NAME, qldbClient);
+        const updateDeletionProtectionResult = await setDeletionProtection(ledgerName, qldbClient, false);
+        await deleteLedger(ledgerName, qldbClient);
+        return updateDeletionProtectionResult;
     } catch (e) {
         error(`Unable to update or delete the ledger: ${e}`);
     }

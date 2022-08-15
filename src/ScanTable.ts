@@ -48,7 +48,7 @@ export async function scanTableForDocuments(txn: TransactionExecutor, tableName:
  * Scan for all the documents in a table.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<void> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
         await qldbDriver.getTableNames().then(async (listOfTables: string[]) => {

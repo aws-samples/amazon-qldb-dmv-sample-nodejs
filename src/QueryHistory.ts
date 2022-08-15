@@ -32,7 +32,7 @@ import { getDocumentId } from "./qldb/Util";
  * @param vin The VIN to find previous primary owners for.
  * @returns Promise which fulfills with void.
  */
-async function previousPrimaryOwners(txn: TransactionExecutor, vin: string): Promise<void> {
+async function previousPrimaryOwners(txn: TransactionExecutor, vin: string): Promise<dom.Value[]> {
     const documentId: string = await getDocumentId(txn, VEHICLE_REGISTRATION_TABLE_NAME, "VIN", vin);
     const todaysDate: Date = new Date();
     // set todaysDate back one minute to ensure end time is in the past 
@@ -46,10 +46,11 @@ async function previousPrimaryOwners(txn: TransactionExecutor, vin: string): Pro
         `(${VEHICLE_REGISTRATION_TABLE_NAME}, \`${threeMonthsAgo.toISOString()}\`, \`${todaysDate.toISOString()}\`) ` +
         `AS h WHERE h.metadata.id = ?`;
 
-    await txn.execute(query, documentId).then((result: Result) => {
+    return await txn.execute(query, documentId).then((result: Result) => {
         log(`Querying the 'VehicleRegistration' table's history using VIN: ${vin}.`);
         const resultList: dom.Value[] = result.getResultList();
         prettyPrintResultList(resultList);
+        return resultList;
     });
 }
 
@@ -57,12 +58,12 @@ async function previousPrimaryOwners(txn: TransactionExecutor, vin: string): Pro
  * Query a table's history for a particular set of documents.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<dom.Value[]> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
         const vin: string = VEHICLE_REGISTRATION[0].VIN;
-        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
-            await previousPrimaryOwners(txn, vin);
+        return await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
+            return await previousPrimaryOwners(txn, vin);
         });
     } catch (e) {
         error(`Unable to query history to find previous owners: ${e}`);

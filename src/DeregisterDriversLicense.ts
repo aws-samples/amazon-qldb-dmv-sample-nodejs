@@ -29,16 +29,17 @@ import { error, log } from "./qldb/LogUtil";
  * @param licenseNumber The license number of the driver's license to de-register.
  * @returns Promise which fulfills with void.
  */
-export async function deregisterDriversLicense(txn: TransactionExecutor, licenseNumber: string): Promise<void> {
+export async function deregisterDriversLicense(txn: TransactionExecutor, licenseNumber: string): Promise<dom.Value[]> {
     const statement: string = "DELETE FROM DriversLicense AS d WHERE d.LicenseNumber = ?";
 
-    await txn.execute(statement, licenseNumber).then((result: Result) => {
+    return await txn.execute(statement, licenseNumber).then((result: Result) => {
         const resultList: dom.Value[] = result.getResultList();
         if (resultList.length !== 0) {
             log(`Successfully de-registered license: ${licenseNumber}.`);
         } else {
             log(`Error de-registering license, license ${licenseNumber} not found.`);
         }
+        return resultList;
     });
 }
 
@@ -46,11 +47,11 @@ export async function deregisterDriversLicense(txn: TransactionExecutor, license
  * De-register a driver's license.
  * @returns Promise which fulfills with void.
  */
-const main = async function(): Promise<void> {
+export const main = async function(): Promise<dom.Value[]> {
     try {
         const qldbDriver: QldbDriver = getQldbDriver();
-        await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
-            await deregisterDriversLicense(txn, DRIVERS_LICENSE[1].LicenseNumber);
+        return await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
+            return await deregisterDriversLicense(txn, DRIVERS_LICENSE[1].LicenseNumber);
         });
     } catch (e) {
         error(`Error de-registering driver's license: ${e}`);
