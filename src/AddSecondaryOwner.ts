@@ -106,7 +106,7 @@ export const main = async function(): Promise<dom.Value[]> {
         const vin: string = VEHICLE_REGISTRATION[1].VIN;
         const govId: string = PERSON[0].GovId;
 
-        let registration = await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
+        const registration = await qldbDriver.executeLambda(async (txn: TransactionExecutor) => {
             const documentId: string = await getDocumentIdByGovId(txn, govId);
 
             if (await isSecondaryOwnerForVehicle(txn, vin, documentId)) {
