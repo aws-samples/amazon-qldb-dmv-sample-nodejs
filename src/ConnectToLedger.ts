@@ -16,6 +16,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import { Agent } from 'https';
 import { QldbDriver, RetryConfig  } from "amazon-qldb-driver-nodejs";
 import { ClientConfiguration } from "aws-sdk/clients/qldbsession";
 
@@ -36,9 +37,15 @@ export function createQldbDriver(
 ): QldbDriver {
     const retryLimit = 4;
     const maxConcurrentTransactions = 10;
+    const lowLevelClientHttpOptions: NodeHttpHandlerOptions = {
+        httpAgent: new Agent({
+          keepAlive: true,
+          maxSockets: maxConcurrentTransactions
+        })
+    };
     //Use driver's default backoff function (and hence, no second parameter provided to RetryConfig)
     const retryConfig: RetryConfig  = new RetryConfig(retryLimit);
-    const qldbDriver: QldbDriver = new QldbDriver(ledgerName, serviceConfigurationOptions, 10, retryConfig);
+    const qldbDriver: QldbDriver = new QldbDriver(ledgerName, lowLevelClientHttpOptions, serviceConfigurationOptions, 10, retryConfig);
     return qldbDriver;
 }
 
