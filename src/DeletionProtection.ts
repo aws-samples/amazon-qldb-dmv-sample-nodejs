@@ -17,13 +17,14 @@
  */
 
 import { isResourcePreconditionNotMetException } from "amazon-qldb-driver-nodejs";
-import { AWSError, QLDB } from "aws-sdk";
+import { QLDB } from "aws-sdk";
 import {
     CreateLedgerRequest,
     CreateLedgerResponse,
     UpdateLedgerRequest,
     UpdateLedgerResponse
 } from "aws-sdk/clients/qldb";
+import { ServiceException } from "@aws-sdk/smithy-client";
 
 import { waitForActive } from "./CreateLedger"
 import { deleteLedger } from "./DeleteLedger"
@@ -79,7 +80,7 @@ export const main = async function(ledgerName: string = LEDGER_NAME): Promise<Up
         const qldbClient: QLDB = new QLDB();
         await createWithDeletionProtection(ledgerName, qldbClient);
         await waitForActive(ledgerName, qldbClient);
-        await deleteLedger(ledgerName, qldbClient).catch((error: AWSError) => {
+        await deleteLedger(ledgerName, qldbClient).catch((error: ServiceException) => {
             if (isResourcePreconditionNotMetException(error)) {
                 log("Ledger protected against deletions!");
             }

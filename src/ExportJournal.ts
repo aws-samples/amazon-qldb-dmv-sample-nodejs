@@ -17,7 +17,7 @@
  */
 
 import { isInvalidParameterException } from "amazon-qldb-driver-nodejs";
-import { AWSError, IAM, QLDB, S3, STS } from "aws-sdk";
+import { IAM, QLDB, S3, STS } from "aws-sdk";
 import {
     AttachRolePolicyRequest,
     CreatePolicyRequest,
@@ -34,6 +34,7 @@ import {
 } from "aws-sdk/clients/qldb";
 import { CreateBucketRequest, HeadBucketRequest } from "aws-sdk/clients/s3";
 import { GetCallerIdentityRequest, GetCallerIdentityResponse } from "aws-sdk/clients/sts";
+import { ServiceException } from "@aws-sdk/smithy-client";
 
 import { describeJournalExport } from './DescribeJournalExport';
 import { JOURNAL_EXPORT_S3_BUCKET_NAME_PREFIX, LEDGER_NAME } from './qldb/Constants';
@@ -104,7 +105,7 @@ async function createExport(
         },
         RoleArn: roleArn
     };
-    const result: ExportJournalToS3Response = await qldbClient.exportJournalToS3(request).promise().catch((err: AWSError ) => {
+    const result: ExportJournalToS3Response = await qldbClient.exportJournalToS3(request).promise().catch((err: ServiceException ) => {
         if (isInvalidParameterException(err)) {
             error(
                 "The eventually consistent behavior of the IAM service may cause this export to fail its first " +
@@ -252,8 +253,8 @@ async function doesBucketExist(bucketName: string, s3Client: S3): Promise<boolea
         Bucket: bucketName
     };
     let doesBucketExist: boolean = true;
-    await s3Client.headBucket(request).promise().catch((err: AWSError) => {
-        if (err.code === 'NotFound') {
+    await s3Client.headBucket(request).promise().catch((err: ServiceException) => {
+        if (err.message === 'NotFound') {
             doesBucketExist = false;
         }
     });
