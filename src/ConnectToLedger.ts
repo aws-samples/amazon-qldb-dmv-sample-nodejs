@@ -19,6 +19,7 @@
 import { Agent } from 'https';
 import { QldbDriver, RetryConfig  } from "amazon-qldb-driver-nodejs";
 import { ClientConfiguration } from "aws-sdk/clients/qldbsession";
+import { NodeHttpHandlerOptions } from "@aws-sdk/node-http-handler";
 
 import { LEDGER_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
@@ -45,7 +46,7 @@ export function createQldbDriver(
     };
     //Use driver's default backoff function (and hence, no second parameter provided to RetryConfig)
     const retryConfig: RetryConfig  = new RetryConfig(retryLimit);
-    const qldbDriver: QldbDriver = new QldbDriver(ledgerName, lowLevelClientHttpOptions, serviceConfigurationOptions, 10, retryConfig);
+    const qldbDriver: QldbDriver = new QldbDriver(ledgerName, serviceConfigurationOptions, lowLevelClientHttpOptions, 10, retryConfig);
     return qldbDriver;
 }
 
