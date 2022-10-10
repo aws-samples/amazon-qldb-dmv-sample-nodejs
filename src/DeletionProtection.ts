@@ -29,9 +29,6 @@ import { waitForActive } from "./CreateLedger"
 import { deleteLedger } from "./DeleteLedger"
 import { error, log } from "./qldb/LogUtil";
 
-import { 
-    AWS_REGION,
-} from "./qldb/Constants";
 const LEDGER_NAME = "deletion-protection-demo";
 
 /**
@@ -79,7 +76,7 @@ export async function setDeletionProtection(
  */
 export const main = async function(ledgerName: string = LEDGER_NAME): Promise<UpdateLedgerResponse> {
     try {
-        const qldbClient: QLDB = new QLDB({region: AWS_REGION});
+        const qldbClient: QLDB = new QLDB({ });
         await createWithDeletionProtection(ledgerName, qldbClient);
         await waitForActive(ledgerName, qldbClient);
         await deleteLedger(ledgerName, qldbClient).catch((error: ServiceException) => {

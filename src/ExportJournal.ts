@@ -17,10 +17,22 @@
  */
 
 import { isInvalidParameterException } from "amazon-qldb-driver-nodejs";
-import { STS } from '@aws-sdk/client-sts';
-import { IAM } from '@aws-sdk/client-iam';
-import { CreateBucketCommand, S3, S3Client, HeadBucketCommand } from '@aws-sdk/client-s3';
+import { 
+    STS,
+    GetCallerIdentityRequest,
+    GetCallerIdentityResponse,
+} from '@aws-sdk/client-sts';
+import { 
+    S3,
+    CreateBucketCommand,
+    S3Client,
+    HeadBucketCommand,
+    CreateBucketRequest,
+    HeadBucketRequest,
+    HeadBucketCommandOutput,
+} from '@aws-sdk/client-s3';
 import {
+    IAM,
     AttachRolePolicyRequest,
     CreatePolicyRequest,
     CreatePolicyResponse,
@@ -34,22 +46,14 @@ import {
     ExportJournalToS3Response,
     JournalS3ExportDescription,
     S3EncryptionConfiguration,
+    ExportJournalToS3Command,
  } from "@aws-sdk/client-qldb";
-import { 
-    CreateBucketRequest,
-    HeadBucketRequest,
-} from "@aws-sdk/client-s3";
-import {
-    GetCallerIdentityRequest,
-    GetCallerIdentityResponse,
-} from "@aws-sdk/client-sts";
 import { ServiceException } from "@aws-sdk/smithy-client";
 
 import { describeJournalExport } from './DescribeJournalExport';
 import { 
     JOURNAL_EXPORT_S3_BUCKET_NAME_PREFIX,
     LEDGER_NAME,
-    AWS_REGION
 } from './qldb/Constants';
 import { error, log } from "./qldb/LogUtil";
 import { sleep } from "./qldb/Util";
@@ -118,7 +122,8 @@ async function createExport(
         },
         RoleArn: roleArn
     };
-    const result: ExportJournalToS3Response = await qldbClient.exportJournalToS3(request).catch((err: ServiceException ) => {
+    const ExportJournalRequeset = new ExportJournalToS3Command(request);
+    const result: ExportJournalToS3Response = await qldbClient.send(ExportJournalRequeset).catch((err: ServiceException ) => {
         if (isInvalidParameterException(err)) {
             error(
                 "The eventually consistent behavior of the IAM service may cause this export to fail its first " +
@@ -172,6 +177,7 @@ export async function createExportAndWaitForCompletion(
         return result;
     } catch (e) {
         error("Unable to create an export!");
+        error(JSON.stringify(e));
         throw e;
     }
 }
@@ -191,7 +197,7 @@ async function createExportRole(
     rolePolicyName: string,
     s3BucketName: string
 ): Promise<string> {
-    const iAmClient: IAM = new IAM({region: AWS_REGION});
+    const iAmClient: IAM = new IAM({ });
     log(`Trying to retrieve role with name: ${roleName}`);
     let newRoleArn: string = "";
     try {
@@ -240,7 +246,9 @@ async function createExportRole(
  * @returns Promise which fulfills with void.
  */
 export async function createS3BucketIfNotExists(bucketName: string, s3Client: S3Client): Promise<void> {
-    if (!(await doesBucketExist(bucketName, s3Client))) {
+    log(`Creating bucket: ${bucketName} if it doesnt exist`);
+    const bucketExists = await doesBucketExist(bucketName, s3Client);
+    if (!(bucketExists)) {
         log(`Bucket ${bucketName} does not exist. Creating it now.`);
         try {
             const request: CreateBucketRequest = {
@@ -263,14 +271,27 @@ export async function createS3BucketIfNotExists(bucketName: string, s3Client: S3
  */
 async function doesBucketExist(bucketName: string, s3Client: S3Client): Promise<boolean> {
     const request: HeadBucketRequest = {
-        Bucket: bucketName
+        Bucket: bucketName,
     };
     let doesBucketExist: boolean = true;
-    await s3Client.send( new HeadBucketCommand(request)).catch((err: ServiceException) => {
+    log(`Probing if ${bucketName} head exists`);
+    const response: void | HeadBucketCommandOutput = await s3Client.send( new HeadBucketCommand(request))
+    .then((response: HeadBucketCommandOutput) => {
+        log('S3 bucket head probe success');
+        log(JSON.stringify(response));
+    },(response: HeadBucketCommandOutput) => {
+        log('S3 bucket head probe partially failed');
+        log(JSON.stringify(response));
+        doesBucketExist = false;
+    })
+    .catch((err: ServiceException) => {
+        log('S3 bucket head probe failed');
         if (err.message === 'NotFound') {
             doesBucketExist = false;
         }
     });
+    log('returning doesBucketExist');
+    // doesBucketExist = response !== undefined ? false : true;
     return doesBucketExist;
 }
 
@@ -364,9 +385,10 @@ async function waitForExportToComplete(
  */
 export const main = async function(bypassArgv: boolean = false): Promise<ExportJournalToS3Response> {
     try {
-        const s3Client: S3 = new S3({});
-        const sts: STS = new STS({});
-        const qldbClient: QLDB = new QLDB({});
+        const s3Client: S3Client = new S3({ });
+        const sts: STS = new STS({ });
+        const qldbClient: QLDB = new QLDB({ });
+        const resolvedRegion = await qldbClient.config.region();
 
         let s3BucketName: string = null;
         let kmsArn: string = null;
@@ -383,8 +405,10 @@ export const main = async function(bypassArgv: boolean = false): Promise<ExportJ
         } else {
             const request: GetCallerIdentityRequest = {};
             const identity: GetCallerIdentityResponse = await sts.getCallerIdentity(request);
-            s3BucketName = `${JOURNAL_EXPORT_S3_BUCKET_NAME_PREFIX}-${identity.Account}`;
+            console.log('resolveRegionConfig',resolvedRegion);
+            s3BucketName = `${JOURNAL_EXPORT_S3_BUCKET_NAME_PREFIX}-${identity.Account}-${resolvedRegion}`;
         }
+        console.log('amihere',resolvedRegion,s3BucketName);
         await createS3BucketIfNotExists(s3BucketName, s3Client);
         const s3EncryptionConfig: S3EncryptionConfiguration = setUpS3EncryptionConfiguration(kmsArn);
         const exportResult: ExportJournalToS3Response = await createExportAndWaitForCompletion(

@@ -25,7 +25,7 @@ import {
     ListJournalS3ExportsResponse
  } from "@aws-sdk/client-qldb";
 
-import { AWS_REGION, LEDGER_NAME } from './qldb/Constants';
+import { LEDGER_NAME } from './qldb/Constants';
 import { error, log } from "./qldb/LogUtil";
 
 const MAX_RESULTS = 2;
@@ -56,7 +56,7 @@ async function listAllJournalExports(qldbClient: QLDB): Promise<void> {
 async function listJournalExports(ledgerName: string): Promise<JournalS3ExportDescription[]> {
     log(`Listing journal exports for ledger: ${ledgerName}.`);
 
-    const qldbClient: QLDB = new QLDB({ region: AWS_REGION });
+    const qldbClient: QLDB = new QLDB({ });
     const exportDescriptions: JournalS3ExportDescription[] = [];
     let nextToken: string = null;
     do {

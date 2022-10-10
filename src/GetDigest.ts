@@ -22,7 +22,7 @@ import {
     GetDigestResponse,
  } from "@aws-sdk/client-qldb";
 
-import { LEDGER_NAME, AWS_REGION } from "./qldb/Constants";
+import { LEDGER_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
 import { digestResponseToString } from "./qldb/Util";
 
@@ -46,7 +46,7 @@ export async function getDigestResult(ledgerName: string, qldbClient: QLDB): Pro
  */
 export const main = async function(): Promise<GetDigestResponse> {
     try {
-        const qldbClient: QLDB = new QLDB({ region: AWS_REGION });
+        const qldbClient: QLDB = new QLDB({ });
         log(`Retrieving the current digest for ledger: ${LEDGER_NAME}.`);
         const digest: GetDigestResponse = await getDigestResult(LEDGER_NAME, qldbClient);
         log(`Success. Ledger digest: \n${digestResponseToString(digest)}.`);

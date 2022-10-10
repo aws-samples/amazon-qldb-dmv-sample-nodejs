@@ -24,6 +24,7 @@
         "no-constant-condition": [
             "error", { "checkLoops": false }
         ],
-        "require-atomic-updates": "off"
+        "require-atomic-updates": "off",
+        "object-curly-spacing": [ 2, "always" ]
     }
 }

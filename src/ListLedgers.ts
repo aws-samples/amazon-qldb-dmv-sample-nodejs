@@ -22,7 +22,6 @@ import {
     ListLedgersRequest,
     ListLedgersResponse,
  } from "@aws-sdk/client-qldb";
-import { AWS_REGION } from "./qldb/Constants";
 
 import { error, log } from "./qldb/LogUtil";
 
@@ -51,7 +50,7 @@ export async function listLedgers(qldbClient: QLDB): Promise<LedgerSummary[]> {
  */
 export const main = async function(): Promise<void> {
     try {
-        const qldbClient: QLDB = new QLDB({ region: AWS_REGION });
+        const qldbClient: QLDB = new QLDB({ });
         log("Retrieving all the ledgers...");
         const result: LedgerSummary[] = await listLedgers(qldbClient);
         log(`Success. List of ledgers: ${JSON.stringify(result)}`);

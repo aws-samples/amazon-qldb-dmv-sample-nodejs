@@ -21,10 +21,7 @@ import { QLDB,
     DescribeJournalS3ExportResponse,
  } from "@aws-sdk/client-qldb";
 
-import { 
-    LEDGER_NAME,
-    AWS_REGION
-} from './qldb/Constants';
+import { LEDGER_NAME } from './qldb/Constants';
 import { error, log } from "./qldb/LogUtil";
 
 /**
@@ -54,7 +51,7 @@ export async function describeJournalExport(
  * @returns Promise which fulfills with void.
  */
 export const main = async function(exportId: string = undefined): Promise<DescribeJournalS3ExportResponse> {
-    const qldbClient: QLDB = new QLDB({region: AWS_REGION});
+    const qldbClient: QLDB = new QLDB({ });
     try {
         if (exportId == undefined) {
             if (process.argv.length !== 3) {

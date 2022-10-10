@@ -40,7 +40,7 @@ export function blockAddressToValueHolder(value: dom.Value): ValueHolder {
     const strandId: string = getStrandId(blockAddressValue);
     const sequenceNo: number = getSequenceNo(blockAddressValue);
     const valueHolder: string = `{strandId: "${strandId}", sequenceNo: ${sequenceNo}}`;
-    const blockAddress: ValueHolder = {IonText: valueHolder};
+    const blockAddress: ValueHolder = { IonText: valueHolder };
     return blockAddress;
 }
 

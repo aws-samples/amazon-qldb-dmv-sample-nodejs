@@ -24,7 +24,7 @@ import { getQldbDriver } from "./ConnectToLedger";
 import { lookupRegistrationForVin } from "./GetRevision";
 import { VEHICLE_REGISTRATION } from "./model/SampleData";
 import { blockAddressToValueHolder } from './qldb/BlockAddress';
-import { AWS_REGION, LEDGER_NAME } from './qldb/Constants';
+import { LEDGER_NAME } from './qldb/Constants';
 import { error, log } from "./qldb/LogUtil";
 import { blockResponseToString, valueHolderToString } from "./qldb/Util";
 import { flipRandomBit, parseBlock, verifyDocument } from "./qldb/Verifier";
@@ -90,7 +90,7 @@ export async function verifyBlock(ledgerName: string, blockAddress: ValueHolder,
     log(`Let's verify blocks for ledger with name = ${ledgerName}.`);
     try {
         log("First, let's get a digest.");
-        const digestCommandInput: GetDigestCommandInput = {Name: ledgerName};
+        const digestCommandInput: GetDigestCommandInput = { Name: ledgerName };
         const digestResult: GetDigestResponse = await qldbClient.send( new GetDigestCommand(digestCommandInput));
         const digestBytes: GetDigestResponse["Digest"] = digestResult.Digest;
         const digestTipAddress: ValueHolder = digestResult.DigestTipAddress;
@@ -151,7 +151,7 @@ export async function verifyBlock(ledgerName: string, blockAddress: ValueHolder,
  */
 export const main = async function(): Promise<void> {
     try {
-        const qldbClient: QLDB = new QLDB({region:AWS_REGION});
+        const qldbClient: QLDB = new QLDB({ });
         const qldbDriver: QldbDriver = getQldbDriver();
 
         const registration = VEHICLE_REGISTRATION[1];

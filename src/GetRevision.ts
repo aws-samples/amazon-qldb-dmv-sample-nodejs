@@ -30,7 +30,7 @@ import { getQldbDriver } from "./ConnectToLedger";
 import { getDigestResult } from './GetDigest';
 import { VEHICLE_REGISTRATION } from "./model/SampleData"
 import { blockAddressToValueHolder, getMetadataId } from './qldb/BlockAddress';
-import { AWS_REGION, LEDGER_NAME } from './qldb/Constants';
+import { LEDGER_NAME } from './qldb/Constants';
 import { error, log } from "./qldb/LogUtil";
 import { getBlobValue, valueHolderToString } from "./qldb/Util";
 import { flipRandomBit, verifyDocument } from "./qldb/Verifier";
@@ -153,7 +153,7 @@ export async function verifyRegistration(
  */
 export const main = async function(): Promise<void> {
     try {
-        const qldbClient: QLDB = new QLDB({ region: AWS_REGION });
+        const qldbClient: QLDB = new QLDB({ });
         const qldbDriver: QldbDriver = getQldbDriver();
 
         const registration = VEHICLE_REGISTRATION[0];

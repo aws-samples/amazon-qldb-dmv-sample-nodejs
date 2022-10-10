@@ -22,7 +22,7 @@ import {
     DescribeLedgerResponse,
 } from "@aws-sdk/client-qldb";
 
-import { LEDGER_NAME, AWS_REGION } from "./qldb/Constants";
+import { LEDGER_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
 
 /**
@@ -46,7 +46,7 @@ export async function describeLedger(ledgerName: string, qldbClient: QLDB): Prom
  */
 export const main = async function(): Promise<DescribeLedgerResponse> {
     try {
-        const qldbClient: QLDB = new QLDB({region: AWS_REGION});
+        const qldbClient: QLDB = new QLDB({ });
         return await describeLedger(LEDGER_NAME, qldbClient);
     } catch (e) {
         error(`Unable to describe a ledger: ${e}`);

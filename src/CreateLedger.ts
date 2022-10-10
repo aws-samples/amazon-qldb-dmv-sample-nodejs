@@ -23,7 +23,7 @@ import { QLDB,
     DescribeLedgerResponse
  } from "@aws-sdk/client-qldb";
 
-import { LEDGER_NAME, AWS_REGION } from "./qldb/Constants";
+import { LEDGER_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
 import { sleep } from "./qldb/Util";
 
@@ -75,7 +75,7 @@ export async function waitForActive(ledgerName: string, qldbClient: QLDB): Promi
  */
 export const main = async function(): Promise<void> {
     try {
-        const qldbClient: QLDB = new QLDB({region: AWS_REGION});
+        const qldbClient: QLDB = new QLDB({ });
         await createLedger(LEDGER_NAME, qldbClient);
         await waitForActive(LEDGER_NAME, qldbClient);
     } catch (e) {

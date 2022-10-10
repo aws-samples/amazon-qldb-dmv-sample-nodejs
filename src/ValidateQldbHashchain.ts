@@ -37,14 +37,13 @@ import {
 import { 
     JOURNAL_EXPORT_S3_BUCKET_NAME_PREFIX,
     LEDGER_NAME,
-    AWS_REGION,
 } from './qldb/Constants';
 import { JournalBlock } from "./qldb/JournalBlock";
 import { readExport } from "./qldb/JournalS3ExportReader";
 import { error, log } from "./qldb/LogUtil";
 import { joinHashesPairwise } from "./qldb/Verifier";
 
-const s3Client: S3Client = new S3Client({region: AWS_REGION});
+const s3Client: S3Client = new S3Client({ });
 
 /**
  * Compare the hash values on the given journal blocks.
@@ -72,7 +71,7 @@ function compareJournalBlocks(previousJournalBlock: JournalBlock, journalBlock: 
  * @returns The ExportId for the journal export.
  */
 async function createJournalExport(qldbClient: QLDB): Promise<string> {
-    const sts: STS = new STS({region: AWS_REGION});
+    const sts: STS = new STS({ });
     const request: GetCallerIdentityRequest = {};
     const identity: GetCallerIdentityResponse = await sts.getCallerIdentity(request);
 
@@ -113,7 +112,7 @@ function verify(journalBlocks: JournalBlock[]): void {
  */
 export const main = async function(exportId: string = undefined): Promise<void> {
     try {
-        const qldbClient = new QLDB({region: AWS_REGION});
+        const qldbClient = new QLDB({ });
         if (exportId === undefined) {
             if (process.argv.length === 3) {
                 exportId = process.argv[2].toString();

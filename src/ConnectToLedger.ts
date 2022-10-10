@@ -40,13 +40,12 @@ export function createQldbDriver(
     const maxConcurrentTransactions = 10;
     const lowLevelClientHttpOptions: NodeHttpHandlerOptions = {
         httpAgent: new Agent({
-          keepAlive: true,
           maxSockets: maxConcurrentTransactions
         })
     };
     //Use driver's default backoff function (and hence, no second parameter provided to RetryConfig)
     const retryConfig: RetryConfig  = new RetryConfig(retryLimit);
-    const qldbDriver: QldbDriver = new QldbDriver(ledgerName,serviceConfigurationOptions, lowLevelClientHttpOptions, 10, retryConfig);
+    const qldbDriver: QldbDriver = new QldbDriver(ledgerName,serviceConfigurationOptions, lowLevelClientHttpOptions, maxConcurrentTransactions, retryConfig);
     return qldbDriver;
 }
 

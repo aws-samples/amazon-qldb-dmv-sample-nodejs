@@ -19,7 +19,6 @@
 /**
  * Constant values used throughout this tutorial.
  */
-export const AWS_REGION = "us-west-2";
 export const LEDGER_NAME = "vehicle-registration";
 export const LEDGER_NAME_WITH_TAGS = "tags";
 export const LEDGER_NAME_FOR_DELETIONS = "deletions";

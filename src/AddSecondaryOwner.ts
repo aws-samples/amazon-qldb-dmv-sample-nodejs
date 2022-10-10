@@ -42,7 +42,7 @@ export async function addSecondaryOwner(
     const query: string =
         `FROM VehicleRegistration AS v WHERE v.VIN = ? INSERT INTO v.Owners.SecondaryOwners VALUE ?`;
 
-    const personToInsert = {PersonId: secondaryOwnerId};
+    const personToInsert = { PersonId: secondaryOwnerId };
     return await txn.execute(query, vin, personToInsert).then(async (result: Result) => {
         const resultList: dom.Value[] = result.getResultList();
         log("VehicleRegistration Document IDs which had secondary owners added: ");

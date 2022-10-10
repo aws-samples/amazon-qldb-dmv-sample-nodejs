@@ -29,10 +29,7 @@ import { waitForActive } from "./CreateLedger";
 import { deleteLedger, waitForDeleted } from "./DeleteLedger";
 import { setDeletionProtection } from "./DeletionProtection";
 
-import { 
-    LEDGER_NAME_WITH_TAGS,
-    AWS_REGION,
-} from "./qldb/Constants";
+import { LEDGER_NAME_WITH_TAGS } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
 
 const ADD_TAGS = {
@@ -118,7 +115,7 @@ export async function untagResource(resourceArn: string, tagsKeys: string[], qld
  * @returns Promise which fulfills with void.
  */
 export const main = async function(): Promise<Record<string,string>[]> {
-    const qldbClient: QLDB = new QLDB({region: AWS_REGION});
+    const qldbClient: QLDB = new QLDB({ });
     try {
         const tags: Record<string,string>[] = [];
         const result: CreateLedgerResponse = await createWithTags(LEDGER_NAME_WITH_TAGS, CREATE_TAGS, qldbClient);

@@ -12,7 +12,9 @@ For our tutorial, see [Node.js and Amazon QLDB](https://docs.aws.amazon.com/qldb
 
 See [Accessing Amazon QLDB](https://docs.aws.amazon.com/qldb/latest/developerguide/accessing.html) for information on connecting to AWS.
 
-See [Setting Region](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-region.html) page for more information on using the AWS SDK for JavaScript. You will need to set a region before running the sample code.
+See [Setting Region](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/setting-region.html) page for more information on using the AWS SDK for JavaScript. You will need to set a region before running the sample code.
+
+See [Setting credentials](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/setting-credentials.html) for credential configuration options using the AWS Nodejs SDK v3.
 
 ### TypeScript 3.5.x
 
