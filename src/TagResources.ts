@@ -16,21 +16,23 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QLDB } from "aws-sdk";
-import {
+import { Tag } from "@aws-sdk/client-config-service";
+import { QLDB, 
     CreateLedgerRequest,
     CreateLedgerResponse,
     ListTagsForResourceRequest,
     ListTagsForResourceResponse,
     TagResourceRequest,
-    Tags,
-    UntagResourceRequest
-} from "aws-sdk/clients/qldb";
+    UntagResourceRequest,
+ } from "@aws-sdk/client-qldb";
 import { waitForActive } from "./CreateLedger";
 import { deleteLedger, waitForDeleted } from "./DeleteLedger";
 import { setDeletionProtection } from "./DeletionProtection";
 
-import { LEDGER_NAME_WITH_TAGS } from "./qldb/Constants";
+import { 
+    LEDGER_NAME_WITH_TAGS,
+    AWS_REGION,
+} from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
 
 const ADD_TAGS = {
@@ -49,14 +51,14 @@ const REMOVE_TAGS = ['IsTest'];
  * @param qldbClient The QLDB control plane client to use.
  * @returns Promise which fulfills with a CreateLedgerResponse.
  */
-async function createWithTags(ledgerName: string, tags: Tags, qldbClient: QLDB): Promise<CreateLedgerResponse> {
+async function createWithTags(ledgerName: string, tags: Record<string, string>, qldbClient: QLDB): Promise<CreateLedgerResponse> {
     log(`Creating ledger with name: ${ledgerName}.`);
     const request: CreateLedgerRequest = {
         Name: ledgerName,
         Tags: tags,
         PermissionsMode: "ALLOW_ALL"
     };
-    const result: CreateLedgerResponse = await qldbClient.createLedger(request).promise();
+    const result: CreateLedgerResponse = await qldbClient.createLedger(request);
     log(`Success. Ledger state: ${result.State}.`);
     return result;
 }
@@ -72,7 +74,7 @@ export async function listTags(resourceArn: string, qldbClient: QLDB): Promise<L
     const request: ListTagsForResourceRequest = {
         ResourceArn: resourceArn
     };
-    const result: ListTagsForResourceResponse = await qldbClient.listTagsForResource(request).promise();
+    const result: ListTagsForResourceResponse = await qldbClient.listTagsForResource(request);
     log(`Success. Tags: ${JSON.stringify(result.Tags)}`);
     return result;
 }
@@ -84,13 +86,13 @@ export async function listTags(resourceArn: string, qldbClient: QLDB): Promise<L
  * @param qldbClient The QLDB control plane client to use.
  * @returns Promise which fulfills with void.
  */
-export async function tagResource(resourceArn: string, tags: Tags, qldbClient: QLDB): Promise<void> {
+export async function tagResource(resourceArn: string, tags: Record<string,string>, qldbClient: QLDB): Promise<void> {
     log(`Adding tags ${JSON.stringify(tags)} for resource with arn: ${resourceArn}.`);
     const request: TagResourceRequest = {
         ResourceArn: resourceArn,
         Tags: tags
     };
-    await qldbClient.tagResource(request).promise();
+    await qldbClient.tagResource(request);
     log("Successfully added tags.");
 }
 
@@ -107,7 +109,7 @@ export async function untagResource(resourceArn: string, tagsKeys: string[], qld
         ResourceArn: resourceArn,
         TagKeys: tagsKeys
     };
-    await qldbClient.untagResource(request).promise();
+    await qldbClient.untagResource(request);
     log("Successfully removed tags.");
 }
 
@@ -115,10 +117,10 @@ export async function untagResource(resourceArn: string, tagsKeys: string[], qld
  * Tagging and un-tagging resources, including tag on create.
  * @returns Promise which fulfills with void.
  */
-export const main = async function(): Promise<Tags[]> {
-    const qldbClient: QLDB = new QLDB();
+export const main = async function(): Promise<Record<string,string>[]> {
+    const qldbClient: QLDB = new QLDB({region: AWS_REGION});
     try {
-        const tags: Tags[] = [];
+        const tags: Record<string,string>[] = [];
         const result: CreateLedgerResponse = await createWithTags(LEDGER_NAME_WITH_TAGS, CREATE_TAGS, qldbClient);
         const arn: string = result.Arn;
 

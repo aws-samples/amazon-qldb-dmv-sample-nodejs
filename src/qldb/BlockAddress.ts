@@ -16,7 +16,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { ValueHolder } from "aws-sdk/clients/qldb";
+import { ValueHolder } from "@aws-sdk/client-qldb";
 import { dom, IonTypes } from "ion-js";
 
 export class BlockAddress {

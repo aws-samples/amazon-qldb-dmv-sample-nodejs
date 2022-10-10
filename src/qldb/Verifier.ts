@@ -16,7 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { Digest, ValueHolder } from "aws-sdk/clients/qldb";
+import { 
+    GetDigestCommandOutput,
+    ValueHolder,
+} from "@aws-sdk/client-qldb";
 import { createHash } from "crypto";
 import { dom, toBase64 } from "ion-js";
 
@@ -160,7 +163,7 @@ function parseProof(valueHolder: ValueHolder): Uint8Array[] {
  * @param proof The Proof object retrieved from GetRevision.getRevision.
  * @returns If the document revision verifies against the ledger digest.
  */
-export function verifyDocument(documentHash: Uint8Array, digest: Digest, proof: ValueHolder): boolean {
+export function verifyDocument(documentHash: Uint8Array, digest: GetDigestCommandOutput["Digest"], proof: ValueHolder): boolean {
     const candidateDigest = buildCandidateDigest(proof, documentHash);
     return (toBase64(<Uint8Array> digest) === toBase64(candidateDigest));
 }

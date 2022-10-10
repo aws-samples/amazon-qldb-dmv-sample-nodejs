@@ -17,7 +17,9 @@
  */
 
 import { isInvalidParameterException } from "amazon-qldb-driver-nodejs";
-import { IAM, QLDB, S3, STS } from "aws-sdk";
+import { STS } from '@aws-sdk/client-sts';
+import { IAM } from '@aws-sdk/client-iam';
+import { CreateBucketCommand, S3, S3Client, HeadBucketCommand } from '@aws-sdk/client-s3';
 import {
     AttachRolePolicyRequest,
     CreatePolicyRequest,
@@ -25,19 +27,30 @@ import {
     CreateRoleRequest,
     CreateRoleResponse,
     GetRoleRequest,
-} from "aws-sdk/clients/iam";
+} from "@aws-sdk/client-iam";
 import {
+    QLDB, 
     ExportJournalToS3Request,
     ExportJournalToS3Response,
     JournalS3ExportDescription,
-    S3EncryptionConfiguration
-} from "aws-sdk/clients/qldb";
-import { CreateBucketRequest, HeadBucketRequest } from "aws-sdk/clients/s3";
-import { GetCallerIdentityRequest, GetCallerIdentityResponse } from "aws-sdk/clients/sts";
+    S3EncryptionConfiguration,
+ } from "@aws-sdk/client-qldb";
+import { 
+    CreateBucketRequest,
+    HeadBucketRequest,
+} from "@aws-sdk/client-s3";
+import {
+    GetCallerIdentityRequest,
+    GetCallerIdentityResponse,
+} from "@aws-sdk/client-sts";
 import { ServiceException } from "@aws-sdk/smithy-client";
 
 import { describeJournalExport } from './DescribeJournalExport';
-import { JOURNAL_EXPORT_S3_BUCKET_NAME_PREFIX, LEDGER_NAME } from './qldb/Constants';
+import { 
+    JOURNAL_EXPORT_S3_BUCKET_NAME_PREFIX,
+    LEDGER_NAME,
+    AWS_REGION
+} from './qldb/Constants';
 import { error, log } from "./qldb/LogUtil";
 import { sleep } from "./qldb/Util";
 
@@ -105,7 +118,7 @@ async function createExport(
         },
         RoleArn: roleArn
     };
-    const result: ExportJournalToS3Response = await qldbClient.exportJournalToS3(request).promise().catch((err: ServiceException ) => {
+    const result: ExportJournalToS3Response = await qldbClient.exportJournalToS3(request).catch((err: ServiceException ) => {
         if (isInvalidParameterException(err)) {
             error(
                 "The eventually consistent behavior of the IAM service may cause this export to fail its first " +
@@ -178,14 +191,14 @@ async function createExportRole(
     rolePolicyName: string,
     s3BucketName: string
 ): Promise<string> {
-    const iAmClient: IAM = new IAM();
+    const iAmClient: IAM = new IAM({region: AWS_REGION});
     log(`Trying to retrieve role with name: ${roleName}`);
     let newRoleArn: string = "";
     try {
         const getRoleRequest: GetRoleRequest = {
             RoleName: roleName
         };
-        newRoleArn = (await iAmClient.getRole(getRoleRequest).promise()).Role.Arn;
+        newRoleArn = (await iAmClient.getRole(getRoleRequest)).Role.Arn;
         log(`The role called ${roleName} already exists.`);
     }
     catch {
@@ -195,7 +208,7 @@ async function createExportRole(
             RoleName: roleName,
             AssumeRolePolicyDocument: JSON.stringify(POLICY_TEMPLATE)
         };
-        const role: CreateRoleResponse = await iAmClient.createRole(createRoleRequest).promise();
+        const role: CreateRoleResponse = await iAmClient.createRole(createRoleRequest);
         log(`Created a role called ${roleName}.`);
 
         newRoleArn = role.Role.Arn;
@@ -209,12 +222,12 @@ async function createExportRole(
             PolicyName: rolePolicyName,
             PolicyDocument: rolePolicy
         };
-        const createPolicyResult: CreatePolicyResponse = await iAmClient.createPolicy(createPolicyRequest).promise();
+        const createPolicyResult: CreatePolicyResponse = await iAmClient.createPolicy(createPolicyRequest);
         const attachRolePolicyRequest: AttachRolePolicyRequest = {
             RoleName: roleName,
             PolicyArn: createPolicyResult.Policy.Arn
         };
-        await iAmClient.attachRolePolicy(attachRolePolicyRequest).promise();
+        await iAmClient.attachRolePolicy(attachRolePolicyRequest);
         log(`Role ${roleName} created with ARN: ${newRoleArn} and policy: ${rolePolicy}.`);
     }
     return newRoleArn;
@@ -226,14 +239,14 @@ async function createExportRole(
  * @param s3Client The low-level S3 client.
  * @returns Promise which fulfills with void.
  */
-export async function createS3BucketIfNotExists(bucketName: string, s3Client: S3): Promise<void> {
+export async function createS3BucketIfNotExists(bucketName: string, s3Client: S3Client): Promise<void> {
     if (!(await doesBucketExist(bucketName, s3Client))) {
         log(`Bucket ${bucketName} does not exist. Creating it now.`);
         try {
             const request: CreateBucketRequest = {
                 Bucket: bucketName
             };
-            await s3Client.createBucket(request).promise();
+            await s3Client.send(new CreateBucketCommand(request));
             log(`Bucket with name ${bucketName} created.`);
         } catch (e) {
             log(`Unable to create S3 bucket named ${bucketName}: ${e}`);
@@ -248,12 +261,12 @@ export async function createS3BucketIfNotExists(bucketName: string, s3Client: S3
  * @param s3Client The low-level S3 client.
  * @returns Promise which fulfills with whether the bucket exists or not.
  */
-async function doesBucketExist(bucketName: string, s3Client: S3): Promise<boolean> {
+async function doesBucketExist(bucketName: string, s3Client: S3Client): Promise<boolean> {
     const request: HeadBucketRequest = {
         Bucket: bucketName
     };
     let doesBucketExist: boolean = true;
-    await s3Client.headBucket(request).promise().catch((err: ServiceException) => {
+    await s3Client.send( new HeadBucketCommand(request)).catch((err: ServiceException) => {
         if (err.message === 'NotFound') {
             doesBucketExist = false;
         }
@@ -351,9 +364,9 @@ async function waitForExportToComplete(
  */
 export const main = async function(bypassArgv: boolean = false): Promise<ExportJournalToS3Response> {
     try {
-        const s3Client: S3 = new S3();
-        const sts: STS = new STS();
-        const qldbClient: QLDB = new QLDB();
+        const s3Client: S3 = new S3({});
+        const sts: STS = new STS({});
+        const qldbClient: QLDB = new QLDB({});
 
         let s3BucketName: string = null;
         let kmsArn: string = null;
@@ -369,7 +382,7 @@ export const main = async function(bypassArgv: boolean = false): Promise<ExportJ
             }
         } else {
             const request: GetCallerIdentityRequest = {};
-            const identity: GetCallerIdentityResponse = await sts.getCallerIdentity(request).promise();
+            const identity: GetCallerIdentityResponse = await sts.getCallerIdentity(request);
             s3BucketName = `${JOURNAL_EXPORT_S3_BUCKET_NAME_PREFIX}-${identity.Account}`;
         }
         await createS3BucketIfNotExists(s3BucketName, s3Client);

@@ -16,8 +16,13 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QLDB } from "aws-sdk";
-import { LedgerSummary, ListLedgersRequest, ListLedgersResponse } from "aws-sdk/clients/qldb";
+import {
+    QLDB, 
+    LedgerSummary,
+    ListLedgersRequest,
+    ListLedgersResponse,
+ } from "@aws-sdk/client-qldb";
+import { AWS_REGION } from "./qldb/Constants";
 
 import { error, log } from "./qldb/LogUtil";
 
@@ -33,7 +38,7 @@ export async function listLedgers(qldbClient: QLDB): Promise<LedgerSummary[]> {
         const request: ListLedgersRequest = {
             NextToken: nextToken
         };
-        const result: ListLedgersResponse = await qldbClient.listLedgers(request).promise();
+        const result: ListLedgersResponse = await qldbClient.listLedgers(request);
         ledgerSummaries.push(...result.Ledgers);
         nextToken = result.NextToken;
     } while (nextToken != null);
@@ -46,7 +51,7 @@ export async function listLedgers(qldbClient: QLDB): Promise<LedgerSummary[]> {
  */
 export const main = async function(): Promise<void> {
     try {
-        const qldbClient: QLDB = new QLDB();
+        const qldbClient: QLDB = new QLDB({ region: AWS_REGION });
         log("Retrieving all the ledgers...");
         const result: LedgerSummary[] = await listLedgers(qldbClient);
         log(`Success. List of ledgers: ${JSON.stringify(result)}`);

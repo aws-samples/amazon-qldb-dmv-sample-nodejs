@@ -17,19 +17,21 @@
  */
 
 import { isResourcePreconditionNotMetException } from "amazon-qldb-driver-nodejs";
-import { QLDB } from "aws-sdk";
-import {
+import { QLDB, 
     CreateLedgerRequest,
     CreateLedgerResponse,
     UpdateLedgerRequest,
-    UpdateLedgerResponse
-} from "aws-sdk/clients/qldb";
+    UpdateLedgerResponse,
+ } from "@aws-sdk/client-qldb";
 import { ServiceException } from "@aws-sdk/smithy-client";
 
 import { waitForActive } from "./CreateLedger"
 import { deleteLedger } from "./DeleteLedger"
 import { error, log } from "./qldb/LogUtil";
 
+import { 
+    AWS_REGION,
+} from "./qldb/Constants";
 const LEDGER_NAME = "deletion-protection-demo";
 
 /**
@@ -44,7 +46,7 @@ async function createWithDeletionProtection(ledgerName: string, qldbClient: QLDB
         Name: ledgerName,
         PermissionsMode: "ALLOW_ALL"
     };
-    const result: CreateLedgerResponse = await qldbClient.createLedger(request).promise();
+    const result: CreateLedgerResponse = await qldbClient.createLedger(request);
     log(`Success. Ledger state: ${result.State}.`);
     return result;
 }
@@ -66,7 +68,7 @@ export async function setDeletionProtection(
         Name: ledgerName,
         DeletionProtection: deletionProtection
     };
-    const result: UpdateLedgerResponse = await qldbClient.updateLedger(request).promise();
+    const result: UpdateLedgerResponse = await qldbClient.updateLedger(request);
     log(`Success. Ledger updated: ${JSON.stringify(result)}."`);
     return result;
 }
@@ -77,7 +79,7 @@ export async function setDeletionProtection(
  */
 export const main = async function(ledgerName: string = LEDGER_NAME): Promise<UpdateLedgerResponse> {
     try {
-        const qldbClient: QLDB = new QLDB();
+        const qldbClient: QLDB = new QLDB({region: AWS_REGION});
         await createWithDeletionProtection(ledgerName, qldbClient);
         await waitForActive(ledgerName, qldbClient);
         await deleteLedger(ledgerName, qldbClient).catch((error: ServiceException) => {

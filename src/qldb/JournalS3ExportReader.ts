@@ -16,15 +16,19 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { S3 } from "aws-sdk";
-import { JournalS3ExportDescription, S3ExportConfiguration } from "aws-sdk/clients/qldb";
 import {
-    GetObjectRequest,
+    S3Client,
+    ListObjectsV2Command,
     ListObjectsV2Output,
     ListObjectsV2Request,
-    Object,
-    ObjectList
-} from "aws-sdk/clients/s3";
+    GetObjectRequest,
+    GetObjectCommand,
+    _Object,
+} from "@aws-sdk/client-s3";
+import { 
+    JournalS3ExportDescription,
+    S3ExportConfiguration
+} from "@aws-sdk/client-qldb";
 import { dom } from "ion-js";
 
 import { fromIon, JournalBlock } from "./JournalBlock";
@@ -58,8 +62,8 @@ function compareKeyWithContentRange(fileKey: string, firstBlock: JournalBlock, l
  * @returns The identifier for the final manifest object.
  * @throws Error: If the final manifest is not found.
  */
-function filterForCompletedManifest(objects: ObjectList): string {
-    const object: Object = objects.find(({ Key }) => Key.endsWith("completed.manifest"));
+function filterForCompletedManifest(objects: _Object[]): string {
+    const object: _Object = objects.find(({ Key }) => Key.endsWith("completed.manifest"));
     if (object) {
         return object.Key;
     }
@@ -73,8 +77,8 @@ function filterForCompletedManifest(objects: ObjectList): string {
  * @returns The identifier for the initial manifest object.
  * @throws Error: If the initial manifest is not found.
  */
-function filterForInitialManifest(objects: ObjectList, manifest: string): string {
-    const object: Object = objects.find(({ Key }) => Key === manifest);
+function filterForInitialManifest(objects: _Object[], manifest: string): string {
+    const object: _Object = objects.find(({ Key }) => Key === manifest);
     if (object) {
         return object.Key;
     }
@@ -125,7 +129,7 @@ function getJournalBlocks(s3Object: string): JournalBlock[] {
  */
 export async function readExport(
     describeJournalExportResult: JournalS3ExportDescription,
-    s3Client: S3
+    s3Client: S3Client
 ): Promise<JournalBlock[]> {
     const exportConfiguration: S3ExportConfiguration = describeJournalExportResult.S3ExportConfiguration;
     const prefix: string = exportConfiguration.Prefix;
@@ -134,8 +138,8 @@ export async function readExport(
         Bucket: bucketName,
         Prefix: prefix
     };
-    const response: ListObjectsV2Output = await s3Client.listObjectsV2(request).promise();
-    const objects: ObjectList = response.Contents;
+    const response: ListObjectsV2Output = await s3Client.send(new ListObjectsV2Command(request));
+    const objects: _Object[] = response.Contents;
     log("Found the following objects for list from S3:");
     objects.forEach(function(object) {
         log(object.Key);
@@ -152,7 +156,7 @@ export async function readExport(
         Bucket: bucketName,
         Key: completedManifestFileKey
     };
-    const completedManifestObject: string = (await s3Client.getObject(getObjectRequest).promise()).Body.toString();
+    const completedManifestObject: string = (await s3Client.send( new GetObjectCommand(getObjectRequest))).Body.toString();
     const dataFileKeys: string[] = getDataFileKeysFromManifest(completedManifestObject);
 
     log(`Found the following keys in the manifest files: ${JSON.stringify(dataFileKeys)}`);
@@ -164,7 +168,7 @@ export async function readExport(
             Bucket: bucketName,
             Key: dataFileKey
         };
-        const s3Object: string = (await s3Client.getObject(getObjectRequest).promise()).Body.toString();
+        const s3Object: string = (await s3Client.send( new GetObjectCommand(getObjectRequest))).Body.toString();
         const blocks: JournalBlock[] = getJournalBlocks(s3Object);
 
         compareKeyWithContentRange(dataFileKey, blocks[0], blocks[blocks.length-1]);

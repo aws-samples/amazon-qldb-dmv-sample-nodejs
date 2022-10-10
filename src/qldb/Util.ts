@@ -17,7 +17,11 @@
  */
 
 import { Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
-import { GetBlockResponse, GetDigestResponse, ValueHolder } from "aws-sdk/clients/qldb";
+import {
+    GetBlockResponse,
+    GetDigestResponse,
+    ValueHolder,
+} from "@aws-sdk/client-qldb";
 import { 
     decodeUtf8,
     dom,

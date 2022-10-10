@@ -16,10 +16,13 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QLDB } from "aws-sdk";
-import { DescribeLedgerRequest, DescribeLedgerResponse } from "aws-sdk/clients/qldb";
+import { 
+    QLDB,
+    DescribeLedgerRequest,
+    DescribeLedgerResponse,
+} from "@aws-sdk/client-qldb";
 
-import { LEDGER_NAME } from "./qldb/Constants";
+import { LEDGER_NAME, AWS_REGION } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
 
 /**
@@ -32,7 +35,7 @@ export async function describeLedger(ledgerName: string, qldbClient: QLDB): Prom
     const request: DescribeLedgerRequest = {
         Name: ledgerName
     };
-    const result: DescribeLedgerResponse = await qldbClient.describeLedger(request).promise();
+    const result: DescribeLedgerResponse = await qldbClient.describeLedger(request);
     log(`Success. Ledger description: ${JSON.stringify(result)}`);
     return result;
 }
@@ -43,7 +46,7 @@ export async function describeLedger(ledgerName: string, qldbClient: QLDB): Prom
  */
 export const main = async function(): Promise<DescribeLedgerResponse> {
     try {
-        const qldbClient: QLDB = new QLDB();
+        const qldbClient: QLDB = new QLDB({region: AWS_REGION});
         return await describeLedger(LEDGER_NAME, qldbClient);
     } catch (e) {
         error(`Unable to describe a ledger: ${e}`);
