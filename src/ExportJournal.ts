@@ -388,7 +388,6 @@ export const main = async function(bypassArgv: boolean = false): Promise<ExportJ
         const s3Client: S3Client = new S3({ });
         const sts: STS = new STS({ });
         const qldbClient: QLDB = new QLDB({ });
-        const resolvedRegion = await qldbClient.config.region();
 
         let s3BucketName: string = null;
         let kmsArn: string = null;
@@ -405,10 +404,8 @@ export const main = async function(bypassArgv: boolean = false): Promise<ExportJ
         } else {
             const request: GetCallerIdentityRequest = {};
             const identity: GetCallerIdentityResponse = await sts.getCallerIdentity(request);
-            console.log('resolveRegionConfig',resolvedRegion);
-            s3BucketName = `${JOURNAL_EXPORT_S3_BUCKET_NAME_PREFIX}-${identity.Account}-${resolvedRegion}`;
+            s3BucketName = `${JOURNAL_EXPORT_S3_BUCKET_NAME_PREFIX}-${identity.Account}`;
         }
-        console.log('amihere',resolvedRegion,s3BucketName);
         await createS3BucketIfNotExists(s3BucketName, s3Client);
         const s3EncryptionConfig: S3EncryptionConfiguration = setUpS3EncryptionConfiguration(kmsArn);
         const exportResult: ExportJournalToS3Response = await createExportAndWaitForCompletion(
