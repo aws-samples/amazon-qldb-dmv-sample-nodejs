@@ -16,9 +16,15 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QLDB, S3, STS } from "aws-sdk";
-import { JournalS3ExportDescription } from "aws-sdk/clients/qldb";
-import { GetCallerIdentityRequest, GetCallerIdentityResponse } from "aws-sdk/clients/sts";
+import { QLDB, 
+    JournalS3ExportDescription,
+ } from "@aws-sdk/client-qldb";
+import { 
+    STS,
+    GetCallerIdentityRequest,
+    GetCallerIdentityResponse,
+} from '@aws-sdk/client-sts';
+import { S3Client, S3 } from '@aws-sdk/client-s3';
 import { toBase64 } from "ion-js";
 import { format } from "util";
 
@@ -28,13 +34,16 @@ import {
     createS3BucketIfNotExists,
     setUpS3EncryptionConfiguration
 } from "./ExportJournal";
-import { JOURNAL_EXPORT_S3_BUCKET_NAME_PREFIX, LEDGER_NAME } from './qldb/Constants';
+import { 
+    JOURNAL_EXPORT_S3_BUCKET_NAME_PREFIX,
+    LEDGER_NAME,
+} from './qldb/Constants';
 import { JournalBlock } from "./qldb/JournalBlock";
 import { readExport } from "./qldb/JournalS3ExportReader";
 import { error, log } from "./qldb/LogUtil";
 import { joinHashesPairwise } from "./qldb/Verifier";
 
-const s3Client: S3 = new S3();
+const s3Client: S3Client = new S3Client({ });
 
 /**
  * Compare the hash values on the given journal blocks.
@@ -62,9 +71,9 @@ function compareJournalBlocks(previousJournalBlock: JournalBlock, journalBlock: 
  * @returns The ExportId for the journal export.
  */
 async function createJournalExport(qldbClient: QLDB): Promise<string> {
-    const sts: STS = new STS();
+    const sts: STS = new STS({ });
     const request: GetCallerIdentityRequest = {};
-    const identity: GetCallerIdentityResponse = await sts.getCallerIdentity(request).promise();
+    const identity: GetCallerIdentityResponse = await sts.getCallerIdentity(request);
 
     const bucketName: string = format('%s-%s', JOURNAL_EXPORT_S3_BUCKET_NAME_PREFIX, identity.Account);
     const prefix: string = format('%s-%s', LEDGER_NAME, Date.now().toString());
@@ -103,7 +112,7 @@ function verify(journalBlocks: JournalBlock[]): void {
  */
 export const main = async function(exportId: string = undefined): Promise<void> {
     try {
-        const qldbClient = new QLDB();
+        const qldbClient = new QLDB({ });
         if (exportId === undefined) {
             if (process.argv.length === 3) {
                 exportId = process.argv[2].toString();

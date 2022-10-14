@@ -16,8 +16,11 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QLDB } from "aws-sdk";
-import { GetDigestRequest, GetDigestResponse } from "aws-sdk/clients/qldb";
+import {
+    QLDB, 
+    GetDigestRequest,
+    GetDigestResponse,
+ } from "@aws-sdk/client-qldb";
 
 import { LEDGER_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
@@ -33,7 +36,7 @@ export async function getDigestResult(ledgerName: string, qldbClient: QLDB): Pro
     const request: GetDigestRequest = {
         Name: ledgerName
     };
-    const result: GetDigestResponse = await qldbClient.getDigest(request).promise();
+    const result: GetDigestResponse = await qldbClient.getDigest(request);
     return result;
 }
 
@@ -43,7 +46,7 @@ export async function getDigestResult(ledgerName: string, qldbClient: QLDB): Pro
  */
 export const main = async function(): Promise<GetDigestResponse> {
     try {
-        const qldbClient: QLDB = new QLDB();
+        const qldbClient: QLDB = new QLDB({ });
         log(`Retrieving the current digest for ledger: ${LEDGER_NAME}.`);
         const digest: GetDigestResponse = await getDigestResult(LEDGER_NAME, qldbClient);
         log(`Success. Ledger digest: \n${digestResponseToString(digest)}.`);

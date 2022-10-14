@@ -16,13 +16,11 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QldbDriver, Result, TransactionExecutor } from "amazon-qldb-driver-nodejs";
-import { QLDB } from "aws-sdk";
-import { Digest, GetBlockRequest, GetBlockResponse, GetDigestResponse, ValueHolder } from "aws-sdk/clients/qldb";
+import { QldbDriver, TransactionExecutor } from "amazon-qldb-driver-nodejs";
+import { QLDB, GetBlockRequest, GetBlockResponse, ValueHolder, GetDigestCommand, GetDigestResponse, GetDigestCommandInput } from "@aws-sdk/client-qldb";
 import { dom, toBase64 } from "ion-js";
 
 import { getQldbDriver } from "./ConnectToLedger";
-import { getDigestResult } from './GetDigest';
 import { lookupRegistrationForVin } from "./GetRevision";
 import { VEHICLE_REGISTRATION } from "./model/SampleData";
 import { blockAddressToValueHolder } from './qldb/BlockAddress';
@@ -47,7 +45,7 @@ async function getBlock(ledgerName: string, blockAddress: ValueHolder, qldbClien
         Name: ledgerName,
         BlockAddress: blockAddress
     };
-    const result: GetBlockResponse = await qldbClient.getBlock(request).promise();
+    const result: GetBlockResponse = await qldbClient.getBlock(request);
     log(`Success. GetBlock: \n${blockResponseToString(result)}.`);
     return result;
 }
@@ -75,7 +73,7 @@ async function getBlockWithProof(
         BlockAddress: blockAddress,
         DigestTipAddress: digestTipAddress
     };
-    const result: GetBlockResponse = await qldbClient.getBlock(request).promise();
+    const result: GetBlockResponse = await qldbClient.getBlock(request);
     log(`Success. GetBlock: \n${blockResponseToString(result)}.`);
     return result;
 }
@@ -92,8 +90,9 @@ export async function verifyBlock(ledgerName: string, blockAddress: ValueHolder,
     log(`Let's verify blocks for ledger with name = ${ledgerName}.`);
     try {
         log("First, let's get a digest.");
-        const digestResult: GetDigestResponse = await getDigestResult(ledgerName, qldbClient);
-        const digestBytes: Digest = digestResult.Digest;
+        const digestCommandInput: GetDigestCommandInput = { Name: ledgerName };
+        const digestResult: GetDigestResponse = await qldbClient.send( new GetDigestCommand(digestCommandInput));
+        const digestBytes: GetDigestResponse["Digest"] = digestResult.Digest;
         const digestTipAddress: ValueHolder = digestResult.DigestTipAddress;
         log(
             `Got a ledger digest. Digest end address = \n${valueHolderToString(digestTipAddress)}, ` +
@@ -152,7 +151,7 @@ export async function verifyBlock(ledgerName: string, blockAddress: ValueHolder,
  */
 export const main = async function(): Promise<void> {
     try {
-        const qldbClient: QLDB = new QLDB();
+        const qldbClient: QLDB = new QLDB({ });
         const qldbDriver: QldbDriver = getQldbDriver();
 
         const registration = VEHICLE_REGISTRATION[1];

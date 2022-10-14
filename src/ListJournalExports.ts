@@ -16,14 +16,14 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QLDB } from "aws-sdk";
 import {
+    QLDB, 
     JournalS3ExportDescription,
     ListJournalS3ExportsForLedgerRequest,
     ListJournalS3ExportsForLedgerResponse,
     ListJournalS3ExportsRequest,
     ListJournalS3ExportsResponse
-} from "aws-sdk/clients/qldb";
+ } from "@aws-sdk/client-qldb";
 
 import { LEDGER_NAME } from './qldb/Constants';
 import { error, log } from "./qldb/LogUtil";
@@ -42,7 +42,7 @@ async function listAllJournalExports(qldbClient: QLDB): Promise<void> {
             MaxResults: MAX_RESULTS,
             NextToken: nextToken
         };
-        const result: ListJournalS3ExportsResponse = await qldbClient.listJournalS3Exports(request).promise();
+        const result: ListJournalS3ExportsResponse = await qldbClient.listJournalS3Exports(request);
         exportList.push(...result.JournalS3Exports);
         nextToken = result.NextToken;
     } while (nextToken != null);
@@ -56,7 +56,7 @@ async function listAllJournalExports(qldbClient: QLDB): Promise<void> {
 async function listJournalExports(ledgerName: string): Promise<JournalS3ExportDescription[]> {
     log(`Listing journal exports for ledger: ${ledgerName}.`);
 
-    const qldbClient: QLDB = new QLDB();
+    const qldbClient: QLDB = new QLDB({ });
     const exportDescriptions: JournalS3ExportDescription[] = [];
     let nextToken: string = null;
     do {
@@ -66,7 +66,7 @@ async function listJournalExports(ledgerName: string): Promise<JournalS3ExportDe
             NextToken: nextToken
         };
         const result: ListJournalS3ExportsForLedgerResponse =
-            await qldbClient.listJournalS3ExportsForLedger(request).promise();
+            await qldbClient.listJournalS3ExportsForLedger(request);
         exportDescriptions.push(...result.JournalS3Exports);
         nextToken = result.NextToken;
     } while (nextToken != null);

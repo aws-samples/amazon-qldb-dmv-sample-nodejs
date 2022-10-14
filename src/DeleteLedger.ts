@@ -17,11 +17,16 @@
  */
 
 import { isResourceNotFoundException } from "amazon-qldb-driver-nodejs";
-import { AWSError, QLDB } from "aws-sdk";
-import { DeleteLedgerRequest, DescribeLedgerRequest } from "aws-sdk/clients/qldb";
+import { QLDB, 
+    DeleteLedgerRequest, 
+    DescribeLedgerRequest
+ } from "@aws-sdk/client-qldb";
+import { ServiceException } from "@aws-sdk/smithy-client";
 
 import { setDeletionProtection } from "./DeletionProtection";
-import { LEDGER_NAME } from "./qldb/Constants";
+import { 
+    LEDGER_NAME,
+} from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
 import { sleep } from "./qldb/Util";
 
@@ -38,7 +43,7 @@ export async function deleteLedger(ledgerName: string, qldbClient: QLDB): Promis
     const request: DeleteLedgerRequest = {
         Name: ledgerName
     };
-    await qldbClient.deleteLedger(request).promise();
+    await qldbClient.deleteLedger(request);
     log("Success.");
 }
 
@@ -55,7 +60,7 @@ export async function waitForDeleted(ledgerName: string, qldbClient: QLDB): Prom
     };
     let isDeleted: boolean = false;
     while (true) {
-        await qldbClient.describeLedger(request).promise().catch((error: AWSError) => {
+        await qldbClient.describeLedger(request).catch((error: ServiceException) => {
             if (isResourceNotFoundException(error)) {
                 isDeleted = true;
                 log("Success. Ledger is deleted.");
@@ -75,7 +80,7 @@ export async function waitForDeleted(ledgerName: string, qldbClient: QLDB): Prom
  */
 export const main = async function(): Promise<void> {
     try {
-        const qldbClient: QLDB = new QLDB();
+        const qldbClient: QLDB = new QLDB({ });
         await setDeletionProtection(LEDGER_NAME, qldbClient, false);
         await deleteLedger(LEDGER_NAME, qldbClient);
         await waitForDeleted(LEDGER_NAME, qldbClient);

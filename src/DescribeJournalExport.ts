@@ -16,11 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QLDB } from "aws-sdk";
-import {
+import { QLDB, 
     DescribeJournalS3ExportRequest,
     DescribeJournalS3ExportResponse,
-} from "aws-sdk/clients/qldb";
+ } from "@aws-sdk/client-qldb";
 
 import { LEDGER_NAME } from './qldb/Constants';
 import { error, log } from "./qldb/LogUtil";
@@ -42,7 +41,7 @@ export async function describeJournalExport(
         Name: LEDGER_NAME,
         ExportId: exportId
     };
-    const exportResult: DescribeJournalS3ExportResponse = await qldbClient.describeJournalS3Export(request).promise();
+    const exportResult: DescribeJournalS3ExportResponse = await qldbClient.describeJournalS3Export(request);
     log(`Export described. Result = ${JSON.stringify(exportResult)}`);
     return exportResult;
 }
@@ -52,7 +51,7 @@ export async function describeJournalExport(
  * @returns Promise which fulfills with void.
  */
 export const main = async function(exportId: string = undefined): Promise<DescribeJournalS3ExportResponse> {
-    const qldbClient: QLDB = new QLDB();
+    const qldbClient: QLDB = new QLDB({ });
     try {
         if (exportId == undefined) {
             if (process.argv.length !== 3) {

@@ -16,13 +16,12 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { QLDB } from "aws-sdk";
-import {
+import { QLDB, 
     CreateLedgerRequest,
     CreateLedgerResponse,
     DescribeLedgerRequest,
     DescribeLedgerResponse
-} from "aws-sdk/clients/qldb";
+ } from "@aws-sdk/client-qldb";
 
 import { LEDGER_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
@@ -43,7 +42,7 @@ export async function createLedger(ledgerName: string, qldbClient: QLDB): Promis
         Name: ledgerName,
         PermissionsMode: "ALLOW_ALL"
     }
-    const result: CreateLedgerResponse = await qldbClient.createLedger(request).promise();
+    const result: CreateLedgerResponse = await qldbClient.createLedger(request);
     log(`Success. Ledger state: ${result.State}.`);
     return result;
 }
@@ -60,7 +59,7 @@ export async function waitForActive(ledgerName: string, qldbClient: QLDB): Promi
         Name: ledgerName
     }
     while (true) {
-        const result: DescribeLedgerResponse = await qldbClient.describeLedger(request).promise();
+        const result: DescribeLedgerResponse = await qldbClient.describeLedger(request);
         if (result.State === ACTIVE_STATE) {
             log("Success. Ledger is active and ready to be used.");
             return result;
@@ -76,7 +75,7 @@ export async function waitForActive(ledgerName: string, qldbClient: QLDB): Promi
  */
 export const main = async function(): Promise<void> {
     try {
-        const qldbClient: QLDB = new QLDB();
+        const qldbClient: QLDB = new QLDB({ });
         await createLedger(LEDGER_NAME, qldbClient);
         await waitForActive(LEDGER_NAME, qldbClient);
     } catch (e) {

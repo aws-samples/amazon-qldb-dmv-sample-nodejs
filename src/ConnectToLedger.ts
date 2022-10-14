@@ -16,8 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import { Agent } from 'https';
 import { QldbDriver, RetryConfig  } from "amazon-qldb-driver-nodejs";
-import { ClientConfiguration } from "aws-sdk/clients/qldbsession";
+import { QLDBSessionClientConfig } from "@aws-sdk/client-qldb-session";
+import { NodeHttpHandlerOptions } from "@aws-sdk/node-http-handler";
 
 import { LEDGER_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
@@ -32,13 +34,18 @@ const qldbDriver: QldbDriver = createQldbDriver();
  */
 export function createQldbDriver(
     ledgerName: string = LEDGER_NAME,
-    serviceConfigurationOptions: ClientConfiguration = {}
+    serviceConfigurationOptions: QLDBSessionClientConfig = {}
 ): QldbDriver {
     const retryLimit = 4;
     const maxConcurrentTransactions = 10;
+    const lowLevelClientHttpOptions: NodeHttpHandlerOptions = {
+        httpAgent: new Agent({
+          maxSockets: maxConcurrentTransactions
+        })
+    };
     //Use driver's default backoff function (and hence, no second parameter provided to RetryConfig)
     const retryConfig: RetryConfig  = new RetryConfig(retryLimit);
-    const qldbDriver: QldbDriver = new QldbDriver(ledgerName, serviceConfigurationOptions, 10, retryConfig);
+    const qldbDriver: QldbDriver = new QldbDriver(ledgerName,serviceConfigurationOptions, lowLevelClientHttpOptions, maxConcurrentTransactions, retryConfig);
     return qldbDriver;
 }
 

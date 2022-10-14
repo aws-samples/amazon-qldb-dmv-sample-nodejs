@@ -17,8 +17,13 @@
  */
 
 import { QldbDriver, TransactionExecutor } from "amazon-qldb-driver-nodejs";
-import { QLDB } from "aws-sdk";
-import { Digest, GetDigestResponse, GetRevisionRequest, GetRevisionResponse, ValueHolder } from "aws-sdk/clients/qldb";
+import {
+    QLDB, 
+    GetDigestResponse,
+    GetRevisionRequest,
+    GetRevisionResponse,
+    ValueHolder,
+ } from "@aws-sdk/client-qldb";
 import { dom, toBase64 } from "ion-js";
 
 import { getQldbDriver } from "./ConnectToLedger";
@@ -53,7 +58,7 @@ async function getRevision(
         DocumentId: documentId,
         DigestTipAddress: digestTipAddress
     };
-    const result: GetRevisionResponse = await qldbClient.getRevision(request).promise();
+    const result: GetRevisionResponse = await qldbClient.getRevision(request);
     return result;
 }
 
@@ -91,7 +96,7 @@ export async function verifyRegistration(
 ): Promise<void> {
     log(`Let's verify the registration with VIN = ${vin}, in ledger = ${ledgerName}.`);
     const digest: GetDigestResponse = await getDigestResult(ledgerName, qldbClient);
-    const digestBytes: Digest = digest.Digest;
+    const digestBytes: GetDigestResponse["Digest"] = digest.Digest;
     const digestTipAddress: ValueHolder = digest.DigestTipAddress;
 
     log(
@@ -148,7 +153,7 @@ export async function verifyRegistration(
  */
 export const main = async function(): Promise<void> {
     try {
-        const qldbClient: QLDB = new QLDB();
+        const qldbClient: QLDB = new QLDB({ });
         const qldbDriver: QldbDriver = getQldbDriver();
 
         const registration = VEHICLE_REGISTRATION[0];
