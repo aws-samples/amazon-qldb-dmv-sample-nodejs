@@ -23,6 +23,7 @@ import * as ValidateQldbHashchain from "../ValidateQldbHashchain";
 import * as GetDigest from "../GetDigest";
 import * as GetRevision from "../GetRevision";
 import * as GetBlock from "../GetBlock";
+import * as RedactRevision from "../RedactRevision";
 import * as DeleteLedger from "../DeleteLedger";
 
 import { LEDGER_NAME, LEDGER_NAME_FOR_DELETIONS } from "../qldb/Constants";
@@ -176,6 +177,10 @@ describe("Run Sample App", function () {
         chai.assert.isNotNull(digest);
         await GetRevision.main();
         await GetBlock.main();
+    })
+
+    it("Can perform redaction", async() => {
+        await RedactRevision.main();
     })
 
     it("Can delete ledger", async () => {
