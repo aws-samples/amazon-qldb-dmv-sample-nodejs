@@ -7,7 +7,7 @@
     "@aws-sdk/client-s3": "^3.186.0",
     "amazon-qldb-driver-nodejs": "^3.0.0",
     "aws-sdk": "^2.1249.0",
-    "@types/node": "^18.8.1",
+    "@types/node": "^18.11.9",
     "ion-js": "~4.3.0",
     "jsbi": "^3.2.5"
   },
