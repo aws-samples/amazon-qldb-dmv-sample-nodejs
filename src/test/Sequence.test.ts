@@ -28,6 +28,10 @@ import * as DeleteLedger from "../DeleteLedger";
 
 import { LEDGER_NAME, LEDGER_NAME_FOR_DELETIONS } from "../qldb/Constants";
 
+const ciIdentifier = process.env["CI_ID"] ?? "";
+const ledger_name = `${LEDGER_NAME}${ciIdentifier}`;
+const ledger_name_for_deletions = `${LEDGER_NAME_FOR_DELETIONS}${ciIdentifier}`;
+
 import * as chai from "chai";
 
 describe("Run Sample App", function () {
@@ -44,7 +48,7 @@ describe("Run Sample App", function () {
     
     it("Can describe ledger", async () => {
         const actual = await DescribeLedger.main();
-        chai.assert.equal(actual.Name, LEDGER_NAME);
+        chai.assert.equal(actual.Name, ledger_name);
         chai.assert.equal(actual.State, "ACTIVE");
     })
 
@@ -70,8 +74,8 @@ describe("Run Sample App", function () {
     })
     
     it("Can set deletion protection and delete ledger", async () => {
-        const updateDeletionProtectionResult = await DeletionProtection.main(LEDGER_NAME_FOR_DELETIONS);
-        chai.assert.equal(updateDeletionProtectionResult.Name, LEDGER_NAME_FOR_DELETIONS);
+        const updateDeletionProtectionResult = await DeletionProtection.main(ledger_name_for_deletions);
+        chai.assert.equal(updateDeletionProtectionResult.Name, ledger_name_for_deletions);
         chai.assert.isFalse(updateDeletionProtectionResult.DeletionProtection);
     })
 
@@ -161,12 +165,12 @@ describe("Run Sample App", function () {
         chai.assert.isNotNull(exportResult.ExportId)
 
         const describeExportResult = await DescribeJournalExport.main(exportResult.ExportId);
-        chai.assert.equal(describeExportResult.ExportDescription.LedgerName, LEDGER_NAME);
+        chai.assert.equal(describeExportResult.ExportDescription.LedgerName, ledger_name);
         chai.assert.equal(describeExportResult.ExportDescription.Status, "COMPLETED");
 
         const listExportResults = await ListJournalExports.main();
         chai.assert.equal(listExportResults.length, 1);
-        chai.assert.equal(listExportResults[0].LedgerName, LEDGER_NAME);
+        chai.assert.equal(listExportResults[0].LedgerName, ledger_name);
         chai.assert.equal(listExportResults[0].Status, "COMPLETED");
 
         await ValidateQldbHashchain.main(exportResult.ExportId);

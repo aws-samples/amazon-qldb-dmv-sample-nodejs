@@ -38,4 +38,5 @@ jobs:
       run: npm run build
     - name: Test
       run: |
-        npm test
+        GITHUB_SHA_SHORT=$(git rev-parse --short $GITHUB_SHA)
+        CI_ID=${{ strategy.job-index }}-$GITHUB_SHA_SHORT npm test
