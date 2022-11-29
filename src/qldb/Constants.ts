@@ -19,9 +19,12 @@
 /**
  * Constant values used throughout this tutorial.
  */
-export const LEDGER_NAME = "vehicle-registration";
-export const LEDGER_NAME_WITH_TAGS = "tags";
-export const LEDGER_NAME_FOR_DELETIONS = "deletions";
+
+const ciIdentifier = process.env["CI_ID"] ?? "";
+
+export const LEDGER_NAME = `vehicle-registration${ciIdentifier}`;
+export const LEDGER_NAME_WITH_TAGS = `tags${ciIdentifier}`;
+export const LEDGER_NAME_FOR_DELETIONS = `deletions${ciIdentifier}`;
 
 export const DRIVERS_LICENSE_TABLE_NAME = "DriversLicense";
 export const PERSON_TABLE_NAME = "Person";
