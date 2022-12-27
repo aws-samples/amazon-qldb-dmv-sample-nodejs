@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@aws-sdk/client-config-service": "^3.186.0",
+    "@aws-sdk/client-config-service": "^3.238.0",
     "@aws-sdk/client-iam": "^3.186.0",
     "@aws-sdk/client-qldb": "^3.186.0",
     "@aws-sdk/client-resource-groups-tagging-api": "^3.231.0",
