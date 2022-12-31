@@ -1,0 +1,2882 @@
+[
+  {
+    PERSONID: 109039302,
+    PERSONALIAS: "larbesu",
+    AMAZONNAME: "Luis Arbesu",
+    AWARD: "Telco SA of the Quarter",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109039302"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 104659090,
+    PERSONALIAS: "rivasdam",
+    AMAZONNAME: "Damian Rivas",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "EMEA",
+    Location: "Spain",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104659090"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -104402977,
+    PERSONALIAS: "menosc",
+    AMAZONNAME: "Oscar Mendoza",
+    AWARD: "Tech Day - First Gameday for Greenfield - Made in LATAM",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104402977"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 104986150,
+    PERSONALIAS: "benfelip",
+    AMAZONNAME: "Felipe de Bene",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "US",
+    Location: "US",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107620925"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107644041,
+    PERSONALIAS: "nricher",
+    AMAZONNAME: "Ricardo Perez",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107644041"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -107601421,
+    PERSONALIAS: "schauflc",
+    AMAZONNAME: "Catalina Schäufler",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "LATAM",
+    Location: "Chile",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107601421"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -107233573,
+    PERSONALIAS: "halexara",
+    AMAZONNAME: "Alejandro Guevara",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107233573"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103525838,
+    PERSONALIAS: "ligiaha",
+    AMAZONNAME: "Ligia Harumi Yamamoto",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103525838"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109156308,
+    PERSONALIAS: "operezam",
+    AMAZONNAME: "Omar de León",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109156308"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -101254702,
+    PERSONALIAS: "jesushum",
+    AMAZONNAME: "Jesus Humberto Contreras",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "101254702"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -105621439,
+    PERSONALIAS: "felbrito",
+    AMAZONNAME: "Felipe Brito",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105621439"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 106787189,
+    PERSONALIAS: "cardemm",
+    AMAZONNAME: "Emmanuel Cardenas",
+    AWARD: "LATAM Security Champion Award",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106787189"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -112297845,
+    PERSONALIAS: "gabymend",
+    AMAZONNAME: "Gabriela Mendez",
+    AWARD: "Teamwork - HSBC Deep Racer League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112297845"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 106465408,
+    PERSONALIAS: "gfandino",
+    AMAZONNAME: "Gustavo Fandino",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Chile",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106465408"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -106567758,
+    PERSONALIAS: "jorgelor",
+    AMAZONNAME: "Jorge Lopez",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106567758"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -101052714,
+    PERSONALIAS: "chacongl",
+    AMAZONNAME: "Leo Chacon",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "US",
+    Location: "US",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "101052714"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -105030760,
+    PERSONALIAS: "ssacha",
+    AMAZONNAME: "Sachin Hamirwasia",
+    AWARD: "Teamwork - HSBC Deep Racer League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105030760"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -105260799,
+    PERSONALIAS: "lgbaeza",
+    AMAZONNAME: "Luis Baeza",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "LATAM",
+    Location: "Chile",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105260799"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -104260874,
+    PERSONALIAS: "jseike",
+    AMAZONNAME: "João Seike",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104260874"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 105127845,
+    PERSONALIAS: "jgquint",
+    AMAZONNAME: "Juan Gabriel Quintero",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105127845"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -113086051,
+    PERSONALIAS: "emmduhe",
+    AMAZONNAME: "Emmanuel Duran Hernandez",
+    AWARD: "Teamwork - HSBC Deep Racer League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "113086051"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103809355,
+    PERSONALIAS: "lhsantos",
+    AMAZONNAME: "Lucas Henrique Garcia",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103809355"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -107637734,
+    PERSONALIAS: "ielguea",
+    AMAZONNAME: "Ingrid Sanchez",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107637734"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -107566520,
+    PERSONALIAS: "edurods",
+    AMAZONNAME: "Eduardo Rodrigues",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107566520"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103136443,
+    PERSONALIAS: "krivero",
+    AMAZONNAME: "Kari Rivero",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "LATAM",
+    Location: "Chile",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103136443"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 111872421,
+    PERSONALIAS: "pgs",
+    AMAZONNAME: "Pablo Guzman Salas",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Chile",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "111872421"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109156255,
+    PERSONALIAS: "soumath",
+    AMAZONNAME: "Matheus Anderle",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109156255"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107475289,
+    PERSONALIAS: "gastonlp",
+    AMAZONNAME: "Gaston Lyons",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107475289"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -100513229,
+    PERSONALIAS: "hhug",
+    AMAZONNAME: "Hugo Rozestraten",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "100513229"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107644097,
+    PERSONALIAS: "saemarco",
+    AMAZONNAME: "Marco Saenz",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107644097"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107632561,
+    PERSONALIAS: "drodelo",
+    AMAZONNAME: "Daniel Saenz",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107632561"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -104048097,
+    PERSONALIAS: "jarriba",
+    AMAZONNAME: "Jose Antonio Perez",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "EMEA",
+    Location: "Spain",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104048097"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103147158,
+    PERSONALIAS: "kvenky",
+    AMAZONNAME: "Venky Krishnan",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "US",
+    Location: "US",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103147158"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -102283967,
+    PERSONALIAS: "jlprieto",
+    AMAZONNAME: "Jose Luis Prieto",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "102283967"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 105923548,
+    PERSONALIAS: "davfsand",
+    AMAZONNAME: "David Sandoval",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105923548"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107532612,
+    PERSONALIAS: "fredyap",
+    AMAZONNAME: "Fredy Acosta",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107532612"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 111231476,
+    PERSONALIAS: "cneira",
+    AMAZONNAME: "Cecilia Neira",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Argentina",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "111231476"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -111538785,
+    PERSONALIAS: "daveghdz",
+    AMAZONNAME: "David Garcia",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "111538785"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -101111418,
+    PERSONALIAS: "naomifs",
+    AMAZONNAME: "Naomi Saito",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "101111418"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103262257,
+    PERSONALIAS: "itiro",
+    AMAZONNAME: "Gabriel Borges",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103262257"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -106845532,
+    PERSONALIAS: "hamzarau",
+    AMAZONNAME: "Hamza Rauf",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "US",
+    Location: "US",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106845532"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 102976049,
+    PERSONALIAS: "aangal",
+    AMAZONNAME: "Angela Alonso",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "102976049"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -104613514,
+    PERSONALIAS: "thicouto",
+    AMAZONNAME: "Thiago Couto",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104613514"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 106586809,
+    PERSONALIAS: "jleongr",
+    AMAZONNAME: "Jonathan Leon",
+    AWARD: "LATAM Certification Challenge - Winner",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106586809"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -113086051,
+    PERSONALIAS: "emmduhe",
+    AMAZONNAME: "Emmanuel Duran Hernandez",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "113086051"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -107468000,
+    PERSONALIAS: "calixtop",
+    AMAZONNAME: "Pedro Calixto",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107468000"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109319714,
+    PERSONALIAS: "dslgd",
+    AMAZONNAME: "David Salgado",
+    AWARD: "Tech Day - First Gameday for Greenfield - Made in LATAM",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109319714"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -106167612,
+    PERSONALIAS: "gadelha",
+    AMAZONNAME: "Pedro Gadelha",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106167612"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 103743178,
+    PERSONALIAS: "dgarcat",
+    AMAZONNAME: "Daniel Garcia",
+    AWARD: "CAT of the Quarter",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103743178"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -106973099,
+    PERSONALIAS: "costrob",
+    AMAZONNAME: "Robert da Costa",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106973099"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -106444264,
+    PERSONALIAS: "reroldan",
+    AMAZONNAME: "Rene Roldan",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106444264"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103535769,
+    PERSONALIAS: "joaoma",
+    AMAZONNAME: "Joao Martins",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103535769"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -106167612,
+    PERSONALIAS: "gadelha",
+    AMAZONNAME: "Pedro Gadelha",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106167612"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -105621439,
+    PERSONALIAS: "felbrito",
+    AMAZONNAME: "Felipe Brito",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105621439"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 112320814,
+    PERSONALIAS: "dfanin",
+    AMAZONNAME: "Debora Fanin",
+    AWARD: "CSM of the Quarter Q4-2022",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112320814"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -112060861,
+    PERSONALIAS: "arturoml",
+    AMAZONNAME: "Arturo Moreno Lehmann",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112060861"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 109319714,
+    PERSONALIAS: "dslgd",
+    AMAZONNAME: "David Salgado",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109319714"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109156057,
+    PERSONALIAS: "guilacev",
+    AMAZONNAME: "Memo Del Rio",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109156057"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 101864976,
+    PERSONALIAS: "zajbert",
+    AMAZONNAME: "Mauricio Zajbert",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "101864976"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 106074775,
+    PERSONALIAS: "luetobe",
+    AMAZONNAME: "Luis Eduardo Torres",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106074775"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107945136,
+    PERSONALIAS: "daniayma",
+    AMAZONNAME: "Daniel Ayala Marin",
+    AWARD: "LATAM Certification Challenge - Winner",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107945136"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107620925,
+    PERSONALIAS: "lzanda",
+    AMAZONNAME: "Daniela Rojas",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107620925"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 104402977,
+    PERSONALIAS: "menosc",
+    AMAZONNAME: "Oscar Mendoza",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104402977"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 103440714,
+    PERSONALIAS: "nlondono",
+    AMAZONNAME: "Nelson Londoño",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103440714"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -107644097,
+    PERSONALIAS: "saemarco",
+    AMAZONNAME: "Marco Saenz",
+    AWARD: "Tech Day - First Gameday for Greenfield - Made in LATAM",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107644097"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -105771058,
+    PERSONALIAS: "itiro",
+    AMAZONNAME: "Gerson Itiro",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105771058"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -106184369,
+    PERSONALIAS: "asilvaaa",
+    AMAZONNAME: "Andre Fellipe",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106184369"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103809355,
+    PERSONALIAS: "lhsantos",
+    AMAZONNAME: "Lucas Henrique Garcia",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103809355"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 112060861,
+    PERSONALIAS: "arturoml",
+    AMAZONNAME: "Arturo Moreno Lehmann",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112060861"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -105103682,
+    PERSONALIAS: "hmmeira",
+    AMAZONNAME: "Daniel Abib",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105103682"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -105549046,
+    PERSONALIAS: "bgiorgin",
+    AMAZONNAME: "Bruno Giorgini",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "US",
+    Location: "US",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105549046"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 106401111,
+    PERSONALIAS: "dengcaro",
+    AMAZONNAME: "Carolyn Deng",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "US",
+    Location: "US",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106401111"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103313299,
+    PERSONALIAS: "eduperei",
+    AMAZONNAME: "Eduardo Pereira",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103313299"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 106665715,
+    PERSONALIAS: "maxkp",
+    AMAZONNAME: "Maximiliano Kretowicz",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Chile",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106665715"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103525838,
+    PERSONALIAS: "ligiaha",
+    AMAZONNAME: "Ligia Harumi Yamamoto",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103525838"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -107945136,
+    PERSONALIAS: "daniayma",
+    AMAZONNAME: "Daniel Ayala",
+    AWARD: "Tech Day - First Gameday for Greenfield - Made in LATAM",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107945136"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 112293414,
+    PERSONALIAS: "sriviaws",
+    AMAZONNAME: "Srividhya Panchabakesan",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112293414"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -111760071,
+    PERSONALIAS: "fjh",
+    AMAZONNAME: "Fernando Hernandez",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "US",
+    Location: "US",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "111760071"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -110278280,
+    PERSONALIAS: "alexmtzc",
+    AMAZONNAME: "Alejandro Martinez",
+    AWARD: "Teamwork - HSBC Deep Racer League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "110278280"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -104896619,
+    PERSONALIAS: "cicconl",
+    AMAZONNAME: "Leo Ciccone",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104896619"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -108889285,
+    PERSONALIAS: "riribeir",
+    AMAZONNAME: "Ricardo Tasso",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "108889285"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103447565,
+    PERSONALIAS: "lig",
+    AMAZONNAME: "Luis Liguori",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103447565"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -105621597,
+    PERSONALIAS: "wssousa",
+    AMAZONNAME: "Walter Sousa",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105621597"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109156037,
+    PERSONALIAS: "saridai",
+    AMAZONNAME: "Aridai Solis",
+    AWARD: "Teamwork - HSBC Deep Racer League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109156037"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 111872504,
+    PERSONALIAS: "mgcasas",
+    AMAZONNAME: "Michael García",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Peru",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "111872504"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107945136,
+    PERSONALIAS: "daniayma",
+    AMAZONNAME: "Daniel Ayala Marin",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107945136"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -101364701,
+    PERSONALIAS: "sapataf",
+    AMAZONNAME: "Fernando Sapata",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "101364701"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 112778542,
+    PERSONALIAS: "natagilg",
+    AMAZONNAME: "Natalie Gil",
+    AWARD: "LATAM Certification Challenge - Winner",
+    GEO: "LATAM",
+    Location: "Peru",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112778542"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 105127845,
+    PERSONALIAS: "jgquint",
+    AMAZONNAME: "Juan Gabriel Quintero",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105127845"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107622569,
+    PERSONALIAS: "servioca",
+    AMAZONNAME: "Servio Tulio Reyes Castillo",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107622569"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 112368831,
+    PERSONALIAS: "daescoll",
+    AMAZONNAME: "Daniela Escobar Llanos",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112368831"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -107586321,
+    PERSONALIAS: "retamalh",
+    AMAZONNAME: "Hernan Fernandez",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "LATAM",
+    Location: "Chile",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107586321"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103492218,
+    PERSONALIAS: "pamorb",
+    AMAZONNAME: "Pamela Orbenes",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "LATAM",
+    Location: "Chile",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103492218"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -104794088,
+    PERSONALIAS: "reictiag",
+    AMAZONNAME: "Tiago Reichert",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104794088"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 105923548,
+    PERSONALIAS: "davfsand",
+    AMAZONNAME: "David Sandoval",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105923548"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103093676,
+    PERSONALIAS: "fabhq",
+    AMAZONNAME: "Fabricio Quiles",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103093676"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109156266,
+    PERSONALIAS: "allesous",
+    AMAZONNAME: "Allex Lima",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109156266"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -107566520,
+    PERSONALIAS: "edurods",
+    AMAZONNAME: "Eduardo Rodrigues",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107566520"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103169310,
+    PERSONALIAS: "mridis",
+    AMAZONNAME: "Maria Ane Dias",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103169310"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 106567758,
+    PERSONALIAS: "jorgelor",
+    AMAZONNAME: "Jorge Lopez Reyes",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106567758"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 112285648,
+    PERSONALIAS: "obedguti",
+    AMAZONNAME: "Obed Gutierrez",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112285648"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 111305046,
+    PERSONALIAS: "orvital",
+    AMAZONNAME: "Oscar Ramirez Vital",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "111305046"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109021866,
+    PERSONALIAS: "davcgar",
+    AMAZONNAME: "Davi Garcia",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109021866"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109156257,
+    PERSONALIAS: "irisferr",
+    AMAZONNAME: "Iris Ferreira",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109156257"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -112297845,
+    PERSONALIAS: "gabymend",
+    AMAZONNAME: "Gabriela Mendez",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112297845"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -106131128,
+    PERSONALIAS: "rosipedr",
+    AMAZONNAME: "Pedro Rosinholi",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106131128"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -112269743,
+    PERSONALIAS: "epastrid",
+    AMAZONNAME: "Astrid Espinosa",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112269743"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109156256,
+    PERSONALIAS: "hellrosa",
+    AMAZONNAME: "Hellen Rosa",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109156256"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -107738853,
+    PERSONALIAS: "hthiago",
+    AMAZONNAME: "Thiago Hickmann",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107738853"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -112472534,
+    PERSONALIAS: "rrmarq",
+    AMAZONNAME: "Ricardo Marques",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112472534"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 103282609,
+    PERSONALIAS: "andvic",
+    AMAZONNAME: "Andres Victoria",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103282609"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 112297910,
+    PERSONALIAS: "maisflor",
+    AMAZONNAME: "Maria Isabel Florez",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Chile",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112297910"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -110641377,
+    PERSONALIAS: "joamelo",
+    AMAZONNAME: "Joao Melo",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "110641377"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107601421,
+    PERSONALIAS: "schauflc",
+    AMAZONNAME: "Catalina Schäufler",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Chile",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107601421"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -105076663,
+    PERSONALIAS: "chvezk",
+    AMAZONNAME: "Kevin Zambrano",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Argentina",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105076663"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -101521504,
+    PERSONALIAS: "finchris",
+    AMAZONNAME: "Chris Finch",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "US",
+    Location: "US",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "101521504"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 106074775,
+    PERSONALIAS: "luetobe",
+    AMAZONNAME: "Luis Eduardo Torres",
+    AWARD: "LATAM Certification Challenge - Winner",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106074775"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103499159,
+    PERSONALIAS: "ctelles",
+    AMAZONNAME: "Charleston Telles",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103499159"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 106444264,
+    PERSONALIAS: "reroldan",
+    AMAZONNAME: "Rene Roldan",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106444264"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 111817947,
+    PERSONALIAS: "alexgj",
+    AMAZONNAME: "Jose Alexis Gonzalez Jimenez",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "CostaRica",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "111817947"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 106567758,
+    PERSONALIAS: "jorgelor",
+    AMAZONNAME: "Jorge Lopez Reyes",
+    AWARD: "Teamwork - HSBC Deep Racer League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106567758"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 109156331,
+    PERSONALIAS: "junrnj",
+    AMAZONNAME: "Juan Diego Medina",
+    AWARD: "CSC SA of the Quarter",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109156331"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 112234796,
+    PERSONALIAS: "cesbau",
+    AMAZONNAME: "Cesar Bautista Eugenio",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112234796"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 112590846,
+    PERSONALIAS: "ibracnb",
+    AMAZONNAME: "Ibrahim Cesar",
+    AWARD: "LATAM Certification Challenge - Winner",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107945136"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107644041,
+    PERSONALIAS: "nricher",
+    AMAZONNAME: "Ricardo Perez",
+    AWARD: "Teamwork - HSBC Deep Racer League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107644041"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 103464584,
+    PERSONALIAS: "joralfa",
+    AMAZONNAME: "Jorge Alfaro Hidalgo",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103464584"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -112285648,
+    PERSONALIAS: "obedguti",
+    AMAZONNAME: "Obed Gutierrez",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112285648"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -112080275,
+    PERSONALIAS: "volochen",
+    AMAZONNAME: "Daniel Volochen",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112080275"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -105621597,
+    PERSONALIAS: "wssousa",
+    AMAZONNAME: "Walter Sousa",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105621597"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -104776968,
+    PERSONALIAS: "javiervp",
+    AMAZONNAME: "Javier Vallejo",
+    AWARD: "Teamwork - HSBC Deep Racer League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104776968"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103506327,
+    PERSONALIAS: "gubarbos",
+    AMAZONNAME: "Gustavo Barbosa",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103506327"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 111228161,
+    PERSONALIAS: "lebiram",
+    AMAZONNAME: "Maribel Ramirez Madrigal",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "111228161"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -102169739,
+    PERSONALIAS: "maybry",
+    AMAZONNAME: "Bryan May",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "US",
+    Location: "US",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "102169739"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 112590750,
+    PERSONALIAS: "vivicamb",
+    AMAZONNAME: "Viviana Murcia",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112590750"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -111153397,
+    PERSONALIAS: "jmonsa",
+    AMAZONNAME: "Juan Monsalve",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "LATAM",
+    Location: "Chile",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "111153397"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -111936658,
+    PERSONALIAS: "allachs",
+    AMAZONNAME: "Adriana Llach Sole",
+    AWARD: "Tech Day - First Gameday for Greenfield - Made in LATAM",
+    GEO: "EMEA",
+    Location: "UK",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "111936658"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -112156782,
+    PERSONALIAS: "enperezr",
+    AMAZONNAME: "Enrique Perez",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112156782"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -106188266,
+    PERSONALIAS: "almeiraf",
+    AMAZONNAME: "Rafael Almeida",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106188266"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109156257,
+    PERSONALIAS: "irisferr",
+    AMAZONNAME: "Iris Ferreira",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109156257"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 112445528,
+    PERSONALIAS: "manuelqg",
+    AMAZONNAME: "Manuel Quijano Gaviria",
+    AWARD: "MEX SA of the Quarter",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112445528"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109156256,
+    PERSONALIAS: "hellrosa",
+    AMAZONNAME: "Hellen Rosa",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109156256"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -106409940,
+    PERSONALIAS: "ferhenri",
+    AMAZONNAME: "Henrique Ferreira",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106409940"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 103844937,
+    PERSONALIAS: "hercamil",
+    AMAZONNAME: "Camilo Cortes",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "CostaRica",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103844937"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107265422,
+    PERSONALIAS: "srbenavi",
+    AMAZONNAME: "Santiago Benavidez",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Argentina",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107265422"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103499159,
+    PERSONALIAS: "ctelles",
+    AMAZONNAME: "Charleston Telles",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103499159"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107054369,
+    PERSONALIAS: "jmgomez",
+    AMAZONNAME: "Miguel Gomez",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "CostaRica",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107054369"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -112371659,
+    PERSONALIAS: "nmq",
+    AMAZONNAME: "Nathan Marques",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112371659"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 103282609,
+    PERSONALIAS: "andvic",
+    AMAZONNAME: "Andres Victoria",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103282609"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -102617122,
+    PERSONALIAS: "jmtorres",
+    AMAZONNAME: "Jorge Torres",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "102617122"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -106188266,
+    PERSONALIAS: "almeiraf",
+    AMAZONNAME: "Rafael Almeida",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106188266"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 111872417,
+    PERSONALIAS: "anambarr",
+    AMAZONNAME: "Ana Barragan",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "111872417"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 109224603,
+    PERSONALIAS: "carantza",
+    AMAZONNAME: "Arantza Cabanas",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109224603"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -104223102,
+    PERSONALIAS: "rodalarc",
+    AMAZONNAME: "Rodrigo Alarcon",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "LATAM",
+    Location: "Chile",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104223102"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 108784180,
+    PERSONALIAS: "mayidiaz",
+    AMAZONNAME: "Mayerli Romero Diaz",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "108784180"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -106184426,
+    PERSONALIAS: "angienc",
+    AMAZONNAME: "Angie Nobre",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106184426"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -104986150,
+    PERSONALIAS: "benfelip",
+    AMAZONNAME: "Felipe de Bene",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "US",
+    Location: "US",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104986150"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103136443,
+    PERSONALIAS: "krivero",
+    AMAZONNAME: "Kari Rivero",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "LATAM",
+    Location: "Chile",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103136443"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 103785200,
+    PERSONALIAS: "fecrive",
+    AMAZONNAME: "Fernanda Crivelenti",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103785200"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -105022163,
+    PERSONALIAS: "vicpalg",
+    AMAZONNAME: "Victor Palomo",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105022163"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 112328583,
+    PERSONALIAS: "nicogala",
+    AMAZONNAME: "Nicolas Galagovsky",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Argentina",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112328583"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 106172720,
+    PERSONALIAS: "miperezq",
+    AMAZONNAME: "Michelle Bittencourt Perez",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106172720"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107634187,
+    PERSONALIAS: "accalat",
+    AMAZONNAME: "Agustin Calatayud",
+    AWARD: "MCO SA of the Quarter",
+    GEO: "LATAM",
+    Location: "Argentina",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107634187"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109114229,
+    PERSONALIAS: "gonzaig",
+    AMAZONNAME: "Ignacio Fernandez",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "EMEA",
+    Location: "Spain",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109114229"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -105771058,
+    PERSONALIAS: "itiro",
+    AMAZONNAME: "Gerson Itiro Hidaka",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105771058"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -100537462,
+    PERSONALIAS: "dreis",
+    AMAZONNAME: "David Reis",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "100537462"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 106172720,
+    PERSONALIAS: "miperezq",
+    AMAZONNAME: "Michelle Bittencourt Perez",
+    AWARD: "BRA SA of the Quarter",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106172720"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -101111418,
+    PERSONALIAS: "naomifs",
+    AMAZONNAME: "Naomi Saito",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "101111418"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109156037,
+    PERSONALIAS: "saridai",
+    AMAZONNAME: "Aridai Solis",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109156037"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -107948739,
+    PERSONALIAS: "pinelor",
+    AMAZONNAME: "Rogelio Prado",
+    AWARD: "Teamwork - Closing of the contract for the Pinpoint project ",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107948739"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -104579504,
+    PERSONALIAS: "iagui",
+    AMAZONNAME: "Iván González",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104579504"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -112234796,
+    PERSONALIAS: "cesbau",
+    AMAZONNAME: "César Bautista",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112234796"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -110053270,
+    PERSONALIAS: "wpulis",
+    AMAZONNAME: "Willer Pulis",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "110053270"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 102435955,
+    PERSONALIAS: "javicris",
+    AMAZONNAME: "Javier Cristancho",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "102435955"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 112472534,
+    PERSONALIAS: "rrmarq",
+    AMAZONNAME: "Ricardo Marques",
+    AWARD: "LATAM Certification Challenge - Winner",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "112472534"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -105611102,
+    PERSONALIAS: "welentow",
+    AMAZONNAME: "Welenton Webler",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105611102"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -106937155,
+    PERSONALIAS: "hmmeira",
+    AMAZONNAME: "Henrique Meira",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106937155"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -111538785,
+    PERSONALIAS: "daveghdz",
+    AMAZONNAME: "David Garcia",
+    AWARD: "Teamwork - HSBC Deep Racer League",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "111538785"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -107637267,
+    PERSONALIAS: "mamicher",
+    AMAZONNAME: "Michelle Torres",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107637267"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -104902050,
+    PERSONALIAS: "daniloaj",
+    AMAZONNAME: "Danilo Araújo",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104902050"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -104860608,
+    PERSONALIAS: "ferroh",
+    AMAZONNAME: "Horacio Ferro",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104860608"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 109156332,
+    PERSONALIAS: "micgurr",
+    AMAZONNAME: "Michael Guerrero",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109156332"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 106124938,
+    PERSONALIAS: "jcaws",
+    AMAZONNAME: "Core team , Onsite local teams (BRA / MCO / MEX), Content team, Logistic team, Content reviewers, Speakers, GEO Support teams",
+    AWARD: "Teamwork - LATAM Tech Summit – Organization",
+    GEO: "LATAM",
+    Location: "LATAM",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "106124938"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109525195,
+    PERSONALIAS: "danilons",
+    AMAZONNAME: "Danilo Silveira",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109525195"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -108784180,
+    PERSONALIAS: "mayidiaz",
+    AMAZONNAME: "Mayerli Romero",
+    AWARD: "Tech Day - First Gameday for Greenfield - Made in LATAM",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "108784180"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -103506327,
+    PERSONALIAS: "gubarbos",
+    AMAZONNAME: "Gustavo Barbosa",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103506327"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 107223992,
+    PERSONALIAS: "gasamoma",
+    AMAZONNAME: "Gabriel Montero",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "CostaRica",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "107223992"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -104793957,
+    PERSONALIAS: "piedadel",
+    AMAZONNAME: "Leonardo Piedade",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104793957"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: 103282609,
+    PERSONALIAS: "andvic",
+    AMAZONNAME: "Andres Victoria",
+    AWARD: "Teamwork - LATAM Builders League",
+    GEO: "LATAM",
+    Location: "Colombia",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "103282609"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -111941584,
+    PERSONALIAS: "tubairos",
+    AMAZONNAME: "Tuanny de Bairos",
+    AWARD: "Teamwork - Brazil Cloud Experience",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "111941584"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -109723817,
+    PERSONALIAS: "vgolin",
+    AMAZONNAME: "Vinicius Golin",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "109723817"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -104330629,
+    PERSONALIAS: "rmandh",
+    AMAZONNAME: "Armando Barrales",
+    AWARD: "Teamwork - Hackaton BBVA 2022 - MEX",
+    GEO: "LATAM",
+    Location: "Mexico",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "104330629"
+      }
+    },
+    Date: 2022-12-19T
+  },
+  {
+    PERSONID: -105623240,
+    PERSONALIAS: "almeiraf",
+    AMAZONNAME: "Yan Marim",
+    AWARD: "Teamwork - Program THOUGHT",
+    GEO: "LATAM",
+    Location: "Brazil",
+    NFTImagePath: "https://master.d2g8a5xpndjwgh.amplifyapp.com/Q4.jpg",
+    Owners: {
+      PrimaryOwner: {
+        PERSONID: "105623240"
+      }
+    },
+    Date: 2022-12-19T
+  }
+]
