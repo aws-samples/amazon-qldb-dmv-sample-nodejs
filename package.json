@@ -4,7 +4,7 @@
     "@aws-sdk/client-iam": "^3.186.0",
     "@aws-sdk/client-qldb": "^3.186.0",
     "@aws-sdk/client-resource-groups-tagging-api": "^3.231.0",
-    "@aws-sdk/client-s3": "^3.186.0",
+    "@aws-sdk/client-s3": "^3.441.0",
     "amazon-qldb-driver-nodejs": "^3.0.0",
     "aws-sdk": "^2.1249.0",
     "@types/node": "^18.11.14",
