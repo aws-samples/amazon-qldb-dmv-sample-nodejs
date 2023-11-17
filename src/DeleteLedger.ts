@@ -21,7 +21,7 @@ import { QLDB,
     DeleteLedgerRequest, 
     DescribeLedgerRequest
  } from "@aws-sdk/client-qldb";
-import { ServiceException } from "@aws-sdk/smithy-client";
+import { ServiceException } from "@smithy/smithy-client";
 
 import { setDeletionProtection } from "./DeletionProtection";
 import { 

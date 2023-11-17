@@ -23,7 +23,7 @@ import { QLDB,
     UpdateLedgerRequest,
     UpdateLedgerResponse,
  } from "@aws-sdk/client-qldb";
-import { ServiceException } from "@aws-sdk/smithy-client";
+import { ServiceException } from "@smithy/smithy-client";
 
 import { waitForActive } from "./CreateLedger"
 import { deleteLedger } from "./DeleteLedger"
