@@ -48,7 +48,7 @@ import {
     S3EncryptionConfiguration,
     ExportJournalToS3Command,
  } from "@aws-sdk/client-qldb";
-import { ServiceException } from "@aws-sdk/smithy-client";
+import { ServiceException } from "@smithy/smithy-client";
 
 import { describeJournalExport } from './DescribeJournalExport';
 import { 

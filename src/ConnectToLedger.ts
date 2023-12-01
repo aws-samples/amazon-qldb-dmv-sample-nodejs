@@ -19,7 +19,7 @@
 import { Agent } from 'https';
 import { QldbDriver, RetryConfig  } from "amazon-qldb-driver-nodejs";
 import { QLDBSessionClientConfig } from "@aws-sdk/client-qldb-session";
-import { NodeHttpHandlerOptions } from "@aws-sdk/node-http-handler";
+import { NodeHttpHandlerOptions } from "@smithy/node-http-handler";
 
 import { LEDGER_NAME } from "./qldb/Constants";
 import { error, log } from "./qldb/LogUtil";
